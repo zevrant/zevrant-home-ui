@@ -39,7 +39,7 @@ stages:
 imageBuild:
   stage: imageBuild
   script:
-    - '/usr/local/bin/npm run build
+    - '/usr/local/bin/npm run build'
     - 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
     - 'docker push zevrant/zevrant-home-ui:latest'
     - 'docker push zevrant/zevrant-home-ui:$VERSION'
