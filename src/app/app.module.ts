@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { CameraViewComponent } from "./apps/camera/camera-view/camera-view.component";
+import { HomeViewComponent } from "./apps/home/home-view/home-view.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSliderModule } from '@angular/material/slider';
@@ -13,7 +15,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent
+    NavBarComponent,
+    CameraViewComponent,
+    HomeViewComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -22,7 +26,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatMenuModule,
     MatSliderModule,
     MatButtonModule,
-    MatToolbarModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

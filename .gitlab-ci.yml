@@ -41,10 +41,11 @@ imageBuild:
   script:
     - '/usr/local/bin/npm install'
     - '/usr/local/bin/npm run build'
+    - 'tar -cvf zevrant-home-ui.tar.gz ./dist'
     - 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
     - 'docker push zevrant/zevrant-home-ui:latest'
     - 'docker push zevrant/zevrant-home-ui:$VERSION'
-    - git tag zevrant-home-ui-$VERSION
+    - 'git tag zevrant-home-ui-$VERSION'
 
 updateVersion:
   stage: updateVersion
