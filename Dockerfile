@@ -2,8 +2,6 @@ FROM zevrant/zevrant-centos-base:latest
 
 ARG a_version
 
-ENV VERSION=$a_version
-
 EXPOSE 4200
 
 RUN mkdir -p /usr/local/microservices/zevrant-home-services/zevrant-home-ui/
