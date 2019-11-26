@@ -39,6 +39,7 @@ stages:
 imageBuild:
   stage: imageBuild
   script:
+    - '/usr/local/bin/npm install'
     - '/usr/local/bin/npm run build'
     - 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
     - 'docker push zevrant/zevrant-home-ui:latest'
@@ -56,7 +57,7 @@ updateVersion:
 deploy:
   stage: deploy
   script:
-    - VERSION=$VERSION docker-compose up -d 
+    - VERSION=$VERSION docker-compose up -d
 
     # default:
 #   image: "zevrant/gitlab-runner:latest"
@@ -114,5 +115,5 @@ deploy:
 # deploy:
 #   stage: deploy
 #   script:
-#     - 
+#     -
 
