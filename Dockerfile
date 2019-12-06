@@ -14,6 +14,10 @@ RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-h
 
 COPY ./zevrant-home-ui.tar.gz /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.tar.gz
 
+RUN curl -sL https://rpm.nodesource.com/setup_13.x | bash -\
+  && yum install -y nodejs \
+  && npm install -g @angular/cli
+
 USER zevrant-home-ui
 
 RUN cd /usr/local/microservices/zevrant-home-services/zevrant-home-ui/ \
