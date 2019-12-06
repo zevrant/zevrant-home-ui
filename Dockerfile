@@ -22,7 +22,7 @@ USER zevrant-home-ui
 
 RUN cd /usr/local/microservices/zevrant-home-services/zevrant-home-ui/ \
   && tar -xvf /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.tar.gz \
-  && mv ./dist/* /usr/local/microservices/zevrant-home-services/zevrant-home-ui/ \
+  && mv ./dist/browser/* /usr/local/microservices/zevrant-home-services/zevrant-home-ui/ \
   && rm -r dist
 
 CMD cd /usr/local/microservices/zevrant-home-services/zevrant-home-ui/; ng serve --prod
