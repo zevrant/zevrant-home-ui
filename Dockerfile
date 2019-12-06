@@ -14,15 +14,13 @@ RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-h
 
 COPY ./zevrant-home-ui.tar.gz /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.tar.gz
 
-RUN curl -sL https://rpm.nodesource.com/setup_13.x | bash -\
-  && yum install -y nodejs \
-  && npm install -g @angular/cli
+RUN yum install httpd
 
 USER zevrant-home-ui
-
+#TODO: Add angular project to spring app
 RUN cd /usr/local/microservices/zevrant-home-services/zevrant-home-ui/ \
   && tar -xvf /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.tar.gz \
   && mv ./dist/browser/* /usr/local/microservices/zevrant-home-services/zevrant-home-ui/ \
   && rm -r dist
 
-CMD cd /usr/local/microservices/zevrant-home-services/zevrant-home-ui/; ng serve --prod
+#CMD cd /usr/local/microservices/zevrant-home-services/zevrant-home-ui/; ng serve --prod
