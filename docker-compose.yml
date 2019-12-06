@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  zevrant-discovery-service:
+    ports:
+      - "4200:4200"
+    restart: unless-stopped
+    image: zevrant/zevrant-home-ui:${VERSION}
+    environment:
+      VERSION:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      AWS_DEFAULT_REGION: 'us-east-1'
+      AWS_DEFAULT_OUTPUT: json
