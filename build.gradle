@@ -88,9 +88,9 @@ test {
   useJUnitPlatform()
 }
 
-npm_run_test {
-
+task npmHeadlessTest(type: NpmTask) {
+  args = ["run", "test", "--browser ChromeHeadless"]
 }
 
 tasks.compileJava.finalizedBy tasks.npm_run_build
-tasks.test.finalizedBy tasks.npm_run_test
+tasks.test.finalizedBy tasks.npmHeadlessTest
