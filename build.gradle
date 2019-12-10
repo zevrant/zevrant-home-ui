@@ -89,4 +89,4 @@ test {
 }
 
 tasks.compileJava.finalizedBy tasks.npm_run_build
-tasks.test.finalizedBy tasks.npmHeadlessTest
+tasks.test.finalizedBy tasks.npm_run_test
