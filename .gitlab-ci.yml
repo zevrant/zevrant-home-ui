@@ -21,27 +21,25 @@ before_script:
   - echo $VERSION
 
 stages:
-  # - sonarScan
   - test
+  - sonarScan
   - updateVersion
   - imageBuild
   - deploy
 
 
-# sonarScan:
-#   stage: sonarScan
-#   script: bash gradlew sonar
+ sonarScan:
+   stage: sonarScan
+   script: bash gradlew sonar
 
-# test:
-#   stage: test
-#   script: bash gradlew test
+ test:
+   stage: test
+   script: bash gradlew test
 
 imageBuild:
   stage: imageBuild
   script:
-    - '/usr/local/bin/npm install'
-    - '/usr/local/bin/npm run build'
-    - 'tar -cvf zevrant-home-ui.tar.gz ./dist'
+    - './gradlew clean assemble -PprojVersion=$VERSION'
     - 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
     - 'docker push zevrant/zevrant-home-ui:latest'
     - 'docker push zevrant/zevrant-home-ui:$VERSION'
@@ -58,63 +56,4 @@ updateVersion:
 deploy:
   stage: deploy
   script:
-    - VERSION=$VERSION docker-compose up -d
-
-    # default:
-#   image: "zevrant/gitlab-runner:latest"
-
-# #job:
-# #  only:
-# #    - master@github.com/zevrant/zevrant-discovery-service
-# #  extends:
-# #  when: delayed
-# #  start_in:
-# #  rules:
-# #    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
-# #      when: always
-
-
-# before_script:
-#   - VERSION=`aws ssm get-parameter --name zevrant-discovery-service-VERSION`
-#   - VERSION=` echo $VERSION | jq .Parameter.Value`;
-#   - chrlen=`expr ${#VERSION} - 1`
-#   - VERSION=`echo $VERSION | cut -c2-$chrlen`
-#   - echo $VERSION
-
-# stages:
-#   # - sonarScan
-#   # - test
-#   - build
-#   - deploy
-#   - updateVersion
-
-
-# # sonarScan:
-# #   stage: sonarScan
-# #   script: bash gradlew sonar
-
-# test:
-#   stage: test
-#   script: bash gradlew test
-
-# build:
-#   stage: build
-#   script:
-#     - '/usr/local/bin/npm install'
-#     - '/usr/local/bin/npm run build'
-#     - tar -cf ./zevrant-home-ui.tar.gz .
-#     - aws s3 cp ./zevrant-home-ui.tar.gz s3://zevrant-artifact-store/net/zevrant-services/zevrant-home-ui/$VERSION/zevrant-home-ui.tar.gz
-
-# updateVersion:
-#   stage: updateVersion
-#   script:
-#     - IFS='.'
-#     - read -ra arr <<< "$VERSION"
-#     - minorVersion=$( expr ${arr[2]} + 1 )
-#     - aws ssm put-parameter --name zevrant-discovery-service-VERSION --value ${arr[0]}.${arr[1]}.$minorVersion --type String --overwrite
-
-# deploy:
-#   stage: deploy
-#   script:
-#     -
-
+    - VERSION=$VERSION docker stack deploy --compose-file ./docker-compose.yml zevrant-home-ui
