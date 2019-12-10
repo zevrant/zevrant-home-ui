@@ -28,18 +28,18 @@ stages:
   - deploy
 
 
- sonarScan:
-   stage: sonarScan
-   script: bash gradlew sonar
+sonarScan:
+  stage: sonarScan
+  script: bash gradlew sonar
 
- test:
-   stage: test
-   script: bash gradlew test
+test:
+  stage: test
+  script: bash gradlew test
 
 imageBuild:
   stage: imageBuild
   script:
-    - './gradlew clean assemble -PprojVersion=$VERSION'
+    - 'bash gradlew assemble -PprojVersion=$VERSION'
     - 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
     - 'docker push zevrant/zevrant-home-ui:latest'
     - 'docker push zevrant/zevrant-home-ui:$VERSION'
@@ -56,4 +56,4 @@ updateVersion:
 deploy:
   stage: deploy
   script:
-    - VERSION=$VERSION docker stack deploy --compose-file ./docker-compose.yml zevrant-home-ui
+    - VERSION=$VERSION docker-compose up -d
