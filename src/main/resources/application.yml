@@ -1,9 +1,22 @@
+spring:
+  application:
+    name: zevrant-home-ui
+
 server:
   servlet:
-    context-path: /zevrant-home-ui
+    context-path: /${spring.application.name}
 
 eureka:
+  serv
+  server:
+    port: 8000
+
   client:
     register-with-eureka: true
     fetch-registry: true
-    service-url: http://zevrant-services.net:8000/zevrant-discovery-service
+    healthcheck:
+      enabled: true
+    service-url:
+
+#      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:${eureka.server.port}}/eureka/
+
