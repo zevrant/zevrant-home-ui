@@ -1,15 +1,22 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {Component} from "@angular/core";
+import {MatToolbarModule} from '@angular/material/toolbar';
+
+@Component({selector: 'app-nav-bar', template: ''})
+class AppNavBarStubComponent {}
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        MatToolbarModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        AppNavBarStubComponent
       ],
     }).compileComponents();
   }));
@@ -26,10 +33,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('zevrant-home-ui');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('zevrant-home-ui app is running!');
-  });
 });
