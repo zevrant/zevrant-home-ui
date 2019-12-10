@@ -88,4 +88,9 @@ test {
   useJUnitPlatform()
 }
 
+npm_run_test {
+
+}
+
 tasks.compileJava.finalizedBy tasks.npm_run_build
+tasks.test.finalizedBy tasks.npm_run_test
