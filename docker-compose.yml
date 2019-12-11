@@ -8,7 +8,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.role==worker
+          - node.labels.worker==true
     environment:
       VERSION:
       AWS_ACCESS_KEY_ID:
