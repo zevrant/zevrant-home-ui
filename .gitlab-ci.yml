@@ -56,4 +56,4 @@ updateVersion:
 deploy:
   stage: deploy
   script:
-    - VERSION=$VERSION docker stack deploy --compose-file docker-compose.yml zevrant-home-ui
+    - VERSION=$VERSION docker stack deploy --constraint node.role==worker  --compose-file docker-compose.yml zevrant-home-ui
