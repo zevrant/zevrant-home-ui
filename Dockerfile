@@ -4,7 +4,7 @@ ARG a_version
 
 ENV VERSION=$a_version
 
-EXPOSE 8080
+EXPOSE 8000
 
 RUN mkdir -p /usr/local/microservices/zevrant-home-services/zevrant-home-ui/
 
