@@ -14,7 +14,7 @@ eureka:
     healthcheck:
       enabled: true
     serviceUrl:
-      defaultZone: http://localhost:8080/eureka/
+      defaultZone: http://localhost:7446/eureka/
 
 management:
   endpoints:
