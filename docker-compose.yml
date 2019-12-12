@@ -17,5 +17,4 @@ services:
       AWS_DEFAULT_OUTPUT: json
 networks:
   default:
-    external:
-      name: microservices
+    name: microservices
