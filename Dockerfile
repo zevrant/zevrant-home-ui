@@ -25,5 +25,4 @@ CMD  echo "aws_access_key_id = $ACCESS_KEY" >> ~/.aws/credentials\
  && IFS='\ '\
  && IP=$(hostname -I)\
  && read -ra arr <<< "$IP"\
- && IP_ADDRESS=${arr[2]}\
- && java -jar -Dspring.profiles.active=prod /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
+ && IP_ADDRESS=${arr[2]} java -jar -Dspring.profiles.active=prod /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
