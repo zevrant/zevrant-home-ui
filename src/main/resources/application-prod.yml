@@ -3,5 +3,6 @@ eureka:
     serviceUrl:
       defaultZone: http://zevrant-services.net:7446/eureka/
   instance:
+    prefer-ip-address: true
     hostname: ${IP_ADDRESS}
     ip-address: ${IP_ADDRESS}
