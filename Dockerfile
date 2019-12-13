@@ -27,5 +27,5 @@ CMD  echo "aws_access_key_id = $ACCESS_KEY" >> ~/.aws/credentials\
  && read -ra arr <<< "$IP"\
  && echo ${arr[2]}\
  && export IP_ADDRESS=${arr[2]}\
- && echo $IP_ADDRESS
+ && echo $IP_ADDRESS \
  && java -jar -Dspring.profiles.active=prod -Deureka.instance.hostname=$IP_ADDRESS /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
