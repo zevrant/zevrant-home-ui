@@ -16,14 +16,16 @@ RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-h
 
 USER zevrant-home-ui
 
-COPY ./build/libs/zevrant-home-ui-${VERSION}.jar /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
+COPY ./build/libs/zevrant-home-ui*.jar /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
 
-RUN mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials\
-  && echo "[default]" > ~/.aws.config\
-  && echo "region = us-east-1" >> ~/.aws/config\
-  && echo "output = json" >> ~/.aws/config
+RUN mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials; echo "[default]" > ~/.aws.config; echo "region = us-east-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config;
 
-CMD echo "aws_access_key_id = $ACCESS_KEY" >> ~/.aws/credentials\
-  && echo "aws_secret_access_key = $SECRET_KEY" >> ~/.aws/credentials\
-  && export DOCKER_HOST=$(/sbin/ip route|awk '/default/ { print $3 }')
-  && java -jar -Dspring.profiles.active=prod /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
+CMD  echo "aws_access_key_id = $ACCESS_KEY" >> ~/.aws/credentials\
+ && echo "aws_secret_access_key = $SECRET_KEY" >> ~/.aws/credentials\
+ && IFS='\ '\
+ && IP=$(hostname -I)\
+ && read -ra arr <<< "$IP"\
+ && echo ${arr[2]}\
+ && export IP_ADDRESS=${arr[2]}\
+ && echo $IP_ADDRESS \
+ && java -jar -Dspring.profiles.active=prod -Deureka.instance.hostname=$IP_ADDRESS /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
