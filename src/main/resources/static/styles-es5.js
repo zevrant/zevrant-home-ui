@@ -400,11 +400,11 @@
   /***/
   function _(module, exports, __webpack_require__) {
     __webpack_require__(
-    /*! /home/gdittrick/git/zevrant/zevrant-home-ui/node_modules/@angular/material/prebuilt-themes/indigo-pink.css */
+    /*! /home/zevrant/git/zevrant/zevrant-home-ui/node_modules/@angular/material/prebuilt-themes/indigo-pink.css */
     "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
 
     module.exports = __webpack_require__(
-    /*! /home/gdittrick/git/zevrant/zevrant-home-ui/src/main/angular/mainstyles.scss */
+    /*! /home/zevrant/git/zevrant/zevrant-home-ui/src/main/angular/mainstyles.scss */
     "./src/main/angular/mainstyles.scss");
     /***/
   }

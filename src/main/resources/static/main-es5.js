@@ -1267,7 +1267,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! /home/gdittrick/git/zevrant/zevrant-home-ui/src/main/angular/main.ts */
+    /*! /home/zevrant/git/zevrant/zevrant-home-ui/src/main/angular/main.ts */
     "./src/main/angular/main.ts");
     /***/
   }

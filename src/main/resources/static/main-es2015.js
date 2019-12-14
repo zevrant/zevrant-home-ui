@@ -644,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/gdittrick/git/zevrant/zevrant-home-ui/src/main/angular/main.ts */"./src/main/angular/main.ts");
+module.exports = __webpack_require__(/*! /home/zevrant/git/zevrant/zevrant-home-ui/src/main/angular/main.ts */"./src/main/angular/main.ts");
 
 
 /***/ })
