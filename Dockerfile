@@ -18,6 +18,12 @@ USER zevrant-home-ui
 
 COPY ./build/libs/zevrant-home-ui-${VERSION}.jar /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
 
-RUN mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials; echo "[default]" > ~/.aws.config; echo "region = us-east-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config;
+RUN mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials\
+  && echo "[default]" > ~/.aws.config\
+  && echo "region = us-east-1" >> ~/.aws/config\
+  && echo "output = json" >> ~/.aws/config
 
-CMD  echo "aws_access_key_id = $ACCESS_KEY" >> ~/.aws/credentials; echo "aws_secret_access_key = $SECRET_KEY" >> ~/.aws/credentials; java -jar -Dspring.profiles.active=prod /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
+CMD echo "aws_access_key_id = $ACCESS_KEY" >> ~/.aws/credentials\
+  && echo "aws_secret_access_key = $SECRET_KEY" >> ~/.aws/credentials\
+  && export DOCKER_HOST=$(/sbin/ip route|awk '/default/ { print $3 }')
+  && java -jar -Dspring.profiles.active=prod /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar

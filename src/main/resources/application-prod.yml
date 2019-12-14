@@ -1,4 +1,21 @@
 eureka:
+  instance:
+    secure-port: 7446
+    secure-port-enabled: true
   client:
     serviceUrl:
-      defaultZone: http://zevrant-services.net:7446/eureka/
+      defaultZone: https://zevrant-services.net:7446/eureka/
+
+server:
+  ssl:
+    key-store: /storage/keys/zevrant-services.p12
+    key-store-type: PKCS12
+    key-store-password: ${ssl.keystore.password}
+
+zevrant:
+  encrypted:
+    properties: ssl/keystore/password
+
+context:
+  initializer:
+    classes: net.zevrant.services.security.common.secrets.management.services.EncryptedPropertyContextInitializer
