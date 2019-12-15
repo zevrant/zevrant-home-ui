@@ -43,6 +43,10 @@ imageBuild:
     - 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
     - 'docker push zevrant/zevrant-home-ui:latest'
     - 'docker push zevrant/zevrant-home-ui:$VERSION'
+    - 'docker manifest create zevrant/zevrant-home-ui:amd64 zevrant/zevrant-home-ui:0.0.47 zevrant/zevrant-home-ui:latest'
+    - 'docker manifest annotate zevrant/zevrant-home-ui:amd64 zevrant/zevrant-home-ui:latest --os linux --arch amd64'
+    - 'docker manifest annotate zevrant/zevrant-home-ui:amd64 zevrant/zevrant-home-ui:$VERSION --os linux --arch amd64'
+    - 'docker manifest push zevrant/zevrant-home-ui:amd64'
     - 'git tag zevrant-home-ui-$VERSION'
 
 updateVersion:
