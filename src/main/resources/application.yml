@@ -21,3 +21,6 @@ management:
     web:
       exposure:
         include: health,info
+  health:
+    ldap:
+      enabled: false
