@@ -13,7 +13,6 @@ default:
 
 
 before_script:
-  - source "/root/.sdkman/bin/sdkman-init.sh"
   - VERSION=`aws ssm get-parameter --name zevrant-home-ui-VERSION`
   - VERSION=` echo $VERSION | jq .Parameter.Value`;
   - chrlen=`expr ${#VERSION} - 1`
