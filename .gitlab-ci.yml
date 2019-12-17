@@ -33,13 +33,13 @@ sonarScan:
 
 test:
   stage: test
-  script: gradle test
+  script: gradlew test
 
 imageBuild:
   stage: imageBuild
   script:
-    - 'gradle assemble -PprojVersion=$VERSION'
-    - 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
+    - 'gradlew assemble -PprojVersion=$VERSION'
+    - 'buildx build --platform linux/amd64,linux/arm64,linux/arm/v7  --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
     - 'docker push zevrant/zevrant-home-ui:latest'
     - 'docker push zevrant/zevrant-home-ui:$VERSION'
     - 'git tag zevrant-home-ui-$VERSION'
