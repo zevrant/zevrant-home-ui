@@ -47,3 +47,4 @@ Thumbs.db
 /.gradle/
 /build/
 /zevrant-home-ui.iml
+src/main/resources/static/*
