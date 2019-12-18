@@ -39,10 +39,11 @@ test:
 imageBuild:
   stage: imageBuild
   script:
-    - 'bash gradlew assemble -PprojVersion=$VERSION'
-    - 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
-    - 'docker push zevrant/zevrant-home-ui:latest'
-    - 'docker push zevrant/zevrant-home-ui:$VERSION'
+    - 'PWS=`pwd`'
+    - "ssh zevrant@192.168.1.209 'bash $PWD/gradlew assemble -PprojVersion=$VERSION'"
+    - "ssh zevrant@192.168.1.209 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION -f $PWD/Dockerfile .'"
+    - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:latest'"
+    - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:$VERSION'"
     - 'git tag zevrant-home-ui-$VERSION'
 
 updateVersion:
