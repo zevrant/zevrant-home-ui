@@ -13,7 +13,6 @@ default:
 
 
 before_script:
-  - DOCKER_LOGIN=`docker login`
   - VERSION=`aws ssm get-parameter --name zevrant-home-ui-VERSION`
   - VERSION=` echo $VERSION | jq .Parameter.Value`;
   - chrlen=`expr ${#VERSION} - 1`
