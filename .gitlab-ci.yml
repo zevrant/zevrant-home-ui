@@ -29,17 +29,17 @@ stages:
 
 sonarScan:
   stage: sonarScan
-  script: bash gradlew sonar
+  script: bash gradlew sonar --info
 
 test:
   stage: test
-  script: bash gradlew test
+  script: bash gradlew test --info
 
 imageBuild:
   stage: imageBuild
   script:
     - 'PWS=`pwd`'
-    - "ssh zevrant@192.168.1.209 'bash $PWD/gradlew assemble -PprojVersion=$VERSION'"
+    - "ssh zevrant@192.168.1.209 'bash $PWD/gradlew assemble --info -PprojVersion=$VERSION'"
     - "ssh zevrant@192.168.1.209 'cd $PWD; docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'"
     - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:latest'"
     - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:$VERSION'"
