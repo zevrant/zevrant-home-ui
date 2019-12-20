@@ -40,7 +40,7 @@ imageBuild:
   script:
     - 'PWS=`pwd`'
     - "ssh zevrant@192.168.1.209 'bash $PWD/gradlew assemble -PprojVersion=$VERSION'"
-    - "ssh zevrant@192.168.1.209 'docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION -f $PWD/Dockerfile .'"
+    - "ssh zevrant@192.168.1.209 'cd $PWD; docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'"
     - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:latest'"
     - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:$VERSION'"
     - 'git tag zevrant-home-ui-$VERSION'
