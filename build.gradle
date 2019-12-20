@@ -1,7 +1,7 @@
 plugins {
   id 'org.springframework.boot' version '2.2.2.RELEASE'
   id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-  id "com.github.node-gradle.node" version "2.0.0"
+//  id "com.github.node-gradle.node" version "2.0.0"
   id 'org.sonarqube' version '2.7'
   id 'java'
 }
@@ -54,39 +54,39 @@ dependencyManagement {
 }
 
 
-node {
-  version = '10.16.3'
-  download = true
-  distBaseUrl = 'https://nodejs.org/dist'
-}
+//node {
+//  version = '10.16.3'
+//  download = true
+//  distBaseUrl = 'https://nodejs.org/dist'
+//}
 
-npmInstall {
-  inputs.file 'package.json'
-  inputs.file 'package-lock.json'
-
-  outputs.files fileTree('nodeModules')
-}
-
-npm_run_build {
-  // make sure the build task is executed only when appropriate files change
-//  inputs.files fileTree('src/main/angular')
+//npmInstall {
+//  inputs.file 'package.json'
+//  inputs.file 'package-lock.json'
 //
-//  // 'node_modules' appeared not reliable for dependency change detection (the task was rerun without changes)
-//  // though 'package.json' and 'package-lock.json' should be enough anyway
-  outputs.upToDateWhen { false }
+//  outputs.files fileTree('nodeModules')
+//}
 
+//npm_run_build {
+//  // make sure the build task is executed only when appropriate files change
+////  inputs.files fileTree('src/main/angular')
+////
+////  // 'node_modules' appeared not reliable for dependency change detection (the task was rerun without changes)
+////  // though 'package.json' and 'package-lock.json' should be enough anyway
+//  outputs.upToDateWhen { false }
 //
-  outputs.file 'src/main/resources/static/index.html'
-  outputs.file 'src/main/resources/static/main-es5.js'
-  outputs.file 'src/main/resources/static/main-es2015.js'
-  outputs.file 'src/main/resources/static/polyfill-es5.js'
-  outputs.file 'src/m ain/resources/static/runtime-es5.js'
-  outputs.file 'src/main/resources/static/styles-es5.js'
-  outputs.file 'src/main/resources/static/styles-es2015.js'
-  outputs.file 'src/main/resources/static/vendor-es5.js'
-  outputs.file 'src/main/resources/static/vendor-es2015.js'
-
-}
+////
+//  outputs.file 'src/main/resources/static/index.html'
+//  outputs.file 'src/main/resources/static/main-es5.js'
+//  outputs.file 'src/main/resources/static/main-es2015.js'
+//  outputs.file 'src/main/resources/static/polyfill-es5.js'
+//  outputs.file 'src/m ain/resources/static/runtime-es5.js'
+//  outputs.file 'src/main/resources/static/styles-es5.js'
+//  outputs.file 'src/main/resources/static/styles-es2015.js'
+//  outputs.file 'src/main/resources/static/vendor-es5.js'
+//  outputs.file 'src/main/resources/static/vendor-es2015.js'
+//
+//}
 
 test {
   useJUnitPlatform()
@@ -98,5 +98,18 @@ clean {
     }
 }
 
+task npmInstall(type: Exec) {
+  commandLine 'npm', 'install'
+}
+
+task npm_run_build(type: Exec) {
+  commandLine 'npm', 'run', 'build'
+}
+
+task npm_run_test(type: Exec) {
+  commandLine 'npm', 'run', 'test'
+}
+
 tasks.compileJava.finalizedBy tasks.npm_run_build
+tasks.npm_run_build.dependsOn(tasks.npmInstall)
 tasks.test.finalizedBy tasks.npm_run_test
