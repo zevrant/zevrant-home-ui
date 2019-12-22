@@ -39,11 +39,13 @@ imageBuild:
   stage: imageBuild
   script:
     - 'PWS=`pwd`'
-    - "ssh zevrant@192.168.1.209 'bash $PWD/gradlew assemble --info -PprojVersion=$VERSION'"
-    - "ssh zevrant@192.168.1.209 'cd $PWD; docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'"
+    - cp build/libs/zevrant-home-ui-$VERSION.jar /storage/jars
+    - cp Dockerfile-$VERSION /storage/jars/
+    - "ssh zevrant@192.168.1.209 'cd /home/gitlab-runner; docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION . -f ./Dockerfile-$VERSION'"
     - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:latest'"
     - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:$VERSION'"
     - 'git tag zevrant-home-ui-$VERSION'
+    - rm /storage/jars/zevrant-home-ui-$VERSION.jar
 
 updateVersion:
   stage: updateVersion
