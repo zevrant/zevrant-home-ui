@@ -22,8 +22,8 @@ before_script:
 stages:
   - test
   - sonarScan
-  - updateVersion
   - imageBuild
+  - updateVersion
   - deploy
 
 
