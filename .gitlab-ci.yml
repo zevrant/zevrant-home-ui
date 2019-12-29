@@ -38,7 +38,6 @@ stages:
 imageBuild:
   stage: imageBuild
   script:
-    - mv buildx ~/.docker/cli-plugins/docker-buildx
     - ~/.docker/cli-plugins/docker-buildx/buildx build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION --platform linux/amd64,linux/arm64 . -f ./Dockerfile-$VERSION --push
     - docker push zevrant/zevrant-home-ui:latest
     - docker push zevrant/zevrant-home-ui:$VERSION
