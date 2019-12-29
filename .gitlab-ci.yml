@@ -20,18 +20,20 @@ before_script:
   - echo $VERSION
 
 stages:
+  - test
+  - sonarScan
   - imageBuild
   - updateVersion
   - deploy
 
 
-sonarScan:
-  stage: sonarScan
-  script: bash gradlew sonar --info
+# sonarScan:
+#   stage: sonarScan
+#   script: bash gradlew sonar --info
 
-test:
-  stage: test
-  script: bash gradlew test --info
+# test:
+#   stage: test
+#   script: bash gradlew test --info
 
 imageBuild:
   stage: imageBuild
