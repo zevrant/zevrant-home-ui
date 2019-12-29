@@ -10,7 +10,7 @@ RUN mkdir -p /usr/local/microservices/zevrant-home-services/zevrant-home-ui/
 
 RUN mkdir -p /var/log/zevrant-home-services/zevrant-home-ui
 
-RUN useradd -m /usr/local/microservices/zevrant-home-services/zevrant-home-ui/ -G developers  zevrant-home-ui
+RUN useradd -m -d /usr/local/microservices/zevrant-home-services/zevrant-home-ui/ -G developers  zevrant-home-ui
 
 RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-home-ui; chown -R zevrant-home-ui:developers /usr/local/microservices/zevrant-home-services/zevrant-home-ui
 
