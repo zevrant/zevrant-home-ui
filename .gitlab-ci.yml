@@ -22,8 +22,8 @@ before_script:
 stages:
   - test
   - sonarScan
-  - imageBuild
   - updateVersion
+  - imageBuild
   - deploy
 
 
@@ -38,10 +38,14 @@ stages:
 imageBuild:
   stage: imageBuild
   script:
-    - ~/.docker/cli-plugins/docker-buildx/buildx build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION --platform linux/amd64,linux/arm64 . -f ./Dockerfile-$VERSION --push
-    - docker push zevrant/zevrant-home-ui:latest
-    - docker push zevrant/zevrant-home-ui:$VERSION
-    - git tag zevrant-home-ui-$VERSION
+    - 'PWS=`pwd`'
+    - cp build/libs/zevrant-home-ui-$VERSION.jar /storage/jars
+    - cp Dockerfile-$VERSION /storage/jars/
+    - "ssh zevrant@192.168.1.209 'cd /home/gitlab-runner; docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION . -f ./Dockerfile-$VERSION'"
+    - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:latest'"
+    - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:$VERSION'"
+    - 'git tag zevrant-home-ui-$VERSION'
+    - rm /storage/jars/zevrant-home-ui-$VERSION.jar
 
 updateVersion:
   stage: updateVersion
