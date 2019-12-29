@@ -16,7 +16,7 @@ RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-h
 
 USER zevrant-home-ui
 
-COPY ./build/libs/zevrant-home-ui*.jar /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
+COPY zevrant-home-ui-$VERSION.jar /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
 
 RUN mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials; echo "[default]" > ~/.aws.config; echo "region = us-east-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config;
 
