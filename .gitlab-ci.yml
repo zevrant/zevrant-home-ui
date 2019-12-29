@@ -44,9 +44,9 @@ imageBuild:
     - cp build/libs/zevrant-home-ui-$VERSION.jar /storage/jars
     - cp Dockerfile /storage/jars/Dockerfile-$VERSION
     - echo $VERSION > /storage/jars/VERSION
-    - "ssh zevrant@192.168.1.209 'cp /storage/jars/* .; VERSION=`cat VERSION`; docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION . -f ./Dockerfile-$VERSION'"
+    - "ssh zevrant@192.168.1.209 'cp /storage/jars/* .; VERSION=`cat VERSION`; docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest-arm -t zevrant/zevrant-home-ui:$VERSION-arm . -f ./Dockerfile-$VERSION'"
     - "ssh zevrant@192.168.1.209 'docker push zevrant/zevrant-home-ui:latest'"
-    - "ssh zevrant@192.168.1.209 'VERSION=`cat VERSION`;rm Dockerfile-$VERSION; rm zevrant-home-ui-$VERSION.jar; docker push zevrant/zevrant-home-ui:$VERSION; docker push docker push zevrant/zevrant-home-ui:latest'"
+    - "ssh zevrant@192.168.1.209 'VERSION=`cat VERSION`;rm Dockerfile-$VERSION; rm zevrant-home-ui-$VERSION.jar; docker push zevrant/zevrant-home-ui:$VERSION; docker push zevrant/zevrant-home-ui:latest-arm'"
     - 'git tag zevrant-home-ui-$VERSION'
     - docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .
     - docker push zevrant/zevrant-home-ui:latest zevrant/zevrant-home-ui:$VERSION
