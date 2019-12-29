@@ -20,8 +20,8 @@ before_script:
   - echo $VERSION
 
 stages:
-  - test
-  - sonarScan
+#   - test
+#   - sonarScan
   - imageBuild
   - updateVersion
   - deploy
@@ -38,7 +38,7 @@ test:
 imageBuild:
   stage: imageBuild
   script:
-    - docker buildx build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION --platform linux/amd64,linux/arm64 . -f ./Dockerfile-$VERSION --push
+    - docker buildx build --docker-privileged --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION --platform linux/amd64,linux/arm64 . -f ./Dockerfile-$VERSION --push
     - docker push zevrant/zevrant-home-ui:latest
     - docker push zevrant/zevrant-home-ui:$VERSION
     - git tag zevrant-home-ui-$VERSION
