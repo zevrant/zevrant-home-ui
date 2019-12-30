@@ -39,7 +39,8 @@ imageBuild:
   stage: imageBuild
   script:
     - 'bash gradlew assemble -PprojVersion=$VERSION'
-    - '/home/gitlab-runner/scripts/buildx build --platform linux/amd64,linux/arm64,linux/arm/v7  --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
+    - 'HERE=`pwd`'
+    - 'ssh 192.168.1.209 --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
     - 'docker push zevrant/zevrant-home-ui:latest'
     - 'docker push zevrant/zevrant-home-ui:$VERSION'
     - 'git tag zevrant-home-ui-$VERSION'

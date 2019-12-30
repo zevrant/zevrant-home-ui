@@ -33,7 +33,7 @@ ext {
 }
 
 dependencies {
-  implementation 'net.zevrant-services:zevrant-security-common:0.0.33'
+  implementation 'net.zevrant-services:zevrant-security-common:0.0.34'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
   implementation 'org.springframework.boot:spring-boot-starter-security'
