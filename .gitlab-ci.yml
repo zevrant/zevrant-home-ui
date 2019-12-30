@@ -57,4 +57,4 @@ updateVersion:
 deploy:
   stage: deploy
   script:
-    - VERSION=$VERSION docker stack deploy --mount type=volume,src=/storage/keys,dst=/storage/keys,readonly --compose-file docker-compose.yml zevrant-home-ui
+    - VERSION=$VERSION docker stack deploy --compose-file docker-compose.yml zevrant-home-ui
