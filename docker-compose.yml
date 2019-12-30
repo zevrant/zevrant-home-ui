@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
-    image: zevrant/zevrant-home-ui:amd64.${VERSION}
+    image: zevrant/zevrant-home-ui:${VERSION}-arm
     deploy:
       placement:
         constraints:
