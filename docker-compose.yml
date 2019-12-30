@@ -1,12 +1,10 @@
 version: '3.5'
 services:
   zevrant-home-ui:
-    volumes:
-      - /storage/keys:/storage/keys
     ports:
       - "8000:8000"
     restart: unless-stopped
-    image: zevrant/zevrant-home-ui:amd64.${VERSION}
+    image: zevrant/zevrant-home-ui:${VERSION}
     deploy:
       placement:
         constraints:

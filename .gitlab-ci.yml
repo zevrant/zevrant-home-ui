@@ -22,38 +22,39 @@ before_script:
 stages:
   - test
   - sonarScan
-  - updateVersion
   - imageBuild
+  - updateVersion
   - deploy
+  
 
 
-sonarScan:
-  stage: sonarScan
-  script: bash gradlew sonar
+# sonarScan:
+#   stage: sonarScan
+#   script: bash gradlew sonar --info
 
-test:
-  stage: test
-  script: bash gradlew test
+# test:
+#   stage: test
+#   script: bash gradlew test --info
 
 imageBuild:
   stage: imageBuild
   script:
-    - 'bash gradlew assemble -PprojVersion=$VERSION'
-    - 'HERE=`pwd`'
-    - 'ssh 192.168.1.209 --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION .'
-    - 'docker push zevrant/zevrant-home-ui:latest'
-    - 'docker push zevrant/zevrant-home-ui:$VERSION'
+    - bash gradlew assemble -PprojVersion=$VERSION
+    - cp build/libs/*.jar .
+    - "docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION ."
+    - "docker push zevrant/zevrant-home-ui:latest"
+    - "docker push zevrant/zevrant-home-ui:$VERSION; docker push zevrant/zevrant-home-ui:latest"
     - 'git tag zevrant-home-ui-$VERSION'
-
 updateVersion:
   stage: updateVersion
   script:
     - IFS='.'
     - read -ra arr <<< "$VERSION"
     - minorVersion=$( expr ${arr[2]} + 1 )
+    - echo $minorVersion
     - aws ssm put-parameter --name zevrant-home-ui-VERSION --value ${arr[0]}.${arr[1]}.$minorVersion --type String --overwrite
 
 deploy:
   stage: deploy
   script:
-    - VERSION=$VERSION docker stack deploy --resolve-image=never --compose-file docker-compose.yml zevrant-home-ui
+    - VERSION=$VERSION docker stack deploy --mount type=volume,src=/storage/keys,dst=/storage/keys,readonly --compose-file docker-compose.yml zevrant-home-ui
