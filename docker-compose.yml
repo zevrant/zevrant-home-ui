@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
-    image: zevrant/zevrant-home-ui:${VERSION}-arm
+    image: zevrant/zevrant-home-ui:${VERSION}
     deploy:
       placement:
         constraints:
