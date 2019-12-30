@@ -25,7 +25,7 @@ stages:
   - imageBuild
   - updateVersion
   - deploy
-  
+
 
 
 # sonarScan:
@@ -44,10 +44,10 @@ imageBuild:
     - "docker build --build-arg a_version=$VERSION -t zevrant/zevrant-home-ui:latest -t zevrant/zevrant-home-ui:$VERSION ."
     - "docker push zevrant/zevrant-home-ui:latest"
     - "docker push zevrant/zevrant-home-ui:$VERSION; docker push zevrant/zevrant-home-ui:latest"
-    - 'git tag zevrant-home-ui-$VERSION'
 updateVersion:
   stage: updateVersion
   script:
+    - 'git tag zevrant-home-ui-$VERSION'
     - IFS='.'
     - read -ra arr <<< "$VERSION"
     - minorVersion=$( expr ${arr[2]} + 1 )
