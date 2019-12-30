@@ -23,8 +23,8 @@ stages:
   - test
   - sonarScan
   - imageBuild
-  - updateVersion
   - deploy
+  - updateVersion
 
 
 
@@ -58,4 +58,4 @@ updateVersion:
 deploy:
   stage: deploy
   script:
-    - VERSION=$VERSION_BACK docker stack deploy --compose-file docker-compose.yml zevrant-home-ui
+    - VERSION=$VERSION docker stack deploy --compose-file docker-compose.yml zevrant-home-ui
