@@ -3,6 +3,7 @@ FROM zevrant/zevrant-centos-base:latest
 ARG a_version
 
 ENV VERSION=$a_version
+ENV AWS_REGION="us-east-1"
 
 EXPOSE 8000
 
