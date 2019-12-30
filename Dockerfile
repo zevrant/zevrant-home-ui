@@ -1,4 +1,4 @@
-FROM zevrant/zevrant-centos-base:latest-arm
+FROM zevrant/zevrant-centos-base:latest
 
 ARG a_version
 
