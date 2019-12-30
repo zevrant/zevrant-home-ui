@@ -51,6 +51,7 @@ updateVersion:
     - IFS='.'
     - read -ra arr <<< "$VERSION"
     - minorVersion=$( expr ${arr[2]} + 1 )
+    - echo $minorVersion
     - aws ssm put-parameter --name zevrant-home-ui-VERSION --value ${arr[0]}.${arr[1]}.$minorVersion --type String --overwrite
 
 deploy:
