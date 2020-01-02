@@ -21,20 +21,13 @@ before_script:
 
 stages:
   - test
-  - sonarScan
   - imageBuild
   - deploy
   - updateVersion
 
-
-
-# sonarScan:
-#   stage: sonarScan
-#   script: bash gradlew sonar --info
-
-# test:
-#   stage: test
-#   script: bash gradlew test --info
+test:
+  stage: test
+  script: bash gradlew test sonar --info
 
 imageBuild:
   stage: imageBuild
