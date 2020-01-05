@@ -4,7 +4,7 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
-    image: zevrant/zevrant-home-ui:${VERSION}
+    image: zevrant/zevrant-home-ui:latest
     deploy:
       placement:
         constraints:
@@ -15,10 +15,10 @@ services:
       AWS_SECRET_ACCESS_KEY:
       AWS_DEFAULT_REGION: 'us-east-1'
       AWS_DEFAULT_OUTPUT: json
-networks:
-  default:
-    external:
-        name: microservices
+#networks:
+#  default:
+#    external:
+#        name: microservices
 secrets:
   aws_access_key:
     external: true

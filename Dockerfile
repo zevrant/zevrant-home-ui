@@ -17,11 +17,8 @@ COPY build/libs/zevrant-home-ui-*.jar /usr/local/microservices/zevrant-home-serv
 
 RUN mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials; echo "[default]" > ~/.aws.config; echo "region = us-east-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config;
 
-CMD ACCESS_KEY=`cat /run/secrets/aws_access_key`\
- && SECRET_KEY=`cat /run/secrets/aws_secret_key`\
- && echo $SECRET_KEY\
- && echo "aws_access_key_id = $ACCESS_KEY" >> ~/.aws/credentials\
- && echo "aws_secret_access_key = $SECRET_KEY" >> ~/.aws/credentials\
+CMD echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials\
+ && echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials\
  && IFS='\ '\
  && IP=$(hostname -I)\
  && read -ra arr <<< "$IP"\
