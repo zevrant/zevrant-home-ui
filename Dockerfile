@@ -22,7 +22,7 @@ CMD mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials\
  && echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials\
  && IFS='\ '\
  && IP=$(hostname -I)\
- && echo $IP
+ && echo $IP\
  && read -ra arr <<< "$IP"\
  && echo ${arr[2]}\
  && export IP_ADDRESS=${arr[2]}\
