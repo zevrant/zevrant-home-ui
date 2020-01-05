@@ -19,3 +19,8 @@ networks:
   default:
     external:
         name: microservices
+secrets:
+  aws_access_key:
+    external: true
+  aws_secret_key:
+    external: true
