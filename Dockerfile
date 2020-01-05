@@ -9,11 +9,12 @@ EXPOSE 8000
 
 RUN mkdir -p /usr/local/microservices/zevrant-home-services/zevrant-home-ui/
 
-RUN mkdir -p /var/log/zevrant-home-services/zevrant-home-ui
+RUN mkdir -p /var/log/zevrant-home-services/zevrant-home-ui\
+  && mkdir -p /storage/keys
 
 RUN useradd -m -d /usr/local/microservices/zevrant-home-services/zevrant-home-ui/ -G developers  zevrant-home-ui
 
-RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-home-ui; chown -R zevrant-home-ui:developers /usr/local/microservices/zevrant-home-services/zevrant-home-ui
+RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-home-ui /usr/local/microservices/zevrant-home-services/zevrant-home-ui /storage/keys
 
 USER zevrant-home-ui
 
@@ -23,7 +24,7 @@ RUN mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials; echo "[default]" > ~
 
 CMD ACCESS_KEY=`cat /run/secrets/aws_access_key`\
  && SECRET_KEY=`cat /run/secrets/aws_secret_key`\
- && echo $SECRET_KEY\ 
+ && echo $SECRET_KEY\
  && echo "aws_access_key_id = $ACCESS_KEY" >> ~/.aws/credentials\
  && echo "aws_secret_access_key = $SECRET_KEY" >> ~/.aws/credentials\
  && IFS='\ '\
