@@ -4,7 +4,7 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
-    image: zevrant/zevrant-home-ui:${VERSION}
+    image: test:latest
     deploy:
       placement:
         constraints:
@@ -19,8 +19,3 @@ networks:
   default:
     external:
         name: microservices
-secrets:
-  aws_access_key:
-    external: true
-  aws_secret_key:
-    external: true

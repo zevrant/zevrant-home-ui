@@ -15,12 +15,14 @@ USER zevrant-home-ui
 
 COPY build/libs/zevrant-home-ui-*.jar /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
 
-RUN mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials; echo "[default]" > ~/.aws.config; echo "region = us-east-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config;
+RUN mkdir ~/.aws; echo "[default]" > ~/.aws/config; echo "region = us-east-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config
 
-CMD echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials\
+CMD mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials\
+ && echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials\
  && echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials\
  && IFS='\ '\
  && IP=$(hostname -I)\
+ && echo $IP
  && read -ra arr <<< "$IP"\
  && echo ${arr[2]}\
  && export IP_ADDRESS=${arr[2]}\
