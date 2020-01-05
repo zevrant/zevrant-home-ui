@@ -4,7 +4,7 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
-    image: test:latest
+    image: zevrant/zevrant-home-ui:${VERSION}
     deploy:
       placement:
         constraints:
@@ -19,3 +19,4 @@ networks:
   default:
     external:
         name: microservices
+
