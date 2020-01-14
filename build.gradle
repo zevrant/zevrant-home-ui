@@ -35,12 +35,10 @@ ext {
 dependencies {
   implementation 'net.zevrant-services:zevrant-security-common:0.0.37'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
-  implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-  implementation 'org.springframework.boot:spring-boot-starter-security'
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
   implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
-  implementation 'org.springframework.cloud:spring-cloud-starter-security'
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'org.springframework.security:spring-security-test'
 }

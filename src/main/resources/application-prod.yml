@@ -18,7 +18,15 @@ zevrant:
   keystore: 'prod/ssl/keystore.p12'
   encrypted:
     properties: ssl/keystore/password
-
+  ssl:
+    key-store: /storage/keys/zevrant-services.p12
+    key-store-password: ${ssl.keystore.password}
 context:
   initializer:
     classes: net.zevrant.services.security.common.secrets.management.services.EncryptedPropertyContextInitializer
+
+zuul:
+  routes:
+    all:
+      path: /zevrant-oauth2-service/**
+      url: https://zevrant-service.net:7446/zevrant-oauth2-service/

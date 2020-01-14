@@ -1,0 +1,17 @@
+<mat-card color="primary">
+  <form color="primary" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h1>Enter Registration Info</h1>
+    <mat-form-field color="primary">
+      <input placeholder="username" matInput id="username"  formControlName="username"/>
+    </mat-form-field>
+    <br>
+    <mat-form-field color="primary">
+      <input placeholder="password" matInput id="password"  formControlName="password"/>
+    </mat-form-field>
+    <br>
+    <mat-form-field color="primary">
+      <input placeholder="full name" matInput id="full-name"  formControlName="fullName"/>
+    </mat-form-field>
+    <button mat-button type="submit" color="primary" [disabled]="!registerForm.valid">Submit</button>
+  </form>
+</mat-card>

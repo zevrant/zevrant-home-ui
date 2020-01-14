@@ -11,22 +11,40 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSliderModule } from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {StorageServiceModule} from 'angular-webstorage-service'
+import { HttpClientModule } from '@angular/common/http';
+import {LoginComponent} from "./login/component/login.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatCardModule} from "@angular/material/card";
+import {ReactiveFormsModule} from "@angular/forms";
+import {RegisterComponent} from "./register/register.component";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     CameraViewComponent,
-    HomeViewComponent
+    HomeViewComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
     AppRoutingModule,
     BrowserAnimationsModule,
     MatMenuModule,
     MatSliderModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    StorageServiceModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

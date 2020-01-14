@@ -1,12 +1,15 @@
 
-<mat-toolbar>
-    <a mat-button>Home</a>
-    <button mat-button [matMenuTriggerFor]="appsMenu">Apps</button>
-    <button mat-button [matMenuTriggerFor]="settingsMenu">Profile</button>
+<mat-toolbar color="primary">
+  <a mat-button color="secondary" routerLink="">Home</a>
+  <button mat-button color="secondary" [matMenuTriggerFor]="appsMenu">Apps</button>
+  <button mat-button color="secondary" [matMenuTriggerFor]="settingsMenu">Profile</button>
+  <span color="primary" class="fill-space"></span>
+  <a mat-button color="secondary" *ngIf="isLoggedIn" routerLink="login">Login</a>
 </mat-toolbar>
-<mat-menu #appsMenu="matMenu">
-        
+
+<mat-menu #appsMenu="matMenu" color="primary">
+
 </mat-menu>
-<mat-menu #settingsMenu="matMenu">
-    
+<mat-menu #settingsMenu="matMenu" color="primary">
+
 </mat-menu>
