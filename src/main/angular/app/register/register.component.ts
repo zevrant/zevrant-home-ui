@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {Constants} from "../constants/Constants";
+import {regexValidator} from "../directives/regex-validator.directive";
 
 @Component({
   selector: 'app-register',
@@ -10,9 +11,21 @@ import {Constants} from "../constants/Constants";
 })
 export class RegisterComponent implements OnInit {
   private registerForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-    fullName: new FormControl('')
+    username: new FormControl(this.username, [
+      Validators.required,
+      Validators.minLength(3),
+      regexValidator(/([a-z][A-Z])+/)
+    ]),
+    password: new FormControl(this.password, [
+      Validators.required,
+      Validators.minLength(12),
+      regexValidator(/([!@#$%^&*()\[\]:;,.\/<>?'"|])+/)
+    ]),
+    fullName: new FormControl(this.fullName, [
+      Validators.required,
+      Validators.minLength(6),
+      regexValidator(/([a-z][A-Z])+ ([a-z][A-Z])+/)
+    ])
   });
 
   private http: HttpClient;
@@ -35,5 +48,26 @@ export class RegisterComponent implements OnInit {
       .subscribe((data: any) => {
         this.config = data;
       });
+  }
+
+  get username() {
+    if(this.registerForm){
+      return this.registerForm.get('username') || {};
+    }
+    return null;
+  }
+
+  get password() {
+    if(this.registerForm) {
+      return this.registerForm.get('password') || {};
+    }
+    return null;
+  }
+
+  get fullName() {
+    if(this.registerForm){
+      return this.registerForm.get('fullName') || {};
+    }
+    return null;
   }
 }

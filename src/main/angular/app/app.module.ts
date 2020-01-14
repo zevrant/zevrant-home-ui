@@ -20,6 +20,7 @@ import {MatCardModule} from "@angular/material/card";
 import {ReactiveFormsModule} from "@angular/forms";
 import {RegisterComponent} from "./register/register.component";
 import {FormsModule} from "@angular/forms";
+import {RegexValidatorDirective} from "./directives/regex-validator.directive";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {FormsModule} from "@angular/forms";
     CameraViewComponent,
     HomeViewComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RegexValidatorDirective
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),

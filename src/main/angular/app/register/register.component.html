@@ -1,10 +1,36 @@
 <mat-card color="primary">
   <form color="primary" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h1>Enter Registration Info</h1>
+    <div *ngIf="username.invalid && (username.dirty || username.touched)"
+         class="alert alert-danger">
+
+      <div *ngIf="username.errors.required">
+        Username is required.
+      </div>
+      <div *ngIf="username.errors.minlength">
+        Username must be at least 4 characters long.
+      </div>
+      <div *ngIf="username.errors.regexValidator">
+        Username must consist of alphabetic characters.
+      </div>
+    </div>
     <mat-form-field color="primary">
       <input placeholder="username" matInput id="username"  formControlName="username"/>
     </mat-form-field>
     <br>
+    <div *ngIf="password.invalid && (password.dirty || password.touched)"
+         class="alert alert-danger">
+
+      <div *ngIf="password.errors.required">
+        Password is required.
+      </div>
+      <div *ngIf="password.errors.minlength">
+        Password must be at least 4 characters long.
+      </div>
+      <div *ngIf="password.errors.regexValidator">
+        Password must consist of alphabetic characters upper and lower, numbers, and punctuation.
+      </div>
+    </div>
     <mat-form-field color="primary">
       <input placeholder="password" matInput id="password"  formControlName="password"/>
     </mat-form-field>
