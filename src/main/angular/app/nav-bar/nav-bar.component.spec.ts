@@ -2,6 +2,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {NavBarComponent} from './nav-bar.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {StorageServiceModule} from "angular-webstorage-service";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('NavBarComponent', () => {
   let component: NavBarComponent;
@@ -12,7 +14,9 @@ describe('NavBarComponent', () => {
       declarations: [NavBarComponent],
       imports: [
         MatMenuModule,
-        MatToolbarModule
+        MatToolbarModule,
+        StorageServiceModule,
+        HttpClientModule
       ]
     })
       .compileComponents();
