@@ -27,7 +27,7 @@ stages:
 
 test:
   stage: test
-  script: bash gradlew test sonar --info
+  script: bash gradlew test --info
 
 imageBuild:
   stage: imageBuild
