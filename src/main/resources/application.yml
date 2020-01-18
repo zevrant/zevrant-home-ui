@@ -30,3 +30,5 @@ management:
   health:
     ldap:
       enabled: false
+
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {Constants} from "../constants/Constants";
 import {regexValidator} from "../directives/regex-validator.directive";
@@ -50,23 +50,23 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  get username() {
+  get username(): AbstractControl {
     if(this.registerForm){
-      return this.registerForm.get('username') || {};
+      return this.registerForm.get('username');
     }
     return null;
   }
 
-  get password() {
-    if(this.registerForm) {
-      return this.registerForm.get('password') || {};
+  get password(): AbstractControl  {
+    if(this.registerForm){
+      return this.registerForm.get('password');
     }
     return null;
   }
 
-  get fullName() {
+  get fullName(): AbstractControl {
     if(this.registerForm){
-      return this.registerForm.get('fullName') || {};
+      return this.registerForm.get('fullName');
     }
     return null;
   }

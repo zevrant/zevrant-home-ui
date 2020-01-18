@@ -21,6 +21,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {RegisterComponent} from "./register/register.component";
 import {FormsModule} from "@angular/forms";
 import {RegexValidatorDirective} from "./directives/regex-validator.directive";
+import {LoginService} from "./login/service/login.service";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import {RegexValidatorDirective} from "./directives/regex-validator.directive";
     HomeViewComponent,
     LoginComponent,
     RegisterComponent,
-    RegexValidatorDirective
+    RegexValidatorDirective,
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),
@@ -48,7 +49,9 @@ import {RegexValidatorDirective} from "./directives/regex-validator.directive";
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
