@@ -5,6 +5,7 @@ import {regexValidator} from "../../directives/regex-validator.directive";
 import {LoginService} from "../service/login.service";
 import {LOCAL_STORAGE, WebStorageService} from "angular-webstorage-service";
 import {Constants} from "../../constants/Constants";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -16,17 +17,13 @@ export class LoginComponent implements OnInit {
   private loginForm: FormGroup = new FormGroup({
     username: new FormControl(this.username, [
       Validators.required,
-      Validators.minLength(3),
-      regexValidator(/([a-z][A-Z])+/)
     ]),
     password: new FormControl(this.password, [
       Validators.required,
-      Validators.minLength(12),
-      regexValidator(/([!@#$%^&*()\[\]:;,.\/<>?'"|])+/)
     ])
   });
 
-  constructor(private loginService: LoginService, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
+  constructor(private loginService: LoginService, @Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -35,6 +32,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.username.value, this.password.value)
       .subscribe((data: any) => {
             this.storage.set(Constants.oauthTokenName, data.access_token)
+            this.router.navigate([""])
       });
   }
 
