@@ -1,7 +1,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: https://zevrant-services.net:7446/eureka/
+      defaultZone: https://zevrant-services.net:8000/eureka/
   instance:
     prefer-ip-address: true
     hostname: ${IP_ADDRESS}
@@ -29,4 +29,4 @@ zuul:
   routes:
     all:
       path: /zevrant-oauth2-service/**
-      url: https://zevrant-service.net:7446/zevrant-oauth2-service/
+      url: https://zevrant-service.net:8000/zevrant-oauth2-service/
