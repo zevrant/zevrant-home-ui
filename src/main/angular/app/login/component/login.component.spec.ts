@@ -6,6 +6,9 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {HttpClientModule} from "@angular/common/http";
+import {StorageServiceModule} from "angular-webstorage-service";
+import {RouterModule} from "@angular/router";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -19,7 +22,14 @@ describe('LoginComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MatInputModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        HttpClientModule,
+        StorageServiceModule,
+        RouterModule.forRoot(
+          [
+            { path: "", component: LoginComponent}
+          ]
+        )
       ],
       declarations: [ LoginComponent ]
     })
