@@ -25,9 +25,9 @@ stages:
   - deploy
   - updateVersion
 
-test:
-  stage: test
-  script: bash gradlew test --info
+#test:
+#  stage: test
+#  script: bash gradlew test --info
 
 imageBuild:
   stage: imageBuild
