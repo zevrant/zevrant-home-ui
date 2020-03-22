@@ -5,10 +5,6 @@ services:
       - "8000:8000"
     restart: unless-stopped
     image: zevrant/zevrant-home-ui:${VERSION}
-    deploy:
-      placement:
-        constraints:
-          - node.role == worker
     environment:
       VERSION:
       AWS_ACCESS_KEY_ID:
