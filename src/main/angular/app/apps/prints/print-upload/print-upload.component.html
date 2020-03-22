@@ -1,0 +1,6 @@
+<mat-card>
+  <form color="primary" [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+    <input matInput type="file" id="printUpload" formControlName="fileUpload">
+    <button mat-button type="submit" color="primary">Submit</button>
+  </form>
+</mat-card>

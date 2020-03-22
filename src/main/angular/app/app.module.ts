@@ -22,6 +22,10 @@ import {RegisterComponent} from "./register/register.component";
 import {FormsModule} from "@angular/forms";
 import {RegexValidatorDirective} from "./directives/regex-validator.directive";
 import {LoginService} from "./login/service/login.service";
+import {PrintsComponent} from "./apps/prints/prints.component";
+import {PrintSearchComponent} from "./apps/prints/print-search/print-search.component";
+import {MatTabsModule} from "@angular/material/tabs";
+import {PrintUploadComponent} from "./apps/prints/print-upload/print-upload.component";
 
 @NgModule({
   declarations: [
@@ -32,6 +36,9 @@ import {LoginService} from "./login/service/login.service";
     LoginComponent,
     RegisterComponent,
     RegexValidatorDirective,
+    PrintsComponent,
+    PrintSearchComponent,
+    PrintUploadComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),
@@ -47,7 +54,8 @@ import {LoginService} from "./login/service/login.service";
     MatInputModule,
     MatCardModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatTabsModule
   ],
   providers: [
     LoginService
