@@ -14,13 +14,13 @@ eureka:
     healthcheck:
       enabled: true
     serviceUrl:
-      defaultZone: http://localhost:7446/eureka/
+      defaultZone: http://localhost:7644/eureka/
 
 zuul:
   routes:
     all:
       path: /zevrant-oauth2-service/**
-      url: http://localhost:7446/zevrant-oauth2-service/
+      url: http://localhost:7644/zevrant-oauth2-service/
 
 management:
   endpoints:
