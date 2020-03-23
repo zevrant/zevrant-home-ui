@@ -1,4 +1,4 @@
-FROM zevrant/zevrant-centos-base:latest
+FROM zevrant/zevrant-ubuntu-base:latest
 
 EXPOSE 8000
 
@@ -20,6 +20,5 @@ RUN mkdir ~/.aws; echo "[default]" > ~/.aws/config; echo "region = us-east-1" >>
 CMD mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials\
  && echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials\
  && echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials\
- && IP_ADDRESS=$(hostname -i)\
- && echo $(hostname -i)\
- && java -jar -Dspring.profiles.active=prod -Deureka.instance.hostname=$IP_ADDRESS /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
+ && ip a
+# && java -jar -Dspring.profiles.active=prod -Deureka.instance.hostname=$IP_ADDRESS /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar

@@ -7,11 +7,11 @@ services:
         target: /storage/keys
     ports:
       - "8000:8000"
-    image: zevrant/zevrant-home-ui:${VERSION}
-    deploy:
-      placement:
-        constraints:
-          - node.role == worker
+    image: test:latest
+#    deploy:
+#      placement:
+#        constraints:
+#          - node.role == worker
     environment:
       VERSION:
       AWS_ACCESS_KEY_ID:
@@ -20,5 +20,6 @@ services:
       AWS_DEFAULT_OUTPUT: json
 networks:
   default:
+    external:
       name: microservices
 
