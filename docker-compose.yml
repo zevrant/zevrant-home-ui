@@ -3,7 +3,6 @@ services:
   zevrant-home-ui:
     ports:
       - "8000:8000"
-    restart: unless-stopped
     image: zevrant/zevrant-home-ui:${VERSION}
     environment:
       VERSION:
@@ -13,6 +12,5 @@ services:
       AWS_DEFAULT_OUTPUT: json
 networks:
   default:
-    external:
-        name: microservices
+      name: microservices
 
