@@ -24,7 +24,7 @@ CMD mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials\
  && IP=$(hostname -I)\
  && echo $IP\
  && read -ra arr <<< "$IP"\
- && echo ${arr[0]}\
- && export IP_ADDRESS=${arr[0]}\
+ && echo ${arr[2]}\
+ && export IP_ADDRESS=${arr[2]}\
  && echo $IP_ADDRESS \
  && java -jar -Dspring.profiles.active=prod -Deureka.instance.hostname=$IP_ADDRESS /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
