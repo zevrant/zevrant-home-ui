@@ -1,10 +1,6 @@
 version: '3.5'
 services:
   zevrant-home-ui:
-    volumes:
-      - type: bind
-        source: /storage/keys
-        target: /storage/keys
     ports:
       - "8000:8000"
     image: zevrant/zevrant-home-ui:${VERSION}

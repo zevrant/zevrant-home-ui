@@ -11,4 +11,4 @@ zuul:
   routes:
     all:
       path: /zevrant-oauth2-service/**
-      url: https://zevrant-service.net:8000/zevrant-oauth2-service/
+      url: https://zevrant-service.com:8000/zevrant-oauth2-service/
