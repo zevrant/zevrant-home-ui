@@ -21,6 +21,7 @@ zuul:
     all:
       path: /zevrant-oauth2-service/**
       url: http://localhost:7644/zevrant-oauth2-service/
+  ssl-hostname-validation-enabled: false
 
 management:
   endpoints:
