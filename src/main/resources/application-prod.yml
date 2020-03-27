@@ -10,7 +10,12 @@ eureka:
 
 zuul:
   routes:
-    all:
-      path: /zevrant-oauth2-service/**
-      url: https://zevrant-service.com:7644/zevrant-oauth2-service/
-  ssl-hostname-validation-enabled: false
+    routes:
+      oauth:
+        path: /zevrant-oauth2-service/**
+        service-id: ZEVRANT-OAUTH2-SERVICE
+        stripPrefix: false
+      discovery:
+        path: /zevrant-discovery-service/**
+        stripPrefix: false
+        url: http://172.16.238.10:8999:8999

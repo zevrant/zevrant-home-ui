@@ -8,20 +8,26 @@ server:
   port: 8000
 
 eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8999/eureka/
   instance:
+    preferIpAddress: true
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
-    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8999/eureka/
 
 zuul:
   routes:
-    all:
+    oauth:
       path: /zevrant-oauth2-service/**
-      url: http://localhost:7644/zevrant-oauth2-service/
-  ssl-hostname-validation-enabled: false
+      service-id: ZEVRANT-OAUTH2-SERVICE
+      stripPrefix: false
+    discovery:
+      path: /zevrant-discovery-service/**
+      stripPrefix: false
+      url: http://127.0.0.1:8999:8999
 
 management:
   endpoints:
