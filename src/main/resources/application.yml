@@ -39,7 +39,12 @@ management:
       enabled: false
 
 ribbon:
-  ReadTimeout: 60000
+  eureka:
+    enabled: true
+  eager-load:
+    clients: true
+
+
 
 hystrix:
   command:
@@ -47,4 +52,4 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 60000
+            timeoutInMilliseconds: 10000000
