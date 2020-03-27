@@ -19,8 +19,8 @@ export class RegisterComponent implements OnInit {
     ]),
     password: new FormControl(this.password, [
       Validators.required,
-      Validators.minLength(12),
-      regexValidator(/([!@#$%^&*()\[\]:;,.\/<>?'"|])+/)
+      Validators.minLength(11),
+      regexValidator(/([!@#$%^&*()\[\]:;,.\/<>?'"|]|[a-z]|[A-Z]|[0-9]){11,}/)
     ]),
     fullName: new FormControl(this.fullName, [
       Validators.required,
@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       "password": this.registerForm.get("password").value,
       "fullName": this.registerForm.get("fullName").value
     };
-    this.http.post("zevrant-oauth2-service/email", message)
+    this.http.post("https://zevrant-services.com:7644/zevrant-oauth2-service/email", message)
       .subscribe((data: any) => {
         this.config = data;
         this.router.navigateByUrl("");

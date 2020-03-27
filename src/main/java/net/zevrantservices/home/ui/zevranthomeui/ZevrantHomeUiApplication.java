@@ -7,8 +7,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 @EnableDiscoveryClient
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableZuulProxy
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class ZevrantHomeUiApplication {
 
     public static void main(String[] args) {
