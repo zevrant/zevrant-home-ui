@@ -3,6 +3,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 import {HttpClient} from "@angular/common/http";
 import {Constants} from "../constants/Constants";
 import {regexValidator} from "../directives/regex-validator.directive";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit {
 
   private http: HttpClient;
   private config;
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private router: Router) {
     this.http=http;
   }
 
@@ -43,10 +44,11 @@ export class RegisterComponent implements OnInit {
       "username": this.registerForm.get("username").value,
       "password": this.registerForm.get("password").value,
       "fullName": this.registerForm.get("fullName").value
-    }
+    };
     this.http.post("zevrant-oauth2-service/email", message)
       .subscribe((data: any) => {
         this.config = data;
+        this.router.navigateByUrl("");
       });
   }
 
