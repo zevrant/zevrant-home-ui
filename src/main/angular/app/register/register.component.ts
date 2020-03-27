@@ -19,8 +19,7 @@ export class RegisterComponent implements OnInit {
     ]),
     password: new FormControl(this.password, [
       Validators.required,
-      Validators.minLength(11),
-      regexValidator(/([!@#$%^&*()\[\]:;,.\/<>?'"|]|[a-z]|[A-Z]|[0-9]){11,}/)
+      Validators.minLength(10),
     ]),
     fullName: new FormControl(this.fullName, [
       Validators.required,
@@ -39,6 +38,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.registerForm.get("password"))
     console.log(this.registerForm);
     let message = {
       "username": this.registerForm.get("username").value,
