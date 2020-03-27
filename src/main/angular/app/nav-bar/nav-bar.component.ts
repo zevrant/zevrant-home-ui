@@ -13,6 +13,7 @@ import {PlatformLocation} from "@angular/common";
 export class NavBarComponent implements OnInit {
 
   private baseUrl: string;
+  private username: string;
   // private isLoggedIn: string = "/oauth/"
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private http:HttpClient, private platformLocation: PlatformLocation) {
     this.baseUrl = Constants.baseUrl;
@@ -23,11 +24,12 @@ export class NavBarComponent implements OnInit {
 
   isLoggedIn() {
     let isLoggedIn = isNotNullOrUndefined(this.storage.get(Constants.oauthTokenName));
+    console.log(isLoggedIn)
     if(!isLoggedIn){
       return isLoggedIn
     }
-    let username = this.storage.get(Constants.username);
-
+    this.username = this.storage.get(Constants.username);
+    // if(this.username)
     // this.http.get()
   }
 
