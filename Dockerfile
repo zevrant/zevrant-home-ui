@@ -1,6 +1,6 @@
 FROM zevrant/zevrant-ubuntu-base:latest
 
-EXPOSE 8000
+EXPOSE 7644
 
 RUN mkdir -p /usr/local/microservices/zevrant-home-services/zevrant-home-ui/
 

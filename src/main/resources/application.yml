@@ -5,7 +5,7 @@ spring:
 server:
   servlet:
     context-path: /${spring.application.name}
-  port: 8000
+  port: 7644
 
 eureka:
   instance:
