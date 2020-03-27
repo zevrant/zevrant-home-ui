@@ -20,3 +20,20 @@ zuul:
         stripPrefix: false
         url: http://172.16.238.10:8999:8999
 
+server:
+  ssl:
+    key-store: /storage/keys/zevrant-services.p12
+    key-store-type: PKCS12
+    key-store-password: ${ssl.keystore.password}
+zevrant:
+  bucketName: zevrant-resources
+  keystore: prod/ssl/keystore.p12
+  encrypted:
+    properties: ssl/keystore/password
+  ssl:
+    key-store: /storage/keys/zevrant-services.p12
+    key-store-password: ${ssl.keystore.password}
+
+context:
+  initializer:
+    classes: net.zevrant.services.security.common.secrets.management.services.EncryptedPropertyContextInitializer
