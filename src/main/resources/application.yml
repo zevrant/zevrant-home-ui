@@ -56,6 +56,13 @@ hystrix:
   command:
     default:
       execution:
+        isolation:
+          strategy: SEMAPHORE
+        semaphore:
+          maxConcurrentRequests: 100000 # basically 'unlimited'
         timeout:
           enabled: false
-
+      circuitBreaker:
+        enabled: false
+      fallback:
+        enabled: false
