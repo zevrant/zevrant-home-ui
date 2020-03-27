@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       "password": this.registerForm.get("password").value,
       "fullName": this.registerForm.get("fullName").value
     };
-    this.http.post("https://zevrant-services.com:7644/zevrant-oauth2-service/email", message)
+    this.http.post("zevrant-oauth2-service/email", message)
       .subscribe((data: any) => {
         this.config = data;
         this.router.navigateByUrl("");
