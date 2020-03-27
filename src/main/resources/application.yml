@@ -19,6 +19,13 @@ eureka:
       defaultZone: http://127.0.0.1:8999/eureka/
 
 zuul:
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+    max-total-connections: 200
+    max-per-route-connections: 20
+    time-unit: MILLISECONDS
+    time-to-live: 10000
   routes:
     oauth:
       path: /zevrant-oauth2-service/**
@@ -40,11 +47,10 @@ management:
 
 ribbon:
   eureka:
-    enabled: true
-  eager-load:
-    clients: true
-
-
+    enable: true
+  isSecure: false
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
 
 hystrix:
   command:
@@ -52,4 +58,5 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 10000000
+            timeoutInMilliseconds: 60000
+
