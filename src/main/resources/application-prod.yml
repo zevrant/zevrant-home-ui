@@ -19,3 +19,4 @@ zuul:
         path: /zevrant-discovery-service/**
         stripPrefix: false
         url: http://172.16.238.10:8999:8999
+
