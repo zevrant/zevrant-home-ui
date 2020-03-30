@@ -28,8 +28,9 @@ zuul:
     time-to-live: 10000
   routes:
     oauth:
+      sensitiveHeaders:
       path: /zevrant-oauth2-service/**
-      service-id: ZEVRANT-OAUTH2-SERVICE
+      url: http://localhost:9002
       stripPrefix: false
 
 management:
