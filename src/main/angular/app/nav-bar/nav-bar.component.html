@@ -4,7 +4,7 @@
   <button mat-button color="secondary" [matMenuTriggerFor]="appsMenu">Apps</button>
   <button mat-button color="secondary" [matMenuTriggerFor]="settingsMenu">Profile</button>
   <span color="primary" class="fill-space"></span>
-  <a *ngIf="!isLoggedIn()" color="secondary" mat-button>Login</a>
+  <button *ngIf="!isLoggedIn()" color="secondary" mat-button routerLink="login">Login</button>
   <button *ngIf="isLoggedIn()" [mat-menu-trigger-for]="userMenu" color="secondary"
           mat-button>{{username}}</button>
 </mat-toolbar>

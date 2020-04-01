@@ -1,6 +1,10 @@
 spring:
   application:
     name: zevrant-home-ui
+  servlet:
+    multipart:
+      max-request-size: 999999999999999999
+      max-file-size: 999999999999999999
 
 server:
   servlet:
@@ -31,6 +35,11 @@ zuul:
       sensitiveHeaders:
       path: /zevrant-oauth2-service/**
       url: http://localhost:9002
+      stripPrefix: false
+    model:
+      sensitiveHeaders:
+      path: /zevrant-model-service/**
+      url: http://localhost:9003
       stripPrefix: false
 
 management:

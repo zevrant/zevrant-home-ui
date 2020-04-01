@@ -1,6 +1,45 @@
 <mat-card>
-  <form color="primary" [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
-    <input matInput type="file" id="printUpload" formControlName="fileUpload">
-    <button mat-button type="submit" color="primary">Submit</button>
-  </form>
+  <div>
+    <mat-label>Model:</mat-label>
+    <button (click)="fileInput.click()" color="accent" mat-button>
+      <mat-icon>library_add</mat-icon>
+      <input #fileInput (change)="fileUploadEvent($event)" id="fileUploadInput" style="display:none"
+             type="file">
+      <br>
+      <mat-label *ngIf="filesValid && filesTouched">File Name: {{files[0].name}}</mat-label>
+      <mat-label *ngIf="filesValid && filesTouched">File Size: {{files[0].size}}</mat-label>
+    </button>
+  </div>
+  <div>
+    <mat-label>Cover Photo:</mat-label>
+    <button (click)="coverPhoto.click()" color="accent" mat-button>
+      <mat-icon>library_add</mat-icon>
+      <input #coverPhoto (change)="fileCoverPhotoUploadEvent($event)" id="fileCoverPhotoUploadInput"
+             style="display:none" type="file">
+    </button>
+    <div *ngIf="photo">
+      <img [height]="400" [src]="photo" [width]="500" id="photo-id"/>
+    </div>
+  </div>
+  <div id="Tags">
+    <mat-label>Tags</mat-label>
+    <mat-card>
+      <table [dataSource]="tags" class="mat-elevation-z8" mat-table>
+        <ng-container matColumnDef="tag">
+          <th *matHeaderCellDef mat-header-cell>Tag</th>
+          <td *matCellDef="let tag" mat-cell> {{tag.tag}} </td>
+        </ng-container>
+        <ng-container matColumnDef="checkbox">
+          <th *matHeaderCellDef mat-header-cell>Apply Tags</th>
+          <td *matCellDef="let tag" class="d-flex justify-content-center" mat-cell>
+            <mat-checkbox (change)="applyTag(tag.tag)" class="checkbox"></mat-checkbox>
+          </td>
+        </ng-container>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+      </table>
+    </mat-card>
+  </div>
+  <br>
+  <button (click)="onSubmit()" color="primary" mat-button>Submit</button>
 </mat-card>

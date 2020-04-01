@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
+import {PrintService} from "../../../services/print.service";
+import {MatSnackBar} from '@angular/material';
+import {HttpService} from "../../../services/http.service";
+import {Constants} from "../../../constants/Constants";
+import {ModelService} from "../../../services/model.service";
 
 @Component({
   selector: 'app-print-upload',
@@ -8,25 +11,63 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./print-upload.component.css']
 })
 export class PrintUploadComponent implements OnInit {
-  uploadForm: FormGroup = new FormGroup({
-    username: new FormControl(this.fileUpload, [
-     Validators.required,
-    ])
-});
+  private files: File;
+  private fileData: ArrayBuffer;
+  private filesValid: boolean = false;
+  private filesTouched: boolean = false;
+  private coverPhotos: File;
+  private photo;
+  private tags;
+  private displayedColumns: string[] = ["tag", "checkbox"];
+  private appliedTags: string[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpService, private printService: PrintService, private snackBar: MatSnackBar,
+              private modelService: ModelService) {
+    this.getTags(0, 20);
+  }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-
+  isValid() {
+    return this.files && this.coverPhotos
   }
 
-  get fileUpload(): AbstractControl{
-    if (this.uploadForm) {
-      return this.uploadForm.get("fileUpload");
+  onSubmit() {
+    this.modelService.uploadModel(this.fileData, this.photo, this.appliedTags);
+  }
+
+  fileUploadEvent($event) {
+    this.files = $event.target.files[0]
+    const reader: FileReader = new FileReader();
+    reader.readAsDataURL(this.files);
+    reader.onload = (event) => {
+      this.fileData = <ArrayBuffer>reader.result;
     }
-    return new FormControl();
+  }
+
+  fileCoverPhotoUploadEvent($event) {
+    this.coverPhotos = <File>$event.target.files[0];
+    console.log(this.coverPhotos);
+    const reader: FileReader = new FileReader();
+    reader.readAsDataURL(this.coverPhotos);
+    reader.onload = (event) => {
+      this.photo = <ArrayBuffer>reader.result;
+    };
+  }
+
+  async getTags(page: number, pageSize: number) {
+    let tags = await this.http.get(Constants.modelBaseUrl + `tags/${page}/${pageSize}`, null);
+    this.tags = tags.tags;
+    console.log(this.tags);
+  }
+
+  applyTag(tag: string) {
+    let index: number = this.appliedTags.indexOf(tag);
+    if (index > -1) {
+      this.appliedTags = this.appliedTags.splice(index, 1);
+      return;
+    }
+    this.appliedTags.push(tag);
   }
 }

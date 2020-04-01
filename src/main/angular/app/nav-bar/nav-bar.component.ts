@@ -6,7 +6,7 @@ import {HttpHeaders} from "@angular/common/http";
 import {PlatformLocation} from "@angular/common";
 import {Router} from "@angular/router";
 import {LoginService} from "../services/login.service";
-import {HttpService} from "../services/HttpService";
+import {HttpService} from "../services/http.service";
 
 @Component({
   selector: 'app-nav-bar',

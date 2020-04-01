@@ -25,6 +25,13 @@ import {PrintSearchComponent} from "./apps/prints/print-search/print-search.comp
 import {MatTabsModule} from "@angular/material/tabs";
 import {PrintUploadComponent} from "./apps/prints/print-upload/print-upload.component";
 import {LoginService} from "./services/login.service";
+import {PrintService} from "./services/print.service";
+import {HttpService} from "./services/http.service";
+import {MatIconModule, MatTableModule} from "@angular/material"
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {LazyLoadImageModule} from 'ng-lazyload-image';
+import {ModelService} from "./services/model.service";
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -42,10 +49,13 @@ import {LoginService} from "./services/login.service";
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),
     AppRoutingModule,
+    MatTableModule,
+    MatCheckboxModule,
     BrowserAnimationsModule,
     MatMenuModule,
     MatSliderModule,
     MatButtonModule,
+    MatSnackBarModule,
     MatToolbarModule,
     StorageServiceModule,
     HttpClientModule,
@@ -54,10 +64,15 @@ import {LoginService} from "./services/login.service";
     MatCardModule,
     ReactiveFormsModule,
     FormsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatIconModule,
+    LazyLoadImageModule
   ],
   providers: [
-    LoginService
+    LoginService,
+    HttpService,
+    PrintService,
+    ModelService
   ],
   bootstrap: [AppComponent]
 })

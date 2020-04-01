@@ -15,7 +15,7 @@ export class HttpService {
     if (!headers) {
       headers = new HttpHeaders()
     }
-    headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
+    headers = headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
     return this.http.get(url, {headers: headers}).toPromise();
   }
 
@@ -23,7 +23,7 @@ export class HttpService {
     if (!headers) {
       headers = new HttpHeaders()
     }
-    headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
+    headers = headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
     return this.http.post(url, body, {headers: headers}).toPromise();
   }
 
@@ -31,7 +31,7 @@ export class HttpService {
     if (!headers) {
       headers = new HttpHeaders()
     }
-    headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
+    headers = headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
     return this.http.put(url, body, {headers: headers}).toPromise();
   }
 

@@ -1,7 +1,7 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { LoginService } from './login.service';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {LoginService} from './login.service';
+import {HttpClient} from "@angular/common/http";
 
 describe('LoginServiceService', () => {
   const http = jasmine.createSpyObj('HttpClient', ['post']);
@@ -9,7 +9,7 @@ describe('LoginServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       LoginService,
-      { provide: HttpClient, useValue: http}
+      {provide: HttpClient, useValue: http}
     ]
   }));
 
