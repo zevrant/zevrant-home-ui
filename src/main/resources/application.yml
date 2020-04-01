@@ -31,15 +31,15 @@ zuul:
     time-unit: MILLISECONDS
     time-to-live: 10000
   routes:
-    oauth:
-      sensitiveHeaders:
-      path: /zevrant-oauth2-service/**
-      url: http://localhost:9002
-      stripPrefix: false
     model:
       sensitiveHeaders:
       path: /zevrant-model-service/**
-      url: http://localhost:9003
+      service-id: ZEVRANT-MODEL-SERVICE
+      stripPrefix: false
+    oauth:
+      sensitiveHeaders:
+      path: /zevrant-oauth2-service/**
+      service-id: ZEVRANT-OAUTH2-SERVICE
       stripPrefix: false
 
 management:
