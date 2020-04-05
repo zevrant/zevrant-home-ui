@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PrintService} from "../../../services/print.service";
 import {MatSnackBar} from '@angular/material';
 import {HttpService} from "../../../services/http.service";
@@ -22,7 +22,7 @@ export class PrintUploadComponent implements OnInit {
   private displayedColumns: string[] = ["tag", "checkbox"];
   private appliedTags: string[] = [];
 
-  @ViewChild("searchField", null) searchField: ElementRef;
+  // @ViewChild("searchField", null) searchField: ElementRef;
 
   constructor(private http: HttpService, private printService: PrintService, private snackBar: MatSnackBar,
               private modelService: ModelService, private tagService: TagService) {
