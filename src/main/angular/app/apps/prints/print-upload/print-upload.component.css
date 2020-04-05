@@ -1,3 +1,13 @@
 .checkbox {
   padding-left: 5%;
 }
+
+div {
+  margin: fill;
+  padding: 1%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}

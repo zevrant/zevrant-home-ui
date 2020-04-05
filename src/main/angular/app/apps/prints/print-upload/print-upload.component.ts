@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PrintService} from "../../../services/print.service";
 import {MatSnackBar} from '@angular/material';
 import {HttpService} from "../../../services/http.service";
 import {Constants} from "../../../constants/Constants";
 import {ModelService} from "../../../services/model.service";
+import {TagService} from "../../../services/tag.service";
 
 @Component({
   selector: 'app-print-upload',
@@ -21,9 +22,11 @@ export class PrintUploadComponent implements OnInit {
   private displayedColumns: string[] = ["tag", "checkbox"];
   private appliedTags: string[] = [];
 
+  @ViewChild("searchField", null) searchField: ElementRef;
+
   constructor(private http: HttpService, private printService: PrintService, private snackBar: MatSnackBar,
-              private modelService: ModelService) {
-    this.getTags(0, 20);
+              private modelService: ModelService, private tagService: TagService) {
+    this.getTags(0, 5);
   }
 
   ngOnInit() {
@@ -38,12 +41,13 @@ export class PrintUploadComponent implements OnInit {
   }
 
   fileUploadEvent($event) {
-    this.files = $event.target.files[0]
+    this.files = $event.target.files[0];
     const reader: FileReader = new FileReader();
     reader.readAsDataURL(this.files);
     reader.onload = (event) => {
       this.fileData = <ArrayBuffer>reader.result;
-    }
+    };
+    this.filesTouched = true;
   }
 
   fileCoverPhotoUploadEvent($event) {
@@ -69,5 +73,10 @@ export class PrintUploadComponent implements OnInit {
       return;
     }
     this.appliedTags.push(tag);
+  }
+
+  async searchTag() {
+
+    this.tags = await this.tagService.searchTag(this.searchField.nativeElement.);
   }
 }
