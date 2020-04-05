@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {PrintService} from "../../../services/print.service";
 import {MatSnackBar} from '@angular/material';
 import {HttpService} from "../../../services/http.service";
@@ -77,6 +77,6 @@ export class PrintUploadComponent implements OnInit {
 
   async searchTag() {
 
-    this.tags = await this.tagService.searchTag(this.searchField.nativeElement.);
+    // this.tags = await this.tagService.searchTag(this.searchField.nativeElement.);
   }
 }
