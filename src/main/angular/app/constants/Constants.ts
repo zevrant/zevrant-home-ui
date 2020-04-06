@@ -20,7 +20,7 @@ export class Constants {
 
   public static get baseUrl(): string {
     if (environment.production) {
-      return "https://zevrant-services.com:7446/"
+      return "https://192.168.1.223:9002/"
     } else {
       return "http://zevrant.fios-router.home:8000/"
     }
