@@ -3,9 +3,9 @@
     <div class="center" id="tagsTable">
       <form color="primary" [formGroup]="searchTagForm" (ngSubmit)="onSubmit()">
         <mat-form-field color="primary">
-          <input matInput (change)="searchTag()" id="searchField" formControlName="tagSearch">
+          <input matInput (change)="searchTag()" color="primary" id="searchField" placeholder="search tags" formControlName="tagSearch">
         </mat-form-field>
-        <button (click)="addTag()" mat-button>
+        <button (click)="addTag()" color="accent" mat-button matTooltip="Add Tag">
           <mat-icon>library_add</mat-icon>
         </button>
         <br>

@@ -32,6 +32,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
 import {ModelService} from "./services/model.service";
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -46,28 +47,29 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     PrintSearchComponent,
     PrintUploadComponent
   ],
-  imports: [
-    BrowserModule.withServerTransition({appId: 'serverApp'}),
-    AppRoutingModule,
-    MatTableModule,
-    MatCheckboxModule,
-    BrowserAnimationsModule,
-    MatMenuModule,
-    MatSliderModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatToolbarModule,
-    StorageServiceModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatTabsModule,
-    MatIconModule,
-    LazyLoadImageModule
-  ],
+    imports: [
+        BrowserModule.withServerTransition({appId: 'serverApp'}),
+        AppRoutingModule,
+        MatTableModule,
+        MatCheckboxModule,
+        BrowserAnimationsModule,
+        MatMenuModule,
+        MatSliderModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatToolbarModule,
+        StorageServiceModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatTabsModule,
+        MatIconModule,
+        LazyLoadImageModule,
+        MatTooltipModule
+    ],
   providers: [
     LoginService,
     HttpService,
