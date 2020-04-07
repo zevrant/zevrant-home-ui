@@ -26,8 +26,8 @@
           <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
         </table>
         <br>
-        <mat-label *ngIf="filesTouched">File Name: {{files[0].name}}</mat-label>
-        <mat-label *ngIf="filesTouched">File Size: {{files[0].size}}</mat-label>
+        <mat-label *ngIf="filesTouched">File Name: {{files.name}}</mat-label>
+        <mat-label *ngIf="filesTouched">File Size: {{files.size}}</mat-label>
       </div>
     </div>
     <div>

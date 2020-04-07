@@ -14,7 +14,6 @@ import {TagService} from "../../../services/tag.service";
 export class PrintUploadComponent implements OnInit {
   private files: File;
   private fileData: ArrayBuffer;
-  private filesValid: boolean = false;
   private filesTouched: boolean = false;
   private coverPhotos: File;
   private photo;
