@@ -24,3 +24,5 @@ zevrant:
 context:
   initializer:
     classes: net.zevrant.services.security.common.secrets.management.services.EncryptedPropertyContextInitializer
+zuul:
+  ssl-hostname-validation-enabled: false
