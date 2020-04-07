@@ -12,7 +12,7 @@ export class ModelService {
 
   }
 
-  uploadModel(fileContents: ArrayBuffer, coverPhoto: ArrayBuffer, appliedTags: string[]): Promise<String> {
+  uploadModel(fileContents: ArrayBuffer, fileName: string, coverPhoto: ArrayBuffer, appliedTags: string[]): Promise<String> {
     let formData: FormData = new FormData();
     formData.append("file", new Blob([new Uint8Array(fileContents, 0, fileContents.byteLength)]), 'file');
     formData.append("coverPhoto", new Blob([new Uint8Array(coverPhoto, 0, fileContents.byteLength)]), 'coverPhoto');
@@ -22,7 +22,8 @@ export class ModelService {
     }
     tags = tags.substr(tags.length - 2);
     let headers = new HttpHeaders()
-    .append("tags", tags);
+        .append("tags", tags)
+        .append("fileName", fileName);
     return this.http.post(Constants.modelBaseUrl + "model", headers, formData);
   }
 }

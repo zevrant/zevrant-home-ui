@@ -35,8 +35,18 @@ export class PrintUploadComponent implements OnInit {
     return this.files && this.coverPhotos
   }
 
-  onSubmit() {
-    this.modelService.uploadModel(this.fileData, this.photo, this.appliedTags);
+  async onSubmit() {
+    this.modelService.uploadModel(this.fileData, this.files.name, this.photo, this.appliedTags).then((data) => {
+      this.files = null;
+      this.filesTouched = false;
+      this.coverPhotos = null;
+      this.photo = null;
+      this.snackBar.open("Upload Successful!")
+      new Promise( resolve => setTimeout(resolve, 6000) ).then(() => {
+        this.snackBar.dismiss();
+      });
+    });
+
   }
 
   fileUploadEvent($event) {
