@@ -42,11 +42,18 @@ export class PrintUploadComponent implements OnInit {
       this.coverPhotos = null;
       this.photo = null;
       this.snackBar.open("Upload Successful!")
-      new Promise( resolve => setTimeout(resolve, 6000) ).then(() => {
-        this.snackBar.dismiss();
-      });
+      this.dismiss();
+    }).catch((err: any) => {
+      this.snackBar.open(err.error.message);
+      this.dismiss();
     });
 
+  }
+
+  dismiss() {
+    new Promise( resolve => setTimeout(resolve, 10000) ).then(() => {
+      this.snackBar.dismiss();
+    });
   }
 
   fileUploadEvent($event) {
