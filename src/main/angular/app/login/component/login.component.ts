@@ -3,6 +3,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 import {LOCAL_STORAGE, WebStorageService} from "angular-webstorage-service";
 import {Router} from "@angular/router";
 import {LoginService} from "../../services/login.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   private subscription: any;
 
-  constructor(private loginService: LoginService, @Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router) {
+  constructor(private loginService: LoginService, @Inject(LOCAL_STORAGE) private storage: WebStorageService,
+              private router: Router, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -32,7 +34,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loginService.login(this.username.value, this.password.value);
+    this.loginService.login(this.username.value, this.password.value).catch((error: any) => {
+      this.snackBar.open(error.error.message);
+    });
 
   }
 
