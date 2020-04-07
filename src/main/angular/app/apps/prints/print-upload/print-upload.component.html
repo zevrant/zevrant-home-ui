@@ -1,17 +1,15 @@
 <mat-card>
   <div class="center" id="modelInput">
-    <div>
-      <mat-label>Model:</mat-label>
-      <button (click)="fileInput.click()" color="accent" mat-button>
-        <mat-icon>library_add</mat-icon>
-        <input #fileInput (change)="fileUploadEvent($event)" id="fileUploadInput"
-               style="display:none"
-               type="file">
+    <div class="center" id="tagsTable">
+      <form color="primary" [formGroup]="searchTagForm" (ngSubmit)="onSubmit()">
+        <mat-form-field color="primary">
+          <input matInput (change)="searchTag()" id="searchField" formControlName="tagSearch">
+        </mat-form-field>
+        <button (click)="addTag()" mat-button>
+          <mat-icon>library_add</mat-icon>
+        </button>
         <br>
-      </button>
-      <div class="center" id="tagsTable">
         <table [dataSource]="tags" class="mat-elevation-z8" mat-table>
-          <input (change)="searchTag()" id="searchField" mat-input>
           <ng-container matColumnDef="tag">
             <th *matHeaderCellDef mat-header-cell>Tag</th>
             <td *matCellDef="let tag" mat-cell> {{tag.tag}} </td>
@@ -25,10 +23,23 @@
           <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
           <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
         </table>
-        <br>
+      </form>
+
+    </div>
+    <div>
+      <mat-label>Model:</mat-label>
+      <button (click)="fileInput.click()" color="accent" mat-button>
+        <mat-icon>library_add</mat-icon>
+        <input #fileInput (change)="fileUploadEvent($event)" id="fileUploadInput"
+               style="display:none"
+               type="file">
+      </button>
+      <div>
         <mat-label *ngIf="filesTouched">File Name: {{files.name}}</mat-label>
-        <mat-label *ngIf="filesTouched">File Size: {{files.size}}</mat-label>
+        <br>
+        <mat-label *ngIf="filesTouched">File Size: {{fileSize}} Mb</mat-label>
       </div>
+
     </div>
     <div>
       <mat-label>Cover Photo:</mat-label>

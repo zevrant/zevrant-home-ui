@@ -12,7 +12,11 @@ export class TagService {
   }
 
   async searchTag(tag: string) {
-    return await this.http.get(Constants.modelBaseUrl + `tag/${tag}/1/5`, null);
+    return await this.http.get(Constants.modelBaseUrl + `tags/0/5/${tag}`, null);
+  }
+
+  uploadTag(tag: string) {
+    return this.http.post(Constants.modelBaseUrl + 'tags', null, {tags: [tag]})
   }
 
 }
