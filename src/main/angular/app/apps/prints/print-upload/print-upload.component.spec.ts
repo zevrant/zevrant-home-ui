@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PrintUploadComponent } from './print-upload.component';
+import {PrintUploadComponent} from './print-upload.component';
 
 describe('PrintUploadComponent', () => {
   let component: PrintUploadComponent;

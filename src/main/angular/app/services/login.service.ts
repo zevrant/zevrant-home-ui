@@ -25,7 +25,6 @@ export class LoginService {
     this.http.post(Constants.oauthBaseUrl + "token", null, {headers: headers}).toPromise().then((data) => {
       let response: any = JSON.parse(JSON.stringify(data));
       this.storage.set(Constants.oauthTokenName, response.accessToken);
-      console.log("here");
       this.loginEmitter.emit("loggedIn");
     });
 

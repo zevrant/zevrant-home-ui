@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
-import {Constants} from "../constants/Constants";
 import {regexValidator} from "../directives/regex-validator.directive";
 import {Router} from "@angular/router";
 
@@ -38,8 +37,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registerForm.get("password"))
-    console.log(this.registerForm);
     let message = {
       "username": this.registerForm.get("username").value,
       "password": this.registerForm.get("password").value,

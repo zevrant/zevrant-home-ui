@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CameraViewComponent } from './camera-view.component';
+import {CameraViewComponent} from './camera-view.component';
 
 describe('CameraViewComponent', () => {
   let component: CameraViewComponent;

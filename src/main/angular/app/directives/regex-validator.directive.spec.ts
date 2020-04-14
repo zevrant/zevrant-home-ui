@@ -1,4 +1,4 @@
-import { RegexValidatorDirective } from './regex-validator.directive';
+import {RegexValidatorDirective} from './regex-validator.directive';
 
 describe('RegexValidatorDirective', () => {
   it('should create an instance', () => {

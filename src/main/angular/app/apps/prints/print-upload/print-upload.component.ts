@@ -5,7 +5,7 @@ import {HttpService} from "../../../services/http.service";
 import {Constants} from "../../../constants/Constants";
 import {ModelService} from "../../../services/model.service";
 import {TagService} from "../../../services/tag.service";
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-print-upload',
@@ -78,7 +78,6 @@ export class PrintUploadComponent implements OnInit, OnChanges {
 
   fileCoverPhotoUploadEvent($event) {
     this.coverPhotos = <File>$event.target.files[0];
-    console.log(this.coverPhotos);
     const reader: FileReader = new FileReader();
     reader.readAsDataURL(this.coverPhotos);
     reader.onload = (event) => {
@@ -89,7 +88,6 @@ export class PrintUploadComponent implements OnInit, OnChanges {
   async getTags(page: number, pageSize: number) {
     let tags = await this.http.get(Constants.modelBaseUrl + `tags/${page}/${pageSize}`, null);
     this.tags = tags.tags;
-    console.log(this.tags);
   }
 
   applyTag(tag: string) {
@@ -102,7 +100,8 @@ export class PrintUploadComponent implements OnInit, OnChanges {
   }
 
   async searchTag() {
-    this.tags = await this.tagService.searchTag(this.tagSearch.value);
+    let temp: any =  await this.tagService.searchTag(this.tagSearch.value);
+    this.tags =temp.tags;
   }
 
   get tagSearch(): AbstractControl {

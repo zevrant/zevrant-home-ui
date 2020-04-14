@@ -30,7 +30,6 @@ export class NavBarComponent implements OnInit {
     this.subcription = this.loginService.getLoginEmitter().subscribe((event) => {
       let headers: HttpHeaders = new HttpHeaders().set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
       this.http.get(Constants.oauthBaseUrl + "user/username", headers).then((data) => {
-        console.log(data);
         this.username = JSON.parse(JSON.stringify(data)).username;
         this.storage.set(Constants.username, this.username);
       });

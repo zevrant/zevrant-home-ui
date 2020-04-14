@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import {Constants} from "../constants/Constants";
 import {HttpHeaders} from "@angular/common/http";
+import {ModelResponse} from "../rest/response/ModelResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,14 @@ export class ModelService {
     let headers = new HttpHeaders()
         .append("tags", tags)
         .append("fileName", fileName);
-    return this.http.post(Constants.modelBaseUrl + "model", headers, formData);
+    return this.http.post(Constants.modelBaseUrl + "models", headers, formData);
+  }
+
+  searchModel(fileName: string, tags: Array<string>, modelSearchField: string, ascending: boolean, page: number, pageSize: number): Promise<ModelResponse> {
+    let headers = new HttpHeaders()
+      .set("tags", tags)
+      .set("modelSearchField", modelSearchField)
+      .set("ascending", JSON.stringify(ascending));
+    return this.http.get(Constants.modelBaseUrl + `models/${fileName}/${page}/${pageSize}`, headers);
   }
 }

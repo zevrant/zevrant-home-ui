@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+import {Directive} from '@angular/core';
 import {AbstractControl, ValidatorFn} from "@angular/forms";
 
 @Directive({

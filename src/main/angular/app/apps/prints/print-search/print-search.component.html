@@ -1,2 +1,27 @@
 <mat-card>
+  <form color="primary" [formGroup]="searchModelForm">
+    <input matInput formControlName="modelSearch" color="primary"/>
+    <input matInput formControlName="tagSearch" color="primary"/>
+    <mat-paginator
+      [length]="totalRows"
+      [pageIndex]="0"
+      [pageSize]="20"
+      [pageSizeOptions]="[5, 10, 25, 50, 100]">
+    </mat-paginator>
+    <mat-accordion displayMode="flat" multi class="mat-table">
+      <section matSort class="mat-elevation-z2 mat-header-row">
+        <th class="mat-header-cell" mat-sort-header="Model">Model</th>
+        <th class="mat-header-cell" mat-sort-header="Tags">Tags</th>
+      </section>
+      <mat-expansion-panel *ngFor="let model of searchData">
+        <mat-expansion-panel-header class="mat-row">
+          <span class="mat-cell">{{model.fileName}}</span>
+          <span class="mat-cell">{{model.tags}}</span>
+        </mat-expansion-panel-header>
+        <button mat-button (click)="download()" color="accent">
+          <mat-icon>cloud_download</mat-icon>
+        </button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
 </mat-card>

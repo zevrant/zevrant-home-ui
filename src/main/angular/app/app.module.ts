@@ -33,6 +33,9 @@ import {LazyLoadImageModule} from 'ng-lazyload-image';
 import {ModelService} from "./services/model.service";
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -47,29 +50,32 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     PrintSearchComponent,
     PrintUploadComponent
   ],
-    imports: [
-        BrowserModule.withServerTransition({appId: 'serverApp'}),
-        AppRoutingModule,
-        MatTableModule,
-        MatCheckboxModule,
-        BrowserAnimationsModule,
-        MatMenuModule,
-        MatSliderModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatToolbarModule,
-        StorageServiceModule,
-        HttpClientModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatTabsModule,
-        MatIconModule,
-        LazyLoadImageModule,
-        MatTooltipModule
-    ],
+  imports: [
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
+    AppRoutingModule,
+    MatTableModule,
+    MatCheckboxModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatSliderModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    StorageServiceModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatTabsModule,
+    MatIconModule,
+    LazyLoadImageModule,
+    MatTooltipModule,
+    MatExpansionModule,
+    MatPaginatorModule,
+    MatSortModule
+  ],
   providers: [
     LoginService,
     HttpService,
