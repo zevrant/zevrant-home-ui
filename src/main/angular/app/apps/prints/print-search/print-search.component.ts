@@ -65,6 +65,7 @@ export class PrintSearchComponent implements OnInit {
     let element = document.getElementById("test");
     element.setAttribute('href', `http://localhost:7644/zevrant-home-ui/zuul/zevrant-model-service/models/${currentModel.fileName}.zip`);
     element.setAttribute('download', currentModel.fileName + ".zip");
+    element.setAttribute("type", "application/octet-stream");
     element.click()
   }
 }
