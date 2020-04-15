@@ -68,7 +68,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
   fileUploadEvent($event) {
     this.files = $event.target.files[0];
     const reader: FileReader = new FileReader();
-    reader.readAsDataURL(this.files);
+    reader.readAsArrayBuffer(this.files);
     reader.onload = (event) => {
       this.fileData = <ArrayBuffer>reader.result;
     };

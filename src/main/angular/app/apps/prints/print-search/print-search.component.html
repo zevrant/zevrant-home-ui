@@ -13,7 +13,7 @@
         <th class="mat-header-cell" mat-sort-header="Model">Model</th>
         <th class="mat-header-cell" mat-sort-header="Tags">Tags</th>
       </section>
-      <mat-expansion-panel *ngFor="let model of searchData">
+      <mat-expansion-panel (click)="getRecord(model)" *ngFor="let model of searchData">
         <mat-expansion-panel-header class="mat-row">
           <span class="mat-cell">{{model.fileName}}</span>
           <span class="mat-cell">{{model.tags}}</span>

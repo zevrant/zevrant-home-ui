@@ -17,12 +17,12 @@ export class LoginService {
     return this.loginEmitter;
   }
 
-  async login(username: string, password: string) {
+  login(username: string, password: string): Promise<any> {
 
     let headers = new HttpHeaders().set("client_id", username);
     headers = headers.set("client_secret", password);
 
-    this.http.post(Constants.oauthBaseUrl + "token", null, {headers: headers}).toPromise().then((data) => {
+    return this.http.post(Constants.oauthBaseUrl + "token", null, {headers: headers}).toPromise().then((data) => {
       let response: any = JSON.parse(JSON.stringify(data));
       this.storage.set(Constants.oauthTokenName, response.accessToken);
       this.loginEmitter.emit("loggedIn");

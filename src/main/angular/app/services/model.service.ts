@@ -13,10 +13,10 @@ export class ModelService {
 
   }
 
-  uploadModel(fileContents: ArrayBuffer, fileName: string, coverPhoto: ArrayBuffer, appliedTags: string[]): Promise<String> {
+  uploadModel(fileContents: any, fileName: string, coverPhoto: any, appliedTags: string[]): Promise<String> {
     let formData: FormData = new FormData();
-    formData.append("file", new Blob([new Uint8Array(fileContents, 0, fileContents.byteLength)]), 'file');
-    formData.append("coverPhoto", new Blob([new Uint8Array(coverPhoto, 0, fileContents.byteLength)]), 'coverPhoto');
+    formData.append("file", fileContents);
+    formData.append("coverPhoto", coverPhoto);
     let tags: string = "";
     for (let element of appliedTags) {
       tags += element.concat(",");
@@ -34,5 +34,9 @@ export class ModelService {
       .set("modelSearchField", modelSearchField)
       .set("ascending", JSON.stringify(ascending));
     return this.http.get(Constants.modelBaseUrl + `models/${fileName}/${page}/${pageSize}`, headers);
+  }
+
+  downloadModel(fileName: string): Promise<any> {
+    return this.http.get(Constants.modelBaseUrl + `models/${fileName}`, null);
   }
 }

@@ -19,7 +19,6 @@ export class NavBarComponent implements OnInit {
   private username: string;
   private subcription: any;
 
-  // private isLoggedIn: string = "/oauth/"
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private http: HttpService,
               private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService) {
     this.baseUrl = Constants.baseUrl;

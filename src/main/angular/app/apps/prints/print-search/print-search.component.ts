@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {ModelService} from "../../../services/model.service";
 import {Model} from "../../../rest/response/Model";
-import {of} from "rxjs";
-import {map} from "rxjs/operators";
+import {FileSaverService} from "ngx-filesaver";
 
 class ModelSearchField {
   public static MODEL_NAME: string = "MODEL_NAME";
@@ -22,8 +21,9 @@ export class PrintSearchComponent implements OnInit {
     modelSearch: new FormControl(this.modelSearch, []),
     tagSearch: new FormControl(this.tagSearch, [])
   });
-  displayedColumns: Array<string> = ["Model", "Tags"];
-  constructor(private modelService: ModelService) { }
+  private currentModel: any;
+  private displayedColumns: Array<string> = ["Model", "Tags"];
+  constructor(private modelService: ModelService, private fileSaver: FileSaverService) { }
 
   ngOnInit() {
     this.searchModel()
@@ -56,7 +56,7 @@ export class PrintSearchComponent implements OnInit {
       .then((data) => {
       data.models.forEach((model) => {
         let fileName = model.fileName.split("/");
-        model.fileName =  fileName[fileName.length - 1];
+        model.fileName =  fileName[fileName.length - 1].split(".")[0];
       });
       this.searchData = data.models;
       this.totalRows = data.models.length;
@@ -65,10 +65,14 @@ export class PrintSearchComponent implements OnInit {
   }
 
   getRecord(row: any) {
-    console.log(row)
+    console.log(row);
+    this.currentModel = row;
   }
 
   download() {
-
+    this.modelService.downloadModel(this.currentModel.fileName + ".zip").then((data) => {
+      const blob = new Blob([data], { type: 'application/octet-stream' });
+      this.fileSaver.save(blob, this.currentModel.fileName);
+    })
   }
 }
