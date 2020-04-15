@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  private registerForm: FormGroup = new FormGroup({
+  registerForm: FormGroup = new FormGroup({
     username: new FormControl(this.username, [
       Validators.required,
       Validators.minLength(3),

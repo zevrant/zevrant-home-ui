@@ -1,15 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import {Constants} from "../constants/Constants";
-import {HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ModelResponse} from "../rest/response/ModelResponse";
+import {LocalStorageService} from "angular-web-storage";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModelService {
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpService, private httpClient: HttpClient, private storage: LocalStorageService) {
 
   }
 
@@ -36,7 +38,8 @@ export class ModelService {
     return this.http.get(Constants.modelBaseUrl + `models/${fileName}/${page}/${pageSize}`, headers);
   }
 
-  downloadModel(fileName: string): Promise<any> {
-    return this.http.get(Constants.modelBaseUrl + `models/${fileName}`, null);
+  async downloadModel(fileName: string): Promise<any> {
+    let headers = new HttpHeaders().set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
+    return this.httpClient.head(Constants.modelBaseUrl + `models/${fileName}`,{headers: headers}).toPromise();
   }
 }

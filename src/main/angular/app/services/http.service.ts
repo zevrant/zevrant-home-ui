@@ -1,14 +1,14 @@
 import {Inject, Injectable} from "@angular/core";
-import {LOCAL_STORAGE, WebStorageService} from "angular-webstorage-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Constants} from "../constants/Constants";
+import {LocalStorageService} from "angular-web-storage";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
-  constructor(private http: HttpClient, @Inject(LOCAL_STORAGE) private storage: WebStorageService) {
+  constructor(private http: HttpClient, private storage: LocalStorageService) {
   }
 
   get(url: string, headers: HttpHeaders): Promise<any> {

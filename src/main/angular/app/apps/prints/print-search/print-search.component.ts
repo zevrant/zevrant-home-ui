@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {ModelService} from "../../../services/model.service";
 import {Model} from "../../../rest/response/Model";
-import {FileSaverService} from "ngx-filesaver";
 
 class ModelSearchField {
   public static MODEL_NAME: string = "MODEL_NAME";
@@ -15,15 +14,13 @@ class ModelSearchField {
   styleUrls: ['./print-search.component.css']
 })
 export class PrintSearchComponent implements OnInit {
-  private searchData: Array<Model>;
-  private totalRows: number;
-  private searchModelForm: FormGroup = new FormGroup({
+  searchData: Array<Model>;
+  totalRows: number;
+  searchModelForm: FormGroup = new FormGroup({
     modelSearch: new FormControl(this.modelSearch, []),
     tagSearch: new FormControl(this.tagSearch, [])
   });
-  private currentModel: any;
-  private displayedColumns: Array<string> = ["Model", "Tags"];
-  constructor(private modelService: ModelService, private fileSaver: FileSaverService) { }
+  constructor(private modelService: ModelService) { }
 
   ngOnInit() {
     this.searchModel()
@@ -64,15 +61,10 @@ export class PrintSearchComponent implements OnInit {
     })
   }
 
-  getRecord(row: any) {
-    console.log(row);
-    this.currentModel = row;
-  }
-
-  download() {
-    this.modelService.downloadModel(this.currentModel.fileName + ".zip").then((data) => {
-      const blob = new Blob([data], { type: 'application/octet-stream' });
-      this.fileSaver.save(blob, this.currentModel.fileName);
-    })
+  async download(currentModel) {
+    let element = document.getElementById("test");
+    element.setAttribute('href', `http://localhost:7644/zevrant-home-ui/zuul/zevrant-model-service/models/${currentModel.fileName}.zip`);
+    element.setAttribute('download', currentModel.fileName + ".zip");
+    element.click()
   }
 }

@@ -18,7 +18,7 @@
             "main": "src/main/angular/main.ts",
             "polyfills": "src/main/angular/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/main/angular/favicon.ico",
               "src/main/angular/assets"
@@ -42,7 +42,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -137,15 +136,15 @@
                 }
               ],
               "sourceMap": false,
-              "optimization": {
-                "scripts": false,
-                "styles": true
-              }
+              "optimization": true
             }
           }
         }
       }
     }
   },
-  "defaultProject": "zevrant-home-ui"
+  "defaultProject": "zevrant-home-ui",
+  "cli": {
+    "analytics": "821f8501-49c5-4189-9950-14079cad4676"
+  }
 }

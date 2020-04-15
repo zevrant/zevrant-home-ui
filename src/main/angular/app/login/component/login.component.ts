@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {LOCAL_STORAGE, WebStorageService} from "angular-webstorage-service";
 import {Router} from "@angular/router";
 import {LoginService} from "../../services/login.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {LocalStorageService} from "angular-web-storage";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class LoginComponent implements OnInit {
 
-  private loginForm: FormGroup = new FormGroup({
+  loginForm: FormGroup = new FormGroup({
     username: new FormControl(this.username, [
       Validators.required,
     ]),
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   private subscription: any;
 
-  constructor(private loginService: LoginService, @Inject(LOCAL_STORAGE) private storage: WebStorageService,
+  constructor(private loginService: LoginService, private storage: LocalStorageService,
               private router: Router, private snackBar: MatSnackBar) {
   }
 

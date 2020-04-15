@@ -27,7 +27,8 @@ import {PrintUploadComponent} from "./apps/prints/print-upload/print-upload.comp
 import {LoginService} from "./services/login.service";
 import {PrintService} from "./services/print.service";
 import {HttpService} from "./services/http.service";
-import {MatIconModule, MatTableModule} from "@angular/material"
+import { MatIconModule } from "@angular/material/icon";
+import { MatTableModule } from "@angular/material/table";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
 import {ModelService} from "./services/model.service";
@@ -61,7 +62,6 @@ import {MatSortModule} from "@angular/material/sort";
     MatButtonModule,
     MatSnackBarModule,
     MatToolbarModule,
-    StorageServiceModule,
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule,

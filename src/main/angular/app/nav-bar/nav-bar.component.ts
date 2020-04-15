@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 import {Constants} from "../constants/Constants";
 import {HttpHeaders} from "@angular/common/http";
@@ -7,6 +6,7 @@ import {PlatformLocation} from "@angular/common";
 import {Router} from "@angular/router";
 import {LoginService} from "../services/login.service";
 import {HttpService} from "../services/http.service";
+import {LocalStorageService} from "angular-web-storage";
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,10 +16,10 @@ import {HttpService} from "../services/http.service";
 export class NavBarComponent implements OnInit {
 
   private baseUrl: string;
-  private username: string;
+  username: string;
   private subcription: any;
 
-  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private http: HttpService,
+  constructor(private storage: LocalStorageService, private http: HttpService,
               private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService) {
     this.baseUrl = Constants.baseUrl;
     this.username = (this.storage.get(Constants.username)) ? this.storage.get("username") : "Login";

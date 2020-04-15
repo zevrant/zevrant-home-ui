@@ -1,7 +1,7 @@
-import {EventEmitter, Inject, Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Constants} from "../constants/Constants";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {LOCAL_STORAGE, WebStorageService} from "angular-webstorage-service";
+import {LocalStorageService} from "angular-web-storage";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class LoginService {
 
   private loginEmitter: EventEmitter<string> = new EventEmitter<string>()
 
-  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private http: HttpClient) {
+  constructor(private local: LocalStorageService, private http: HttpClient) {
   }
 
   getLoginEmitter(): EventEmitter<String> {
@@ -24,7 +24,7 @@ export class LoginService {
 
     return this.http.post(Constants.oauthBaseUrl + "token", null, {headers: headers}).toPromise().then((data) => {
       let response: any = JSON.parse(JSON.stringify(data));
-      this.storage.set(Constants.oauthTokenName, response.accessToken);
+      this.local.set(Constants.oauthTokenName, response.accessToken);
       this.loginEmitter.emit("loggedIn");
     });
 

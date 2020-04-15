@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {PrintService} from "../../../services/print.service";
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {HttpService} from "../../../services/http.service";
 import {Constants} from "../../../constants/Constants";
 import {ModelService} from "../../../services/model.service";
@@ -13,16 +13,16 @@ import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./print-upload.component.css']
 })
 export class PrintUploadComponent implements OnInit, OnChanges {
-  private files: File;
-  private fileSize;
+  files: File;
+  fileSize;
   private fileData: ArrayBuffer;
-  private filesTouched: boolean = false;
+  filesTouched: boolean = false;
   private coverPhotos: File;
-  private photo;
-  private tags;
-  private displayedColumns: string[] = ["tag", "checkbox"];
+  photo;
+  tags;
+  displayedColumns: string[] = ["tag", "checkbox"];
   private appliedTags: string[] = [];
-  private searchTagForm: FormGroup = new FormGroup({
+  searchTagForm: FormGroup = new FormGroup({
     tagSearch: new FormControl(this.tagSearch, [
     ])
   });
