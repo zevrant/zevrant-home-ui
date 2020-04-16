@@ -19,6 +19,14 @@ export class HttpService {
     return this.http.get(url, {headers: headers}).toPromise();
   }
 
+  getBlob(url: string, headers: HttpHeaders) {
+    if (!headers) {
+      headers = new HttpHeaders()
+    }
+    headers = headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
+    return this.http.get(url, {headers: headers, responseType: "arraybuffer"}).toPromise();
+  }
+
   post(url: string, headers: HttpHeaders, body: any): Promise<any> {
     if (!headers) {
       headers = new HttpHeaders()

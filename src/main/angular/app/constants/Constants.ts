@@ -6,6 +6,10 @@ export class Constants {
     return "LOCAL_STORAGE_TOKEN";
   }
 
+  public static get expiresInName(): string {
+    return "EXPIRES_IN";
+  }
+
   public static get oauthBaseUrl(): string {
     return "zevrant-oauth2-service/";
   }

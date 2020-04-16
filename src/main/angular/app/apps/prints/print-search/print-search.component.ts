@@ -61,7 +61,17 @@ export class PrintSearchComponent implements OnInit {
     })
   }
 
-  async download(currentModel) {
+  async getCoverPhoto(model: Model) {
+    if(model.coverPhoto === null) {
+      let blob: ArrayBuffer = await this.modelService.getCoverPhoto(model.fileName + ".zip");
+      let array = new Uint8Array(blob);
+      const STRING_CHAR = String.fromCharCode.apply(null, array);
+
+      model.coverPhoto = STRING_CHAR;
+    }
+  }
+
+  async download(currentModel: Model) {
     let element = document.getElementById("test");
     element.setAttribute('href', `http://localhost:7644/zevrant-home-ui/zuul/zevrant-model-service/models/${currentModel.fileName}.zip`);
     element.setAttribute('download', currentModel.fileName + ".zip");

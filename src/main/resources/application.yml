@@ -10,6 +10,7 @@ server:
   servlet:
     context-path: /${spring.application.name}
   port: 7644
+  max-http-header-size: 99999999999
 
 eureka:
   instance:

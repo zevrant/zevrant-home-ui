@@ -17,16 +17,17 @@ export class ModelService {
 
   uploadModel(fileContents: any, fileName: string, coverPhoto: any, appliedTags: string[]): Promise<String> {
     let formData: FormData = new FormData();
-    formData.append("file", fileContents);
-    formData.append("coverPhoto", coverPhoto);
+    formData.append("file", new Blob([fileContents]), 'file');
+    formData.append("coverPhoto", new Blob([coverPhoto]), 'coverPhoto');
     let tags: string = "";
+
     for (let element of appliedTags) {
       tags += element.concat(",");
     }
-    tags = tags.substr(tags.length - 2);
+    tags = tags.substr(0, tags.length - 2);
     let headers = new HttpHeaders()
-        .append("tags", tags)
-        .append("fileName", fileName);
+      .append("tags", tags)
+      .append("fileName", fileName);
     return this.http.post(Constants.modelBaseUrl + "models", headers, formData);
   }
 
@@ -38,8 +39,9 @@ export class ModelService {
     return this.http.get(Constants.modelBaseUrl + `models/${fileName}/${page}/${pageSize}`, headers);
   }
 
-  async downloadModel(fileName: string): Promise<any> {
-    let headers = new HttpHeaders().set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
-    return this.httpClient.head(Constants.modelBaseUrl + `models/${fileName}`,{headers: headers}).toPromise();
+  async getCoverPhoto(fileName: String) {
+    let headers: HttpHeaders = new HttpHeaders().set("Content-Type", "image/jpeg");
+    return await this.http.getBlob(`${Constants.modelBaseUrl}models/coverphoto/${fileName}`, headers);
   }
+
 }

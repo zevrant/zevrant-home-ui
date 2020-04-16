@@ -1,7 +1,7 @@
 <mat-card>
   <div class="center" id="modelInput">
     <div class="center" id="tagsTable">
-      <form color="primary" [formGroup]="searchTagForm" (ngSubmit)="onSubmit()">
+      <form color="primary" [formGroup]="searchTagForm">
         <mat-form-field color="primary">
           <input matInput (keyup)="searchTag()" color="primary" id="searchField" placeholder="search tags" formControlName="tagSearch">
         </mat-form-field>
@@ -53,7 +53,7 @@
         <img [height]="400" [src]="photo" [width]="500" id="photo-id"/>
       </div>
     </div>
-    <button (click)="onSubmit()" class="right" color="primary" mat-button>Submit</button>
+    <button (click)="submit()" class="right" color="primary" mat-button>Submit</button>
   </div>
 </mat-card>
 

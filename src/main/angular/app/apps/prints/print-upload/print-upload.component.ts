@@ -43,7 +43,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
     return this.files && this.coverPhotos
   }
 
-  async onSubmit() {
+  submit() {
     this.modelService.uploadModel(this.fileData, this.files.name, this.photo, this.appliedTags).then((data) => {
       this.files = null;
       this.filesTouched = false;

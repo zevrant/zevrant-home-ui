@@ -1,7 +1,7 @@
 
 export class Model {
 
-  constructor(private _fileName: string, private _coverPhoto: ArrayBuffer, private _tags: Array<string>) {
+  constructor(private _fileName: string, private _coverPhoto: any, private _tags: Array<string>) {
   }
 
 
@@ -13,11 +13,11 @@ export class Model {
     this._fileName = value;
   }
 
-  get coverPhoto(): ArrayBuffer {
+  get coverPhoto(): any {
     return this._coverPhoto;
   }
 
-  set coverPhoto(value: ArrayBuffer) {
+  set coverPhoto(value: any) {
     this._coverPhoto = value;
   }
 
