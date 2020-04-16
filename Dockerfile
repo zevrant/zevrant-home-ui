@@ -24,4 +24,4 @@ CMD mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials\
  && IP=$(ifconfig eth1 | grep "inet ")\
  && export IP_ADDRESS=$(echo $IP | cut -d' ' -f2)\
  && echo $IP_ADDRESS \
- && java -Xmx4G -jar -Dspring.profiles.active=prod -Deureka.instance.hostname=$IP_ADDRESS /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
+ && java -Xmx6G -jar -Dspring.profiles.active=prod -Deureka.instance.hostname=$IP_ADDRESS /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
