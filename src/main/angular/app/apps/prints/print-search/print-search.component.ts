@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {ModelService} from "../../../services/model.service";
 import {Model} from "../../../rest/response/Model";
+import {MatPaginator} from "@angular/material/paginator";
 
 class ModelSearchField {
   public static MODEL_NAME: string = "MODEL_NAME";
@@ -13,9 +14,11 @@ class ModelSearchField {
   templateUrl: './print-search.component.html',
   styleUrls: ['./print-search.component.css']
 })
-export class PrintSearchComponent implements OnInit {
+export class PrintSearchComponent implements OnInit, AfterViewInit {
   searchData: Array<Model>;
   totalRows: number;
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
   searchModelForm: FormGroup = new FormGroup({
     modelSearch: new FormControl(this.modelSearch, []),
     tagSearch: new FormControl(this.tagSearch, [])
@@ -23,7 +26,14 @@ export class PrintSearchComponent implements OnInit {
   constructor(private modelService: ModelService) { }
 
   ngOnInit() {
-    this.searchModel()
+    this.searchModel(0, 20)
+  }
+
+  ngAfterViewInit(): void {
+    this.paginator.page.subscribe(() => {
+
+      this.modelService.searchModel(this.modelSearch.value,  [], ModelSearchField.MODEL_NAME, true, this.paginator.pageIndex, this.paginator.pageSize);
+    })
   }
 
   get tagSearch(): AbstractControl {
@@ -40,7 +50,7 @@ export class PrintSearchComponent implements OnInit {
     return null;
   }
 
-  searchModel() {
+  searchModel(page: number, pageSize: number) {
     let array = new Array<string>();
     JSON.stringify(this.tagSearch.value).split(",").forEach((tag) => {
       if(tag !== "null") {
@@ -49,7 +59,7 @@ export class PrintSearchComponent implements OnInit {
         array.push("");
       }
     });
-    this.modelService.searchModel(this.modelSearch.value, array, ModelSearchField.MODEL_NAME,  true, 0, 20)
+    this.modelService.searchModel(this.modelSearch.value, array, ModelSearchField.MODEL_NAME,  true, page, pageSize)
       .then((data) => {
       data.models.forEach((model) => {
         let fileName = model.fileName.split("/");
@@ -78,4 +88,6 @@ export class PrintSearchComponent implements OnInit {
     element.setAttribute("type", "application/octet-stream");
     element.click()
   }
+
+
 }
