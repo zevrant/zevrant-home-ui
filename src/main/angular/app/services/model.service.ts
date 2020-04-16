@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import {Constants} from "../constants/Constants";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -10,6 +10,9 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ModelService {
+
+  public uploadEmitter: EventEmitter<string> = new EventEmitter<string>();
+
 
   constructor(private http: HttpService, private httpClient: HttpClient, private storage: LocalStorageService) {
 
@@ -24,11 +27,13 @@ export class ModelService {
     for (let element of appliedTags) {
       tags += element.concat(",");
     }
-    tags = tags.substr(0, tags.length - 2);
+    tags = tags.substr(0, tags.length - 1);
     let headers = new HttpHeaders()
       .append("tags", tags)
       .append("fileName", fileName);
-    return this.http.post(Constants.modelBaseUrl + "models", headers, formData);
+    let response = this.http.post(Constants.modelBaseUrl + "models", headers, formData);
+    this.uploadEmitter.emit("uploaded");
+    return response;
   }
 
   searchModel(fileName: string, tags: Array<string>, modelSearchField: string, ascending: boolean, page: number, pageSize: number): Promise<ModelResponse> {

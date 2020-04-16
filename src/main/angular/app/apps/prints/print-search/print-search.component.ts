@@ -30,10 +30,12 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.paginator.page.subscribe(() => {
+    this.paginator.page.subscribe(this.paginatorSearch());
+    this.modelService.uploadEmitter.subscribe(this.paginatorSearch())
+  }
 
-      this.modelService.searchModel(this.modelSearch.value,  [], ModelSearchField.MODEL_NAME, true, this.paginator.pageIndex, this.paginator.pageSize);
-    })
+  paginatorSearch() {
+    this.modelService.searchModel(this.modelSearch.value,  [], ModelSearchField.MODEL_NAME, true, this.paginator.pageIndex, this.paginator.pageSize);
   }
 
   get tagSearch(): AbstractControl {

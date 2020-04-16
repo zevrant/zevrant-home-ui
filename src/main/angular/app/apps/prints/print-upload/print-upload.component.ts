@@ -6,6 +6,7 @@ import {Constants} from "../../../constants/Constants";
 import {ModelService} from "../../../services/model.service";
 import {TagService} from "../../../services/tag.service";
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-print-upload',
@@ -14,7 +15,9 @@ import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 })
 export class PrintUploadComponent implements OnInit, OnChanges {
   files: File;
+  private loadingSubject = new BehaviorSubject<boolean>(false);
   fileSize;
+  isLoading: Observable<boolean> = this.loadingSubject.asObservable();
   private fileData: ArrayBuffer;
   filesTouched: boolean = false;
   private coverPhotos: File;
@@ -44,6 +47,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
   }
 
   submit() {
+    this.loadingSubject.next(true);
     this.modelService.uploadModel(this.fileData, this.files.name, this.photo, this.appliedTags).then((data) => {
       this.files = null;
       this.filesTouched = false;
@@ -55,6 +59,8 @@ export class PrintUploadComponent implements OnInit, OnChanges {
     }).catch((err: any) => {
       this.snackBar.open(err.error.message);
       this.dismiss();
+    }).finally(()=>{
+      this.loadingSubject.next(false);
     });
 
   }

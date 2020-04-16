@@ -1,4 +1,7 @@
 <mat-card>
+  <div class="spinner" *ngIf="isLoading | async">
+    <mat-spinner></mat-spinner>
+  </div>
   <div class="center" id="modelInput">
     <div class="center" id="tagsTable">
       <form color="primary" [formGroup]="searchTagForm">

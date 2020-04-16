@@ -37,6 +37,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -51,31 +52,32 @@ import {MatSortModule} from "@angular/material/sort";
     PrintSearchComponent,
     PrintUploadComponent
   ],
-  imports: [
-    BrowserModule.withServerTransition({appId: 'serverApp'}),
-    AppRoutingModule,
-    MatTableModule,
-    MatCheckboxModule,
-    BrowserAnimationsModule,
-    MatMenuModule,
-    MatSliderModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatToolbarModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatTabsModule,
-    MatIconModule,
-    LazyLoadImageModule,
-    MatTooltipModule,
-    MatExpansionModule,
-    MatPaginatorModule,
-    MatSortModule
-  ],
+    imports: [
+        BrowserModule.withServerTransition({appId: 'serverApp'}),
+        AppRoutingModule,
+        MatTableModule,
+        MatCheckboxModule,
+        BrowserAnimationsModule,
+        MatMenuModule,
+        MatSliderModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatToolbarModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatTabsModule,
+        MatIconModule,
+        LazyLoadImageModule,
+        MatTooltipModule,
+        MatExpansionModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressSpinnerModule
+    ],
   providers: [
     LoginService,
     HttpService,

@@ -22,3 +22,11 @@ div {
 .down {
   padding-top: 1.6%;
 }
+
+.spinner {
+  margin-left: 45%;
+  padding-top: 10%;
+  height: 500px;
+  width: 500px;
+  position: fixed;
+}
