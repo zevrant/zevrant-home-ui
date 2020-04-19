@@ -7,6 +7,9 @@
       [pageIndex]="0"
       [pageSize]="20"
       [pageSizeOptions]="[5, 10, 25, 50, 100]">
+      <button mat-button (click)="paginatorSearch()">
+        <mat-icon>refresh</mat-icon>
+      </button>
     </mat-paginator>
     <mat-accordion displayMode="flat" multi class="mat-table">
       <section matSort class="mat-elevation-z2 mat-header-row">
