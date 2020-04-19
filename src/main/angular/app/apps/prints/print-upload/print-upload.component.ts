@@ -7,6 +7,7 @@ import {ModelService} from "../../../services/model.service";
 import {TagService} from "../../../services/tag.service";
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {BehaviorSubject, Observable} from "rxjs";
+import {PrintsComponent} from "../prints.component";
 
 @Component({
   selector: 'app-print-upload',
@@ -31,7 +32,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
   });
 
   constructor(private http: HttpService, private printService: PrintService, private snackBar: MatSnackBar,
-              private modelService: ModelService, private tagService: TagService) {
+              private modelService: ModelService, private tagService: TagService, private printsComponent: PrintsComponent) {
     this.getTags(0, 5);
   }
 
@@ -56,6 +57,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
       this.fileSize = null;
       this.snackBar.open("Upload Successful!")
       this.dismiss();
+      this.printsComponent.printUploadEvent.emit("uploaded");
     }).catch((err: any) => {
       this.snackBar.open(err.error.message);
       this.dismiss();

@@ -26,7 +26,7 @@ export class Constants {
     if (environment.production) {
       return "https://zevrant-services.com:7644/zevrant-home-ui/"
     } else {
-      return "http://localhost:7644/"
+      return "http://localhost:7644/zevrant-home-ui/"
     }
   }
 }

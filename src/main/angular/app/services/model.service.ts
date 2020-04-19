@@ -36,7 +36,8 @@ export class ModelService {
     return response;
   }
 
-  searchModel(fileName: string, tags: Array<string>, modelSearchField: string, ascending: boolean, page: number, pageSize: number): Promise<ModelResponse> {
+  searchModel(fileName: string, tags: Array<string>, modelSearchField: string, ascending: boolean,
+              page: number, pageSize: number): Promise<ModelResponse> {
     let headers = new HttpHeaders()
       .set("tags", tags)
       .set("modelSearchField", modelSearchField)

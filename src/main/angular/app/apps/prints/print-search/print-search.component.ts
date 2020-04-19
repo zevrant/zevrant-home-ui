@@ -3,6 +3,8 @@ import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {ModelService} from "../../../services/model.service";
 import {Model} from "../../../rest/response/Model";
 import {MatPaginator} from "@angular/material/paginator";
+import {Constants} from "../../../constants/Constants";
+import {PrintsComponent} from "../prints.component";
 
 class ModelSearchField {
   public static MODEL_NAME: string = "MODEL_NAME";
@@ -23,7 +25,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     modelSearch: new FormControl(this.modelSearch, []),
     tagSearch: new FormControl(this.tagSearch, [])
   });
-  constructor(private modelService: ModelService) { }
+  constructor(private modelService: ModelService, private printsComponent: PrintsComponent) { }
 
   ngOnInit() {
     this.searchModel(0, 20)
@@ -32,10 +34,11 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.paginator.page.subscribe(this.paginatorSearch());
     this.modelService.uploadEmitter.subscribe(this.paginatorSearch())
+    this.printsComponent.printUploadEvent.subscribe(this.paginatorSearch());
   }
 
   paginatorSearch() {
-    this.modelService.searchModel(this.modelSearch.value,  [], ModelSearchField.MODEL_NAME, true, this.paginator.pageIndex, this.paginator.pageSize);
+    this.searchModel(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
   get tagSearch(): AbstractControl {
@@ -85,7 +88,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
 
   async download(currentModel: Model) {
     let element = document.getElementById("test");
-    element.setAttribute('href', `http://localhost:7644/zevrant-home-ui/zuul/zevrant-model-service/models/${currentModel.fileName}.zip`);
+    element.setAttribute('href', `${Constants.baseUrl}zuul/zevrant-model-service/models/${currentModel.fileName}.zip`);
     element.setAttribute('download', currentModel.fileName + ".zip");
     element.setAttribute("type", "application/octet-stream");
     element.click()
