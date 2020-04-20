@@ -1,22 +1,24 @@
 <mat-card>
   <form color="primary" [formGroup]="searchModelForm">
-    <input matInput formControlName="modelSearch" color="primary"/>
-    <input matInput formControlName="tagSearch" color="primary"/>
-    <mat-paginator
-      [length]="totalRows"
-      [pageIndex]="0"
-      [pageSize]="20"
-      [pageSizeOptions]="[5, 10, 25, 50, 100]">
+    <input matInput formControlName="modelSearch" color="primary">
+    <input matInput formControlName="tagSearch" color="primary">
+    <div>
       <button mat-button (click)="paginatorSearch()">
         <mat-icon>refresh</mat-icon>
       </button>
-    </mat-paginator>
+      <mat-paginator
+        [length]="totalRows"
+        [pageIndex]="0"
+        [pageSize]="20"
+        [pageSizeOptions]="[5, 10, 25, 50, 100]">
+      </mat-paginator>
+    </div>
     <mat-accordion displayMode="flat" multi class="mat-table">
       <section matSort class="mat-elevation-z2 mat-header-row">
         <th class="mat-header-cell" mat-sort-header="Model">Model</th>
         <th class="mat-header-cell" mat-sort-header="Tags">Tags</th>
       </section>
-      <mat-expansion-panel *ngFor="let model of searchData" (click)="getCoverPhoto(model)">
+      <mat-expansion-panel *ngFor="let model of getData() | async" (click)="getCoverPhoto(model)">
         <mat-expansion-panel-header class="mat-row">
           <span class="mat-cell">{{model.fileName}}</span>
           <span class="mat-cell">{{model.tags}}</span>

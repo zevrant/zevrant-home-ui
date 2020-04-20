@@ -5,6 +5,7 @@ import {Model} from "../../../rest/response/Model";
 import {MatPaginator} from "@angular/material/paginator";
 import {Constants} from "../../../constants/Constants";
 import {PrintsComponent} from "../prints.component";
+import {BehaviorSubject} from "rxjs";
 
 class ModelSearchField {
   public static MODEL_NAME: string = "MODEL_NAME";
@@ -17,7 +18,7 @@ class ModelSearchField {
   styleUrls: ['./print-search.component.css']
 })
 export class PrintSearchComponent implements OnInit, AfterViewInit {
-  searchData: Array<Model>;
+  private searchData: BehaviorSubject<Array<Model>>;
   totalRows: number;
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -70,7 +71,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
         let fileName = model.fileName.split("/");
         model.fileName =  fileName[fileName.length - 1].split(".")[0];
       });
-      this.searchData = data.models;
+      this.searchData.next(data.models);
       this.totalRows = data.models.length;
         console.log(this.searchData);
     })
@@ -95,4 +96,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
   }
 
 
+  async getData() {
+    return this.searchData.getValue()
+  }
 }
