@@ -32,7 +32,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
   });
 
   constructor(private http: HttpService, private printService: PrintService, private snackBar: MatSnackBar,
-              private modelService: ModelService, private tagService: TagService, private printsComponent: PrintsComponent) {
+              private modelService: ModelService, private tagService: TagService) {
     this.getTags(0, 5);
   }
 
@@ -57,7 +57,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
       this.fileSize = null;
       this.snackBar.open("Upload Successful!")
       this.dismiss();
-      this.printsComponent.printUploadEvent.emit("uploaded");
+      this.modelService.uploadEmitter.emit("uploaded");
     }).catch((err: any) => {
       this.snackBar.open(err.error.message);
       this.dismiss();

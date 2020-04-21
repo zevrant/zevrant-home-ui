@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
+import {ModelService} from "../../services/model.service";
 
 @Component({
   selector: 'app-prints',
@@ -7,15 +8,14 @@ import {Component, EventEmitter, OnInit} from '@angular/core';
 })
 export class PrintsComponent implements OnInit {
 
-  printUploadEvent: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private modelService: ModelService) { }
 
   ngOnInit() {
   }
 
   onSearch() {
-    this.printUploadEvent.emit("search");
+    this.modelService.uploadEmitter.emit("search");
   }
 
 }

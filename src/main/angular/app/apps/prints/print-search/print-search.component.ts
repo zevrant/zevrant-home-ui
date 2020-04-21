@@ -28,13 +28,12 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
   constructor(private modelService: ModelService, private printsComponent: PrintsComponent) { }
 
   ngOnInit() {
-    this.searchModel(0, 20)
+    this.searchModel(0, 20);
   }
 
   ngAfterViewInit(): void {
-    this.paginator.page.subscribe(this.paginatorSearch());
-    this.modelService.uploadEmitter.subscribe(this.paginatorSearch())
-    this.printsComponent.printUploadEvent.subscribe(this.paginatorSearch());
+    this.paginator.page.subscribe((event) => this.paginatorSearch());
+    this.modelService.uploadEmitter.subscribe((event) => this.paginatorSearch())
   }
 
   paginatorSearch() {

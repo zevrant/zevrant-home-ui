@@ -13,9 +13,7 @@ export class ModelService {
 
   public uploadEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-
   constructor(private http: HttpService, private httpClient: HttpClient, private storage: LocalStorageService) {
-
   }
 
   uploadModel(fileContents: any, fileName: string, coverPhoto: any, appliedTags: string[]): Promise<String> {
