@@ -10,13 +10,13 @@
 </mat-toolbar>
 
 <mat-menu #appsMenu="matMenu" color="primary">
-  <a mat-button color="secondary" routerLink="prints">prints</a>
+  <a mat-menu-item color="secondary" routerLink="prints">prints</a>
 </mat-menu>
 <mat-menu #settingsMenu="matMenu" color="primary">
 
 </mat-menu>
 
 <mat-menu #userMenu="matMenu" color="primary">
-  <a color="secondary" mat-button routerLink="account">account</a>
-  <a (click)="logout()" color="secondary" mat-button>logout</a>
+  <a color="secondary" mat-menu-item routerLink="account">account</a>
+  <a (click)="logout()" color="secondary" mat-menu-item>logout</a>
 </mat-menu>
