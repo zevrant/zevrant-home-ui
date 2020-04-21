@@ -8,7 +8,7 @@ import {TagService} from "../../../services/tag.service";
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {BehaviorSubject, Observable} from "rxjs";
 import {PrintsComponent} from "../prints.component";
-import {SnackBarService} from "../../../services/SnackBarService";
+import {SnackbarService} from "../../../services/snackbar.service";
 
 @Component({
   selector: 'app-print-upload',
@@ -32,7 +32,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
     ])
   });
 
-  constructor(private http: HttpService, private printService: PrintService, private snackBar: SnackBarService,
+  constructor(private http: HttpService, private printService: PrintService, private snackBar: SnackbarService,
               private modelService: ModelService, private tagService: TagService) {
     this.getTags(0, 5);
   }

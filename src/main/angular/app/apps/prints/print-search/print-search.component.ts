@@ -5,7 +5,7 @@ import {Model} from "../../../rest/response/Model";
 import {MatPaginator} from "@angular/material/paginator";
 import {Constants} from "../../../constants/Constants";
 import {PrintsComponent} from "../prints.component";
-import {SnackBarService} from "../../../services/SnackBarService";
+import {SnackbarService} from "../../../services/snackbar.service";
 
 class ModelSearchField {
   public static MODEL_NAME: string = "MODEL_NAME";
@@ -26,7 +26,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     modelSearch: new FormControl(this.modelSearch, []),
     tagSearch: new FormControl(this.tagSearch, [])
   });
-  constructor(private modelService: ModelService, private snackBarService: SnackBarService) { }
+  constructor(private modelService: ModelService, private snackBarService: SnackbarService) { }
 
   ngOnInit() {
     this.searchModel(0, 20);

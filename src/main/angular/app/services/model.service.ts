@@ -36,6 +36,9 @@ export class ModelService {
 
   convertTagString(tags: string){
     let array: Array<string> = [];
+    if(tags === "") {
+      tags = null;
+    }
     JSON.stringify(tags).split(",").forEach((tag) => {
       if(tag !== "null") {
         array.push(tag);
