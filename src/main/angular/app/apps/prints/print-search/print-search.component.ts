@@ -5,6 +5,7 @@ import {Model} from "../../../rest/response/Model";
 import {MatPaginator} from "@angular/material/paginator";
 import {Constants} from "../../../constants/Constants";
 import {PrintsComponent} from "../prints.component";
+import {SnackBarService} from "../../../services/SnackBarService";
 
 class ModelSearchField {
   public static MODEL_NAME: string = "MODEL_NAME";
@@ -25,7 +26,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     modelSearch: new FormControl(this.modelSearch, []),
     tagSearch: new FormControl(this.tagSearch, [])
   });
-  constructor(private modelService: ModelService, private printsComponent: PrintsComponent) { }
+  constructor(private modelService: ModelService, private snackBarService: SnackBarService) { }
 
   ngOnInit() {
     this.searchModel(0, 20);
@@ -55,15 +56,12 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
   }
 
   searchModel(page: number, pageSize: number) {
-    let array = new Array<string>();
-    JSON.stringify(this.tagSearch.value).split(",").forEach((tag) => {
-      if(tag !== "null") {
-        array.push(tag);
-      } else {
-        array.push("");
-      }
-    });
-    this.modelService.searchModel(this.modelSearch.value, array, ModelSearchField.MODEL_NAME,  true, page, pageSize)
+    let array = this.modelService.convertTagString(this.tagSearch.value);
+    let modelName: string = this.modelSearch.value;
+    if(modelName === "") {
+      modelName = null;
+    }
+    this.modelService.searchModel(modelName, array, ModelSearchField.MODEL_NAME,  true, page, pageSize)
       .then((data) => {
       data.models.forEach((model) => {
         let fileName = model.fileName.split("/");
@@ -72,8 +70,10 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
         model.fileExtension = fileBreakup[fileBreakup.length -1]
       });
       this.searchData = data.models;
-      this.totalRows = data.models.length;
+      this.totalRows = data.totalRows;
         console.log(this.searchData);
+    }).catch((err) => {
+      this.snackBarService.displayMessage(err.error.message, 10000);
     })
   }
 

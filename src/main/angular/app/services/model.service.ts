@@ -34,6 +34,18 @@ export class ModelService {
     return response;
   }
 
+  convertTagString(tags: string){
+    let array: Array<string> = [];
+    JSON.stringify(tags).split(",").forEach((tag) => {
+      if(tag !== "null") {
+        array.push(tag);
+      } else {
+        array.push("");
+      }
+    });
+    return array;
+  }
+
   searchModel(fileName: string, tags: Array<string>, modelSearchField: string, ascending: boolean,
               page: number, pageSize: number): Promise<ModelResponse> {
     let headers = new HttpHeaders()

@@ -8,6 +8,7 @@ import {TagService} from "../../../services/tag.service";
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {BehaviorSubject, Observable} from "rxjs";
 import {PrintsComponent} from "../prints.component";
+import {SnackBarService} from "../../../services/SnackBarService";
 
 @Component({
   selector: 'app-print-upload',
@@ -31,7 +32,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
     ])
   });
 
-  constructor(private http: HttpService, private printService: PrintService, private snackBar: MatSnackBar,
+  constructor(private http: HttpService, private printService: PrintService, private snackBar: SnackBarService,
               private modelService: ModelService, private tagService: TagService) {
     this.getTags(0, 5);
   }
@@ -55,22 +56,14 @@ export class PrintUploadComponent implements OnInit, OnChanges {
       this.coverPhotos = null;
       this.photo = null;
       this.fileSize = null;
-      this.snackBar.open("Upload Successful!")
-      this.dismiss();
+      this.snackBar.displayMessage("Upload Successful!", 10000)
       this.modelService.uploadEmitter.emit("uploaded");
     }).catch((err: any) => {
-      this.snackBar.open(err.error.message);
-      this.dismiss();
+      this.snackBar.displayMessage(err.error.message, 10000);
     }).finally(()=>{
       this.loadingSubject.next(false);
     });
 
-  }
-
-  dismiss() {
-    new Promise( resolve => setTimeout(resolve, 10000) ).then(() => {
-      this.snackBar.dismiss();
-    });
   }
 
   fileUploadEvent($event) {

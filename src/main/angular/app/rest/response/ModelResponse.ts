@@ -2,10 +2,8 @@ import {Model} from "./Model";
 
 export class ModelResponse {
 
-  private _models: Array<Model>;
 
-  constructor(models: Array<Model>) {
-    this._models = models;
+  constructor(private _models: Array<Model>, private _totalRows: number) {
   }
 
   get models(): Array<Model> {
@@ -14,5 +12,13 @@ export class ModelResponse {
 
   set models(value: Array<Model>) {
     this._models = value;
+  }
+
+  get totalRows(): number {
+    return this._totalRows;
+  }
+
+  set totalRows(value: number) {
+    this._totalRows = value;
   }
 }

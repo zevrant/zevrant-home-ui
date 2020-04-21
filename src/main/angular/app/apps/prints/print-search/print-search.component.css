@@ -9,3 +9,7 @@
 a {
   display: none;
 }
+
+mat-form-field {
+  padding-right: 2%;
+}

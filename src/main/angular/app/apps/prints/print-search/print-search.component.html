@@ -1,7 +1,11 @@
 <mat-card>
   <form color="primary" [formGroup]="searchModelForm">
-    <input matInput formControlName="modelSearch" color="primary"/>
-    <input matInput formControlName="tagSearch" color="primary"/>
+    <mat-form-field>
+      <input matInput placeholder="search models" (keyup)="paginatorSearch()" formControlName="modelSearch" color="primary"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="search tags" (keyup)="paginatorSearch()" formControlName="tagSearch" color="primary"/>
+    </mat-form-field>
     <mat-paginator
       [length]="totalRows"
       [pageIndex]="0"
