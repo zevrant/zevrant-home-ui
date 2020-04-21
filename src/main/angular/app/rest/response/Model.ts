@@ -1,9 +1,8 @@
 
 export class Model {
 
-  constructor(private _fileName: string, private _coverPhoto: any, private _tags: Array<string>) {
+  constructor(private _fileName: string, private _coverPhoto: any, private _fileExtension: string, private _tags: Array<string>) {
   }
-
 
   get fileName(): string {
     return this._fileName;
@@ -27,5 +26,13 @@ export class Model {
 
   set tags(value: Array<string>) {
     this._tags = value;
+  }
+
+  get fileExtension(): string {
+    return this._fileExtension;
+  }
+
+  set fileExtension(value: string) {
+    this._fileExtension = value;
   }
 }

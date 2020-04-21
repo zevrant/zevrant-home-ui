@@ -68,7 +68,9 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
       .then((data) => {
       data.models.forEach((model) => {
         let fileName = model.fileName.split("/");
-        model.fileName =  fileName[fileName.length - 1].split(".")[0];
+        let fileBreakup = fileName[fileName.length - 1].split(".");
+        model.fileName =  fileBreakup[0];
+        model.fileExtension = fileBreakup[fileBreakup.length -1]
       });
       this.searchData = data.models;
       this.totalRows = data.models.length;
@@ -78,17 +80,15 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
 
   async getCoverPhoto(model: Model) {
     if(model.coverPhoto === null) {
-      let blob: ArrayBuffer = await this.modelService.getCoverPhoto(model.fileName + ".zip");
+      let blob: ArrayBuffer = await this.modelService.getCoverPhoto(model.fileName + `.${model.fileExtension}`);
       let array = new Uint8Array(blob);
-      const STRING_CHAR = String.fromCharCode.apply(null, array);
-
-      model.coverPhoto = STRING_CHAR;
+      model.coverPhoto = String.fromCharCode.apply(null, array);;
     }
   }
 
   async download(currentModel: Model) {
     let element = document.getElementById("test");
-    element.setAttribute('href', `${Constants.baseUrl}zuul/zevrant-model-service/models/${currentModel.fileName}.zip`);
+    element.setAttribute('href', `${Constants.baseUrl}zuul/zevrant-model-service/models/${currentModel.fileName}.${currentModel.fileExtension}`);
     element.setAttribute('download', currentModel.fileName + ".zip");
     element.setAttribute("type", "application/octet-stream");
     element.click()
