@@ -1,7 +1,10 @@
+import {BehaviorSubject, Observable} from "rxjs";
 
 export class Model {
+  private _isTagsSelected: BehaviorSubject<boolean>
 
-  constructor(private _fileName: string, private _coverPhoto: any, private _fileExtension: string, private _tags: Array<string>) {
+  constructor(private _fileName: string, private _coverPhoto: any, private _fileExtension: string,
+              private _tags: Array<string>) {
   }
 
   get fileName(): string {
@@ -34,5 +37,14 @@ export class Model {
 
   set fileExtension(value: string) {
     this._fileExtension = value;
+  }
+
+
+  get isTagsSelected(): BehaviorSubject<boolean> {
+    return this._isTagsSelected;
+  }
+
+  set isTagsSelected(value: BehaviorSubject<boolean>) {
+    this._isTagsSelected = value;
   }
 }

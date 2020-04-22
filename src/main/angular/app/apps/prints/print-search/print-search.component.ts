@@ -6,6 +6,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {Constants} from "../../../constants/Constants";
 import {PrintsComponent} from "../prints.component";
 import {SnackbarService} from "../../../services/snackbar.service";
+import {BehaviorSubject} from "rxjs";
 
 class ModelSearchField {
   public static MODEL_NAME: string = "MODEL_NAME";
@@ -68,10 +69,11 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
         let fileBreakup = fileName[fileName.length - 1].split(".");
         model.fileName =  fileBreakup[0];
         model.fileExtension = fileBreakup[fileBreakup.length -1]
+        model.isTagsSelected = new BehaviorSubject<boolean>(false);
+        this.searchModelForm.addControl(model.fileName, new FormControl())
       });
       this.searchData = data.models;
       this.totalRows = data.totalRows;
-        console.log(this.searchData);
     }).catch((err) => {
       this.snackBarService.displayMessage(err.error.message, 10000);
     })
@@ -93,5 +95,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     element.click()
   }
 
-
+  updateTags(model: Model) {
+    this.modelService.updateTags(model.fileName, model.tags);
+  }
 }

@@ -25,7 +25,12 @@
           <span class="mat-cell">{{model.fileName}}</span>
           <span class="mat-cell">{{model.tags}}</span>
         </mat-expansion-panel-header>
-
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.tags" [formControlName]="model.fileName" placeholder="Update Tags tag1.tag2,tag3" color="primary">
+        </mat-form-field>
+        <button (click)="updateTags(model)" color="accent" mat-button matTooltip="Add Tag">
+          <mat-icon>library_add</mat-icon>
+        </button>
         <button (click)="download(model)" mat-button color="accent" >
           <mat-icon>cloud_download</mat-icon>
         </button>

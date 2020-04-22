@@ -63,4 +63,8 @@ export class ModelService {
     return await this.http.getBlob(`${Constants.modelBaseUrl}models/coverphoto/${fileName}`, headers);
   }
 
+  updateTags(fileName: string, tags: Array<string>) {
+    let headers = new HttpHeaders().set("tags", tags);
+    return this.http.put(Constants.modelBaseUrl + `models/${fileName}`, headers, null);
+  }
 }
