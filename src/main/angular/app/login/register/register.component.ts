@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
-import {regexValidator} from "../directives/regex-validator.directive";
+import {regexValidator} from "../../directives/regex-validator.directive";
 import {Router} from "@angular/router";
 
 @Component({

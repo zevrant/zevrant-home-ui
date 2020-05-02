@@ -4,10 +4,7 @@ services:
     ports:
       - "7644:7644"
     image: zevrant/zevrant-home-ui:${VERSION}
-    deploy:
-      placement:
-        constraints:
-          - node.role == worker
+    restart: unless-stopped
     environment:
       VERSION:
       AWS_ACCESS_KEY_ID:

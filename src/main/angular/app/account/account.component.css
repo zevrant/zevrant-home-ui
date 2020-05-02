@@ -1,0 +1,8 @@
+mat-label {
+  padding-right: 1%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}

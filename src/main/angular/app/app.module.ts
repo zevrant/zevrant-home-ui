@@ -11,14 +11,13 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {StorageServiceModule} from 'angular-webstorage-service'
 import {HttpClientModule} from '@angular/common/http';
-import {LoginComponent} from "./login/component/login.component";
+import {LoginComponent} from "./login/login.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {RegisterComponent} from "./register/register.component";
+import {RegisterComponent} from "./login/register/register.component";
 import {RegexValidatorDirective} from "./directives/regex-validator.directive";
 import {PrintsComponent} from "./apps/prints/prints.component";
 import {PrintSearchComponent} from "./apps/prints/print-search/print-search.component";
@@ -38,6 +37,9 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {AdminComponent} from "./admin/admin.component";
+import {AccountComponent} from "./account/account.component";
+import {AccountProxyComponent} from "./proxies/account/account-proxy.component";
 
 @NgModule({
   declarations: [
@@ -50,7 +52,10 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     RegexValidatorDirective,
     PrintsComponent,
     PrintSearchComponent,
-    PrintUploadComponent
+    PrintUploadComponent,
+    AdminComponent,
+    AccountComponent,
+    AccountProxyComponent
   ],
     imports: [
         BrowserModule.withServerTransition({appId: 'serverApp'}),
