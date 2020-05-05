@@ -83,7 +83,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     if(model.coverPhoto === null) {
       let blob: ArrayBuffer = await this.modelService.getCoverPhoto(model.fileName + `.${model.fileExtension}`);
       let array = new Uint8Array(blob);
-      model.coverPhoto = String.fromCharCode.apply(null, array);;
+      model.coverPhoto = String.fromCharCode.apply(null, array);
     }
   }
 

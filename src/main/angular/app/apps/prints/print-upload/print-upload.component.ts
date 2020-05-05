@@ -9,6 +9,8 @@ import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {BehaviorSubject, Observable} from "rxjs";
 import {PrintsComponent} from "../prints.component";
 import {SnackbarService} from "../../../services/snackbar.service";
+import {Tag} from "./tag";
+import {TagResponse} from "../../../rest/response/TagResponse";
 
 @Component({
   selector: 'app-print-upload',
@@ -24,7 +26,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
   filesTouched: boolean = false;
   private coverPhotos: File;
   photo;
-  tags;
+  tags = new BehaviorSubject<Array<Tag>>([new Tag(null, null)]);
   displayedColumns: string[] = ["tag", "checkbox"];
   private appliedTags: string[] = [];
   searchTagForm: FormGroup = new FormGroup({
@@ -87,22 +89,24 @@ export class PrintUploadComponent implements OnInit, OnChanges {
   }
 
   async getTags(page: number, pageSize: number) {
-    let tags = await this.http.get(Constants.modelBaseUrl + `tags/${page}/${pageSize}`, null);
-    this.tags = tags.tags;
+    let tags: any = await this.http.get(Constants.modelBaseUrl + `tags/${page}/${pageSize}`, null);
+    this.convertTags(tags.tags)
   }
 
-  applyTag(tag: string) {
-    let index: number = this.appliedTags.indexOf(tag);
+  applyTag(tag: any) {
+    let index: number = this.appliedTags.indexOf(tag.tag);
     if (index > -1) {
       this.appliedTags = this.appliedTags.splice(index, 1);
+      tag.isApplied = false;
       return;
     }
-    this.appliedTags.push(tag);
+    this.appliedTags.push(tag.tag);
+    tag.isApplied = true;
   }
 
   async searchTag() {
     let temp: any =  await this.tagService.searchTag(this.tagSearch.value);
-    this.tags =temp.tags;
+    this.convertTags(temp.tags);
   }
 
   get tagSearch(): AbstractControl {
@@ -116,5 +120,13 @@ export class PrintUploadComponent implements OnInit, OnChanges {
     this.tagService.uploadTag(this.tagSearch.value).then(() => {
       this.searchTag();
     });
+  }
+
+  private convertTags(tags: Array<TagResponse>){
+    let newTags = [];
+    tags.forEach((tag) => {
+      newTags.push(new Tag(tag.tag, new BehaviorSubject<boolean>(this.appliedTags.indexOf(tag.tag) > -1)));
+    });
+    this.tags.next(newTags);
   }
 }

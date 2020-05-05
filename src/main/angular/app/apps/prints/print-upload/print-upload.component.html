@@ -12,19 +12,19 @@
           <mat-icon>library_add</mat-icon>
         </button>
         <br>
-        <table [dataSource]="tags" class="mat-elevation-z8" mat-table>
+        <table [dataSource]="tags | async" class="mat-elevation-z8" mat-table>
+          <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
           <ng-container matColumnDef="tag">
             <th *matHeaderCellDef mat-header-cell>Tag</th>
-            <td *matCellDef="let tag" mat-cell> {{tag.tag}} </td>
+            <td mat-cell *matCellDef="let tag">{{tag.tag}}</td>
           </ng-container>
           <ng-container matColumnDef="checkbox">
             <th *matHeaderCellDef mat-header-cell>Apply Tags</th>
-            <td *matCellDef="let tag" class="d-flex justify-content-center" mat-cell>
-              <mat-checkbox (change)="applyTag(tag.tag)" class="checkbox"></mat-checkbox>
+            <td *matCellDef="let tag"  class="d-flex justify-content-center" mat-cell>
+              <mat-checkbox class="checkbox" (click)="applyTag(tag)" [checked]="tag.isApplied | async"></mat-checkbox>
             </td>
           </ng-container>
-          <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-          <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
         </table>
       </form>
 
