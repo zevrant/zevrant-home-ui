@@ -1,8 +1,17 @@
+input {
+  float: right;
+}
+
 mat-label {
-  padding-right: 1%;
+  padding-right: 3%;
 }
 
 .center {
   display: flex;
   justify-content: center;
+}
+
+button {
+  float: right;
+  margin-left: 10%;
 }
