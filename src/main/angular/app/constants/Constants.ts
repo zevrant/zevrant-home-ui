@@ -1,5 +1,3 @@
-import {environment} from "../../environments/environment";
-
 export class Constants {
 
   public static get oauthTokenName(): string {

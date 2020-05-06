@@ -1,10 +1,25 @@
-<mat-card>
-  <form [formGroup]="userUpdateForm">
-      <div>
-        <mat-label>Username:</mat-label>
-        <span *ngIf="!(focus | async)" (click)="onFocus()">{{user.username}}</span>
-        <input matInput (focusout)="onFoucusout()" formControlName="username" [(ngModel)]="user.username" (keyup)="updateUsername()" *ngIf="focus | async" color="primary">
-      </div>
-      <mat-label>Password</mat-label>
-  </form>
+<mat-card color="primary">
+  <div class="center" >
+    <form color="primary" [formGroup]="userUpdateForm" (ngSubmit)="submit()">
+      <mat-form-field color="primary">
+        <input matInput type="text" id="username" placeholder="username" formControlName="username" [(ngModel)]="user.username">
+      </mat-form-field>
+      <br>
+      <mat-form-field color="primary">
+        <input matInput type='password' placeholder="password" id="password"  formControlName="password" [(ngModel)]="user.password" [required]="isEmpty()">
+      </mat-form-field>
+      <br>
+      <mat-form-field color="primary">
+        <input type="password" matInput placeholder="Confirm Password" formControlName="passwordConfirmation" [(ngModel)]="user.passwordConfirmation" [required]="isEmpty()">
+      </mat-form-field>
+      <br>
+      <mat-form-field color="primary">
+        <input type="email" matInput placeholder="Email" formControlName="email" [(ngModel)]="user.emailAddress">
+      </mat-form-field>
+      <br>
+      <mat-label>Subscribe to News & Updates?</mat-label>
+      <mat-checkbox [(ngModel)]="user.subscribed"></mat-checkbox>
+      <button mat-button type="submit" color="primary">Save Changes</button>
+    </form>
+  </div>
 </mat-card>

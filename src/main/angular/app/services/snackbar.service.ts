@@ -10,7 +10,7 @@ export class SnackbarService {
   }
 
   displayMessage(message: string, duration: number) {
-    this.snackBar.open("Upload Successful!")
+    this.snackBar.open(message)
     new Promise( resolve => setTimeout(resolve, duration) ).then(() => {
       this.snackBar.dismiss();
     });

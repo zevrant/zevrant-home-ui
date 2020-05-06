@@ -4,7 +4,6 @@ import {ModelService} from "../../../services/model.service";
 import {Model} from "../../../rest/response/Model";
 import {MatPaginator} from "@angular/material/paginator";
 import {Constants} from "../../../constants/Constants";
-import {PrintsComponent} from "../prints.component";
 import {SnackbarService} from "../../../services/snackbar.service";
 import {BehaviorSubject} from "rxjs";
 

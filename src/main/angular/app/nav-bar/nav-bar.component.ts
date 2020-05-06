@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 import {Constants} from "../constants/Constants";
 import {HttpHeaders} from "@angular/common/http";

@@ -1,8 +1,7 @@
-import {EventEmitter, Injectable, OnInit} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Constants} from "../constants/Constants";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LocalStorageService} from "angular-web-storage";
-import {timeout} from "rxjs/operators";
 import {LoginResponse} from "../rest/response/LoginResponse";
 
 @Injectable({

@@ -26,8 +26,8 @@ import {PrintUploadComponent} from "./apps/prints/print-upload/print-upload.comp
 import {LoginService} from "./services/login.service";
 import {PrintService} from "./services/print.service";
 import {HttpService} from "./services/http.service";
-import { MatIconModule } from "@angular/material/icon";
-import { MatTableModule } from "@angular/material/table";
+import {MatIconModule} from "@angular/material/icon";
+import {MatTableModule} from "@angular/material/table";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
 import {ModelService} from "./services/model.service";
@@ -39,7 +39,6 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {AdminComponent} from "./admin/admin.component";
 import {AccountComponent} from "./account/account.component";
-import {AccountProxyComponent} from "./proxies/account/account-proxy.component";
 
 @NgModule({
   declarations: [
@@ -55,7 +54,6 @@ import {AccountProxyComponent} from "./proxies/account/account-proxy.component";
     PrintUploadComponent,
     AdminComponent,
     AccountComponent,
-    AccountProxyComponent
   ],
     imports: [
         BrowserModule.withServerTransition({appId: 'serverApp'}),

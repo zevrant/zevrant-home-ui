@@ -1,13 +1,11 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {PrintService} from "../../../services/print.service";
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {HttpService} from "../../../services/http.service";
 import {Constants} from "../../../constants/Constants";
 import {ModelService} from "../../../services/model.service";
 import {TagService} from "../../../services/tag.service";
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
 import {BehaviorSubject, Observable} from "rxjs";
-import {PrintsComponent} from "../prints.component";
 import {SnackbarService} from "../../../services/snackbar.service";
 import {Tag} from "./tag";
 import {TagResponse} from "../../../rest/response/TagResponse";
@@ -60,6 +58,14 @@ export class PrintUploadComponent implements OnInit, OnChanges {
       this.fileSize = null;
       this.snackBar.displayMessage("Upload Successful!", 10000)
       this.modelService.uploadEmitter.emit("uploaded");
+      this.appliedTags.forEach((tag) => {
+        this.tags.getValue().forEach((tagObject)=> {
+          if(tagObject.tag == tag) {
+            tagObject.isApplied.next(false);
+          }
+        })
+      });
+      this.appliedTags = [];
     }).catch((err: any) => {
       this.snackBar.displayMessage(err.error.message, 10000);
     }).finally(()=>{

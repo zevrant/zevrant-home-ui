@@ -1,4 +1,4 @@
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 
 export class Model {
   private _isTagsSelected: BehaviorSubject<boolean>

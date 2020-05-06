@@ -15,4 +15,8 @@ export class UserService {
     return this.http.get(Constants.oauthBaseUrl + `user/${username}`, null)
   }
 
+  public updateUserInfo(user: User) {
+    return this.http.put(Constants.oauthBaseUrl + "user", null, user);
+  }
+
 }

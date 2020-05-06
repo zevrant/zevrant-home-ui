@@ -5,7 +5,7 @@ import {RegisterComponent} from "./login/register/register.component";
 import {HomeViewComponent} from "./apps/home/home-view/home-view.component";
 import {PrintsComponent} from "./apps/prints/prints.component";
 import {AdminComponent} from "./admin/admin.component";
-import {AccountProxyComponent} from "./proxies/account/account-proxy.component";
+import {AccountComponent} from "./account/account.component";
 
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'login/register', component: RegisterComponent },
   { path: 'prints', component: PrintsComponent },
   { path: 'administration', component: AdminComponent },
-  { path: 'account', component: AccountProxyComponent },
+  { path: 'account', component: AccountComponent },
   { path: '**', redirectTo: '' }
 ];
 
