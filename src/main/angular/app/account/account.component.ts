@@ -18,6 +18,7 @@ import {SnackbarService} from "../services/snackbar.service";
 export class AccountComponent implements OnInit {
   focus: BehaviorSubject<boolean> = new BehaviorSubject(false);
   user: User = new User(null, null, null,null, null , null,null);
+  subscribed = new BehaviorSubject<boolean>(true);
   userUpdateForm: FormGroup = new FormGroup({
     username: new FormControl(this.username, [
       Validators.required
@@ -26,9 +27,9 @@ export class AccountComponent implements OnInit {
     passwordConfirmation: new FormControl(this.password, []),
     email: new FormControl(this.email, [
       Validators.required
-    ]),
-    subscribed: new FormControl(this.subscribed, [])
+    ])
   });
+  private i = 0;
 
   constructor(private userService: UserService, private router: Router, private storage: LocalStorageService,
               private snackBarService: SnackbarService) { }
@@ -38,7 +39,15 @@ export class AccountComponent implements OnInit {
        this.user = data;
        this.user.originalUsername = this.user.username;
        this.username.setValue(data.username);
+       this.email.setValue(this.user.emailAddress);
+       this.subscribed.next(this.user.subscribed);
     })
+  }
+
+  updateSubscription() {
+    let temp = !this.user.subscribed;
+    this.user.subscribed = temp;
+    this.subscribed.next(temp);
   }
 
   get username(): AbstractControl {
@@ -69,13 +78,6 @@ export class AccountComponent implements OnInit {
     return null;
   }
 
-  get subscribed(): AbstractControl {
-    if(this.userUpdateForm){
-      return this.userUpdateForm.get('subscribed') ;
-    }
-    return null;
-  }
-
   isEmpty() {
     return isNotNullOrUndefined(this.password)
       && isNotNullOrUndefined(this.passwordConfirmation)
@@ -88,6 +90,7 @@ export class AccountComponent implements OnInit {
   submit() {
     this.userService.updateUserInfo(this.user).then(() => {
       this.router.navigate([""]);
+      this.snackBarService.displayMessage("Account changes were successfully saved",  10000);
     }).catch((error) => {
       console.log(error)
       let errors = error.error.errors;
