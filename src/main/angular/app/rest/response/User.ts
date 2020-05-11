@@ -2,7 +2,7 @@
 export class User {
 
   constructor(private _username: string, private _originalUsername: string, private _password: string, private _passwordConfirmation: string,
-              private _emailAddress: string, private _roles: Array<string>, private _subscribed: boolean) {
+              private _emailAddress: string, private _roles: Array<string>, private _subscribed: boolean, private _twoFactorEnabled: boolean) {
   }
 
 
@@ -60,5 +60,13 @@ export class User {
 
   set subscribed(value: boolean) {
     this._subscribed = value;
+  }
+
+  get twoFactorEnabled(): boolean {
+    return this._twoFactorEnabled;
+  }
+
+  set twoFactorEnabled(value: boolean) {
+    this._twoFactorEnabled = value;
   }
 }

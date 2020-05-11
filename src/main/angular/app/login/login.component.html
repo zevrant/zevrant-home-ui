@@ -9,6 +9,10 @@
       <input matInput type='password' placeholder="password" id="password"  formControlName="password"/>
     </mat-form-field>
     <br>
+    <mat-form-field color="primary">
+      <input matInput type='text' placeholder="2FA Code" id="2fa"  formControlName="twoFactor"/>
+    </mat-form-field>
+    <br>
     <button mat-button type="submit" color="primary">Submit</button>
   </form>
 <span color="accent">Forgot password? Click </span><a color="secondary" routerLink="forgot-password">here</a><br>

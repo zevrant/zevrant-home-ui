@@ -17,8 +17,9 @@ import {SnackbarService} from "../services/snackbar.service";
 })
 export class AccountComponent implements OnInit {
   focus: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  user: User = new User(null, null, null,null, null , null,null);
+  user: User = new User(null, null, null,null, null , null,null, null);
   subscribed = new BehaviorSubject<boolean>(true);
+  twoFactorEnabled = new BehaviorSubject<boolean>(false);
   userUpdateForm: FormGroup = new FormGroup({
     username: new FormControl(this.username, [
       Validators.required
@@ -41,6 +42,7 @@ export class AccountComponent implements OnInit {
        this.username.setValue(data.username);
        this.email.setValue(this.user.emailAddress);
        this.subscribed.next(this.user.subscribed);
+       this.twoFactorEnabled.next(this.user.twoFactorEnabled)
     })
   }
 
@@ -102,5 +104,9 @@ export class AccountComponent implements OnInit {
         this.snackBarService.displayMessage(error.message,  10000);
       }
     });
+  }
+
+  enableTwoFactor() {
+    this.twoFactorEnabled.next(true);
   }
 }

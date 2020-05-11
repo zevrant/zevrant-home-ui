@@ -17,6 +17,9 @@
         <input type="email" matInput placeholder="Email" formControlName="email" [(ngModel)]="user.emailAddress">
       </mat-form-field>
       <br>
+      <mat-label>Two Factor Authentication</mat-label>
+      <mat-checkbox class="checkbox" id="twoFactor" [disabled]="twoFactorEnabled | async" (change)="enableTwoFactor()" [checked]="twoFactorEnabled | async"></mat-checkbox>
+      <br>
       <mat-label>Subscribe to News & Updates?</mat-label>
       <mat-checkbox class="checkbox" id="subscribe" (change)="updateSubscription()" [checked]="subscribed | async"></mat-checkbox>
 <!--      <mat-checkbox class="checkbox" (click)="applyTag(tag)" [checked]="tag.isApplied | async"></mat-checkbox>-->

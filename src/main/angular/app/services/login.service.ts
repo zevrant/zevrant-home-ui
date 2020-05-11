@@ -3,6 +3,7 @@ import {Constants} from "../constants/Constants";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LocalStorageService} from "angular-web-storage";
 import {LoginResponse} from "../rest/response/LoginResponse";
+import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +25,13 @@ export class LoginService {
   }
 
 
-  login(username: string, password: string): Promise<any> {
+  login(username: string, password: string, twoFactor): Promise<any> {
 
     let headers = new HttpHeaders().set("client_id", username);
     headers = headers.set("client_secret", password);
+    if(isNotNullOrUndefined(twoFactor) && twoFactor.length > 0){
+      headers = headers.set("oneTimePad", twoFactor);
+    }
 
     return this.http.post(Constants.oauthBaseUrl + "token", null, {headers: headers}).toPromise().then((data) => {
       let response: LoginResponse = JSON.parse(JSON.stringify(data));

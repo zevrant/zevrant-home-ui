@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
     ]),
     password: new FormControl(this.password, [
       Validators.required,
-    ])
+    ]),
+    twoFactor: new FormControl(this.twoFactor, [])
   });
 
   private subscription: any;
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loginService.login(this.username.value, this.password.value).catch((error: any) => {
+    this.loginService.login(this.username.value, this.password.value, this.twoFactor.value).catch((error: any) => {
       this.snackBar.open(error.error.message);
       new Promise( resolve => setTimeout(resolve, 10000) ).then(() => {
         this.snackBar.dismiss();
@@ -53,6 +54,13 @@ export class LoginComponent implements OnInit {
   get password(): AbstractControl {
     if(this.loginForm) {
       return this.loginForm.get('password');
+    }
+    return null;
+  }
+
+  get twoFactor(): AbstractControl {
+    if(this.loginForm) {
+      return this.loginForm.get('twoFactor');
     }
     return null;
   }
