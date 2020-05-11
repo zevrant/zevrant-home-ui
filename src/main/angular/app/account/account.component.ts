@@ -9,7 +9,9 @@ import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 import {HttpService} from "../services/http.service";
 import {Router} from "@angular/router";
 import {SnackbarService} from "../services/snackbar.service";
+import {MatBottomSheet, MatBottomSheetRef} from "@angular/material/bottom-sheet";
 
+let twoFactorCode = null;
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -33,7 +35,7 @@ export class AccountComponent implements OnInit {
   private i = 0;
 
   constructor(private userService: UserService, private router: Router, private storage: LocalStorageService,
-              private snackBarService: SnackbarService) { }
+              private snackBarService: SnackbarService, private bottomSheet: MatBottomSheet) { }
 
   ngOnInit(): void {
     this.userService.getUserByName(this.storage.get(Constants.username)).then((data) => {
@@ -90,9 +92,14 @@ export class AccountComponent implements OnInit {
   }
 
   submit() {
-    this.userService.updateUserInfo(this.user).then(() => {
-      this.router.navigate([""]);
-      this.snackBarService.displayMessage("Account changes were successfully saved",  10000);
+    this.userService.updateUserInfo(this.user).then((data) => {
+      if(data.twoFactorSecret) {
+        twoFactorCode = data.twoFactorSecret;
+        this.bottomSheet.open(BottomSheetOverviewSheet);
+      }else {
+        this.router.navigate([""]);
+        this.snackBarService.displayMessage("Account changes were successfully saved", 10000);
+      }
     }).catch((error) => {
       console.log(error)
       let errors = error.error.errors;
@@ -108,5 +115,21 @@ export class AccountComponent implements OnInit {
 
   enableTwoFactor() {
     this.twoFactorEnabled.next(true);
+    this.user.twoFactorEnabled = true
   }
+}
+
+@Component({
+  selector: 'bottom-sheet-overview-example-sheet',
+  templateUrl: 'bottom-sheet-overview-sheet.html',
+})
+export class BottomSheetOverviewSheet {
+  twoFactorCode = twoFactorCode;
+  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewSheet>, private router: Router) {
+    this._bottomSheetRef.afterDismissed().toPromise().then(() => {
+      this.router.navigate([""]);
+    })
+  }
+
+
 }

@@ -38,7 +38,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {AdminComponent} from "./admin/admin.component";
-import {AccountComponent} from "./account/account.component";
+import {AccountComponent, BottomSheetOverviewSheet} from "./account/account.component";
+import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 
 @NgModule({
   declarations: [
@@ -54,9 +55,11 @@ import {AccountComponent} from "./account/account.component";
     PrintUploadComponent,
     AdminComponent,
     AccountComponent,
+    BottomSheetOverviewSheet
   ],
     imports: [
         BrowserModule.withServerTransition({appId: 'serverApp'}),
+        MatBottomSheetModule,
         AppRoutingModule,
         MatTableModule,
         MatCheckboxModule,
