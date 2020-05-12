@@ -26,8 +26,12 @@ export class AccountComponent implements OnInit {
     username: new FormControl(this.username, [
       Validators.required
     ]),
-    password: new FormControl(this.password, []),
-    passwordConfirmation: new FormControl(this.password, []),
+    password: new FormControl(this.password, [
+      Validators.minLength(11)
+    ]),
+    passwordConfirmation: new FormControl(this.password, [
+      Validators.minLength(11)
+    ]),
     email: new FormControl(this.email, [
       Validators.required
     ])
