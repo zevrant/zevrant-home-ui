@@ -40,6 +40,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {AdminComponent} from "./admin/admin.component";
 import {AccountComponent, BottomSheetOverviewSheet} from "./account/account.component";
 import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
+import {ForgotPasswordComponent} from "./login/forgot-password/forgot-password.component";
+import {PasswordResetComponent} from "./login/password-reset/password-reset.component";
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
     PrintUploadComponent,
     AdminComponent,
     AccountComponent,
-    BottomSheetOverviewSheet
+    BottomSheetOverviewSheet,
+    ForgotPasswordComponent,
+    PasswordResetComponent
   ],
     imports: [
         BrowserModule.withServerTransition({appId: 'serverApp'}),

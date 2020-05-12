@@ -52,6 +52,23 @@ export class LoginService {
 
   }
 
+  forgotPassword(emailAddress: string){
+    let body = {
+      emailAddress: emailAddress
+    };
+    return this.http.post(Constants.oauthBaseUrl + "user/forgot-password", body, {headers: null}).toPromise();
+  }
 
+  resetPassword(token: string, password: string, passwordConfirmation: string, username: string) {
+    let headers = new HttpHeaders();
+    headers = headers.set("authorization", `bearer ${token}`);
+    let body = {
+      username: username,
+      originalUsername: username,
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+    };
+    return this.http.put(Constants.oauthBaseUrl + "user/password-reset", body, {headers: headers}).toPromise();
+  }
 
 }

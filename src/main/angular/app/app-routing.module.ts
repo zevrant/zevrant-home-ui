@@ -6,6 +6,8 @@ import {HomeViewComponent} from "./apps/home/home-view/home-view.component";
 import {PrintsComponent} from "./apps/prints/prints.component";
 import {AdminComponent} from "./admin/admin.component";
 import {AccountComponent} from "./account/account.component";
+import {ForgotPasswordComponent} from "./login/forgot-password/forgot-password.component";
+import {PasswordResetComponent} from "./login/password-reset/password-reset.component";
 
 
 const routes: Routes = [
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'prints', component: PrintsComponent },
   { path: 'administration', component: AdminComponent },
   { path: 'account', component: AccountComponent },
+  { path: 'login/forgot-password', component: ForgotPasswordComponent },
+  { path: 'login/password-reset/:token', component: PasswordResetComponent },
   { path: '**', redirectTo: '' }
 ];
 
