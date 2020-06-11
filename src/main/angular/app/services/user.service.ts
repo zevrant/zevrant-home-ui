@@ -19,4 +19,15 @@ export class UserService {
     return this.http.put(Constants.oauthBaseUrl + "user", null, user);
   }
 
+  public getAllUsers(): Promise<User[]> {
+    return this.http.get(Constants.oauthBaseUrl + "user", null);
+  }
+
+  public getAllUserRoles(): Promise<string[]> {
+    return this.http.get(Constants.oauthBaseUrl + "user/roles", null);
+  }
+
+  updateUsers(users: User[]) {
+    return this.http.put(Constants.oauthBaseUrl + "user/bulk", null, users);
+  }
 }

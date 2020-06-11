@@ -68,6 +68,7 @@ export class LoginService {
       password: password,
       passwordConfirmation: passwordConfirmation,
     };
+
     return this.http.put(Constants.oauthBaseUrl + "user/password-reset", body, {headers: headers}).toPromise();
   }
 

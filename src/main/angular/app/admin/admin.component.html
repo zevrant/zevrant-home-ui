@@ -1,2 +1,14 @@
-<input matInput color="primary">
+<table>
+  <tr>
+    <th></th>
+    <th *ngFor="let role of roles">{{role}}</th>
+  </tr>
+  <tr *ngFor="let user of users">
+    <td>{{user.username}}</td>
+    <td *ngFor="let role of roles" >
+      <mat-checkbox (change)="updateRole(user, role)" [checked]="containsRole(user, role) | async"></mat-checkbox>
+    </td>
+  </tr>
+  <button mat-button (click)="save()">Save</button>
+</table>
 
