@@ -2,7 +2,7 @@
 <mat-toolbar color="primary">
   <a mat-button color="secondary" routerLink="">Home</a>
   <button mat-button color="secondary" [matMenuTriggerFor]="appsMenu">Apps</button>
-  <button mat-button color="secondary" routerLink="administration">Admin Area</button>
+  <button *ngIf="hasRole('admin')" mat-button color="secondary" routerLink="administration">Admin Area</button>
   <span color="primary" class="fill-space"></span>
   <button *ngIf="!isLoggedIn()" color="secondary" mat-button routerLink="login">Login</button>
   <button *ngIf="isLoggedIn()" [mat-menu-trigger-for]="userMenu" color="secondary"
@@ -10,7 +10,7 @@
 </mat-toolbar>
 
 <mat-menu #appsMenu="matMenu" color="primary">
-  <a mat-menu-item color="secondary" routerLink="prints">prints</a>
+  <a mat-menu-item color="secondary" *ngIf="hasRole('prints')" routerLink="prints">prints</a>
 </mat-menu>
 
 <mat-menu #userMenu="matMenu" color="primary">

@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 import {LoginService} from "../services/login.service";
 import {HttpService} from "../services/http.service";
 import {LocalStorageService} from "angular-web-storage";
+import {BehaviorSubject} from "rxjs";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -20,7 +22,8 @@ export class NavBarComponent implements OnInit {
   private subcription: any;
   private logoutSubscription: any;
   constructor(private storage: LocalStorageService, private http: HttpService,
-              private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService) {
+              private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService,
+              private userService: UserService) {
     this.baseUrl = Constants.baseUrl;
     this.username = (this.storage.get(Constants.username)) ? this.storage.get("username") : "Login";
   }
@@ -28,10 +31,12 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
     this.subcription = this.loginService.getLoginEmitter().subscribe((event) => {
       this.getUsername();
-    })
+      this.getRoles();
+    });
 
     this.logoutSubscription = this.loginService.logoutEmitter.subscribe((event)=>{
       this.username = null;
+      Constants.setRoles([]);
       this.router.navigate(["login"]);
     })
   }
@@ -39,7 +44,7 @@ export class NavBarComponent implements OnInit {
   isLoggedIn(): boolean {
     let isDefined = isNotNullOrUndefined(this.storage.get(Constants.oauthTokenName));
     if(isDefined){
-      let expiresIn = this.storage.get(Constants.expiresInName)
+      let expiresIn = this.storage.get(Constants.expiresInName);
       let currentDate = new Date();
       if(expiresIn && currentDate.getTime() > expiresIn) {
         this.storage.clear();
@@ -67,6 +72,18 @@ export class NavBarComponent implements OnInit {
       this.storage.remove(Constants.oauthTokenName);
       this.username = null;
       this.router.navigate([""]);
+    });
+  }
+
+   async hasRole(role: string) {
+    return Constants.getRoles().indexOf(role) >= 0
+  }
+
+  getRoles(){
+    this.userService.getRoles().then((data) => {
+      Constants.setRoles(data);
+    }).catch(err => {
+      console.log(err);
     });
   }
 

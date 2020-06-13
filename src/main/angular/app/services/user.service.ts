@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpService} from "./http.service";
 import {Constants} from "../constants/Constants";
 import {User} from "../rest/response/User";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class UserService {
 
   updateUsers(users: User[]) {
     return this.http.put(Constants.oauthBaseUrl + "user/bulk", null, users);
+  }
+
+  async getRoles(): Promise<string[]> {
+    return this.http.get(Constants.oauthBaseUrl + `user/roles`, null);
   }
 }

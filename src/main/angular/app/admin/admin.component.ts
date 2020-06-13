@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {User} from "../rest/response/User";
 import {UserService} from "../services/user.service";
 import {SnackbarService} from "../services/snackbar.service";
-import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 import {BehaviorSubject} from "rxjs";
+import {Constants} from "../constants/Constants";
 
 @Component({
   selector: 'app-admin',
@@ -13,7 +13,7 @@ import {BehaviorSubject} from "rxjs";
 export class AdminComponent implements OnInit {
 
   users: User[];
-  roles: string[];
+  UserRoles: string[] = Constants.getRoles();
   constructor(private userService: UserService, private snackBarService: SnackbarService) {
     this.getAllRoles();
     this.getAllUsers();
@@ -31,7 +31,7 @@ export class AdminComponent implements OnInit {
 
   getAllRoles() {
     this.userService.getAllUserRoles().then(data => {
-      this.roles = data;
+      this.UserRoles = data;
     });
   }
 
