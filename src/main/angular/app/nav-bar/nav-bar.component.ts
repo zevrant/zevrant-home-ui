@@ -19,6 +19,9 @@ export class NavBarComponent implements OnInit {
 
   private baseUrl: string;
   username: string;
+  isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isPrints: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   private subcription: any;
   private logoutSubscription: any;
   constructor(private storage: LocalStorageService, private http: HttpService,
@@ -29,6 +32,7 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getRoles();
     this.subcription = this.loginService.getLoginEmitter().subscribe((event) => {
       this.getUsername();
       this.getRoles();
@@ -37,6 +41,7 @@ export class NavBarComponent implements OnInit {
     this.logoutSubscription = this.loginService.logoutEmitter.subscribe((event)=>{
       this.username = null;
       Constants.setRoles([]);
+      this.checkRoles();
       this.router.navigate(["login"]);
     })
   }
@@ -75,16 +80,22 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-   async hasRole(role: string) {
-    return Constants.getRoles().indexOf(role) >= 0
+  private hasRole(role: string, subject: BehaviorSubject<boolean>) {
+    subject.next(Constants.getRoles().indexOf(role) >= 0);
   }
 
-  getRoles(){
+  private getRoles(){
     this.userService.getRoles().then((data) => {
       Constants.setRoles(data);
+      this.checkRoles();
     }).catch(err => {
       console.log(err);
     });
+  }
+
+  private checkRoles() {
+    this.hasRole('admin', this.isAdmin);
+    this.hasRole('prints', this.isPrints);
   }
 
 }
