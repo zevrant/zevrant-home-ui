@@ -128,7 +128,7 @@ export class AccountComponent implements OnInit {
   templateUrl: 'bottom-sheet-overview-sheet.html',
 })
 export class BottomSheetOverviewSheet {
-  twoFactorCode = twoFactorCode;
+  twoFactorCode = "otpauth://totp/zevrant-services?secret=" + twoFactorCode;
   constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewSheet>, private router: Router) {
     this._bottomSheetRef.afterDismissed().toPromise().then(() => {
       this.router.navigate([""]);

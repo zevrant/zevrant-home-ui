@@ -42,6 +42,7 @@ import {AccountComponent, BottomSheetOverviewSheet} from "./account/account.comp
 import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 import {ForgotPasswordComponent} from "./login/forgot-password/forgot-password.component";
 import {PasswordResetComponent} from "./login/password-reset/password-reset.component";
+import {QRCodeModule} from "angularx-qrcode";
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import {PasswordResetComponent} from "./login/password-reset/password-reset.comp
         MatExpansionModule,
         MatPaginatorModule,
         MatSortModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        QRCodeModule
     ],
   providers: [
     LoginService,

@@ -1,1 +1,2 @@
-<p>Your new two factor setup key is {{twoFactorCode}}</p>
+<p>Your new two factor setup key is </p>
+<qrcode [qrdata]="twoFactorCode" [width]="512" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
