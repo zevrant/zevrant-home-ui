@@ -34,13 +34,15 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
     this.getRoles();
     this.subcription = this.loginService.getLoginEmitter().subscribe((event) => {
-      this.getUsername();
-      this.getRoles();
+      this.getUsername().then(() => {
+        this.getRoles();
+      });
+
     });
 
     this.logoutSubscription = this.loginService.logoutEmitter.subscribe((event)=>{
       this.username = null;
-      Constants.setRoles([]);
+
       this.checkRoles();
       this.router.navigate(["login"]);
     })
@@ -65,7 +67,7 @@ export class NavBarComponent implements OnInit {
 
   private getUsername() {
     let headers: HttpHeaders = new HttpHeaders().set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
-    this.http.get(Constants.oauthBaseUrl + "user/username", headers).then((data) => {
+    return this.http.get(Constants.oauthBaseUrl + "user/username", headers).then((data) => {
       this.username = JSON.parse(JSON.stringify(data)).username;
       this.storage.set(Constants.username, this.username);
     });
@@ -77,6 +79,7 @@ export class NavBarComponent implements OnInit {
       this.storage.remove(Constants.oauthTokenName);
       this.username = null;
       this.router.navigate([""]);
+      this.loginService.logout();
     });
   }
 
@@ -85,7 +88,7 @@ export class NavBarComponent implements OnInit {
   }
 
   private getRoles(){
-    this.userService.getRoles().then((data) => {
+    this.userService.getRoles(this.storage.get(Constants.username)).then((data) => {
       Constants.setRoles(data);
       this.checkRoles();
     }).catch(err => {

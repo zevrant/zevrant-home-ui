@@ -32,7 +32,7 @@ export class UserService {
     return this.http.put(Constants.oauthBaseUrl + "user/bulk", null, users);
   }
 
-  async getRoles(): Promise<string[]> {
-    return this.http.get(Constants.oauthBaseUrl + `user/roles`, null);
+  async getRoles(username: string): Promise<string[]> {
+    return this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null);
   }
 }

@@ -72,4 +72,9 @@ export class LoginService {
     return this.http.put(Constants.oauthBaseUrl + "user/password-reset", body, {headers: headers}).toPromise();
   }
 
+  logout() {
+    Constants.setRoles([]);
+    this.logoutEmitter.emit("loggedout");
+  }
+
 }
