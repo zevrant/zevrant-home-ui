@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: '', component: HomeViewComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/register', component: RegisterComponent },
+  { path: 'prints/:token', component: PrintsComponent },
   { path: 'prints', component: PrintsComponent },
   { path: 'administration', component: AdminComponent },
   { path: 'account', component: AccountComponent },

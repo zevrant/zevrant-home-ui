@@ -6,6 +6,13 @@
     <mat-form-field>
       <input matInput placeholder="search tags" (keyup)="paginatorSearch()" formControlName="tagSearch" color="primary"/>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Results Source</mat-label>
+      <mat-select formControlName="source" color="primary">
+        <mat-option value="Zevrant Services">Zevrant Services</mat-option>
+        <mat-option value="Thingiverse" (click)="paginatorSearch()">Thingverse</mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-paginator
       [length]="totalRows"
       [pageIndex]="0"
@@ -39,4 +46,4 @@
     </mat-accordion>
   </form>
 </mat-card>
-<a id="test" download> click to download </a>
+

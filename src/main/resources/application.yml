@@ -44,6 +44,11 @@ zuul:
       path: /zevrant-oauth2-service/**
       service-id: ZEVRANT-OAUTH2-SERVICE
       stripPrefix: false
+    outsource:
+      sensitiveHeaders:
+      path: /zevrant-outsource-service/**
+      service-id: ZEVRANT-OUTSOURCE-SERVICE
+      stripPrefix: false
 
 management:
   endpoints:

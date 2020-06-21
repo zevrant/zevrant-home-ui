@@ -2,9 +2,26 @@ import {BehaviorSubject} from "rxjs";
 
 export class Model {
   private _isTagsSelected: BehaviorSubject<boolean>
-
+  private _id: number;
+  private _url: string;
   constructor(private _fileName: string, private _coverPhoto: any, private _fileExtension: string,
               private _tags: Array<string>) {
+  }
+
+  get url(): string {
+    return this._url;
+  }
+
+  set url(value: string) {
+    this._url = value;
+  }
+
+  get id(): number {
+    return this._id;
+  }
+
+  set id(value: number) {
+    this._id = value;
   }
 
   get fileName(): string {

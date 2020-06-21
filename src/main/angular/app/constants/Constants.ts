@@ -22,8 +22,13 @@ export class Constants {
     return "zuul/zevrant-model-service/";
   }
 
+  public static get outsourceBaseUrl() {
+    return "zuul/zevrant-outsource-service/";
+  }
+
   public static get baseUrl(): string {
-      return "https://zevrant-services.com:7644/zevrant-home-ui/"
+      return "http://localhost:7644/zevrant-home-ui/";
+      // return "https://zevrant-services.com:7644/zevrant-home-ui/";
   }
 
   public static getRoles(): string[] {

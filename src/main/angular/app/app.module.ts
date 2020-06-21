@@ -43,6 +43,8 @@ import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 import {ForgotPasswordComponent} from "./login/forgot-password/forgot-password.component";
 import {PasswordResetComponent} from "./login/password-reset/password-reset.component";
 import {QRCodeModule} from "angularx-qrcode";
+import {MatSelectModule} from "@angular/material/select";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -60,7 +62,7 @@ import {QRCodeModule} from "angularx-qrcode";
     AccountComponent,
     BottomSheetOverviewSheet,
     ForgotPasswordComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
   ],
     imports: [
         BrowserModule.withServerTransition({appId: 'serverApp'}),
@@ -88,7 +90,9 @@ import {QRCodeModule} from "angularx-qrcode";
         MatPaginatorModule,
         MatSortModule,
         MatProgressSpinnerModule,
-        QRCodeModule
+        QRCodeModule,
+        MatSelectModule,
+        MatDialogModule
     ],
   providers: [
     LoginService,
