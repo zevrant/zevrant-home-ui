@@ -51,8 +51,10 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     this.modelService.uploadEmitter.subscribe((event) => this.paginatorSearch())
   }
 
-  paginatorSearch() {
-    this.searchModel(this.paginator.pageIndex, this.paginator.pageSize);
+  async paginatorSearch() {
+    this.isLoading.next(true);
+    await this.searchModel(this.paginator.pageIndex, this.paginator.pageSize);
+    this.isLoading.next(false);
   }
 
   get tagSearch(): AbstractControl {
@@ -76,7 +78,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     return null;
   }
 
-  searchModel(page: number, pageSize: number) {
+  async searchModel(page: number, pageSize: number) {
     let array = this.modelService.convertTagString(this.tagSearch.value);
     let modelName: string = this.modelSearch.value;
     if(modelName === "") {
@@ -90,7 +92,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
         return this.cultsSearch(page);
       }
     }
-    this.modelService.searchModel(modelName, array, ModelSearchField.MODEL_NAME,  true, page, pageSize)
+    await this.modelService.searchModel(modelName, array, ModelSearchField.MODEL_NAME,  true, page, pageSize)
       .then((data) => {
       data.models.forEach((model) => {
         let fileName = model.fileName.split("/");
@@ -135,14 +137,15 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     this.modelService.updateTags(model.fileName, model.tags);
   }
 
-  thingiverseSearch(page :number, pageSize: number) {
+  async thingiverseSearch(page :number, pageSize: number) {
     let searchValue: string = this.modelSearch.value;
     if(searchValue === null || searchValue === "") {
       searchValue = ' ';
     }
-    this.thingiverseService.search(searchValue, page + 1, pageSize).then((data) => {
+    await this.thingiverseService.search(searchValue, page + 1, pageSize).then((data) => {
       this.searchData = [];
       data.hits.forEach((dataPoint) => {
+        this.totalRows = data.total;
         let tags: Array<string> = [];
         for(let j = 0; j < dataPoint.tags.length; j++){
           tags.push(dataPoint.tags[j].name);
@@ -150,18 +153,21 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
         let model: Model = new Model(dataPoint.name, dataPoint.thumbnail, null, tags) ;
         model.url = dataPoint.public_url;
         this.searchData.push(model);
+        this.searchModelForm.addControl(model.fileName, new FormControl())
       });
     })
   }
 
-  cultsSearch(page: number) {
+  async cultsSearch(page: number) {
     let searchValue: string = this.modelSearch.value;
     if(searchValue === null || searchValue === "") {
       searchValue = ' ';
     }
-    this.isLoading.next(true)
-    this.cultsService.searchModel(searchValue, page + 1).then(data => {
-      this.searchData = data;
+
+    await this.cultsService.searchModel(searchValue, page + 1).then(data => {
+      this.searchData = data.models;
+      this.totalRows = data.totalRows;
+      this.searchData.forEach((model)=> this.searchModelForm.addControl(model.fileName, new FormControl()))
     }).catch(() => {
       this.snackBarService.displayMessage("We are currently processing your request try again in a few minutes.", 10000);
     }).finally(() => {
