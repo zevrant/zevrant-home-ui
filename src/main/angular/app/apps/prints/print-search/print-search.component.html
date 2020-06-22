@@ -1,4 +1,7 @@
 <mat-card>
+  <div class="spinner" *ngIf="isLoading | async">
+    <mat-spinner></mat-spinner>
+  </div>
   <form color="primary" [formGroup]="searchModelForm">
     <mat-form-field>
       <input matInput placeholder="search models" (keyup)="paginatorSearch()" formControlName="modelSearch" color="primary"/>
@@ -11,6 +14,7 @@
       <mat-select formControlName="source" color="primary">
         <mat-option value="Zevrant Services">Zevrant Services</mat-option>
         <mat-option value="Thingiverse" (click)="paginatorSearch()">Thingverse</mat-option>
+        <mat-option value="Cults" (click)="paginatorSearch()">Cults</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-paginator

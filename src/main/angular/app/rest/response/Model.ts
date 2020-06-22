@@ -4,6 +4,7 @@ export class Model {
   private _isTagsSelected: BehaviorSubject<boolean>
   private _id: number;
   private _url: string;
+  private _fileUrl: string;
   constructor(private _fileName: string, private _coverPhoto: any, private _fileExtension: string,
               private _tags: Array<string>) {
   }
@@ -56,12 +57,19 @@ export class Model {
     this._fileExtension = value;
   }
 
-
   get isTagsSelected(): BehaviorSubject<boolean> {
     return this._isTagsSelected;
   }
 
   set isTagsSelected(value: BehaviorSubject<boolean>) {
     this._isTagsSelected = value;
+  }
+
+  get fileUrl(): string {
+    return this._fileUrl;
+  }
+
+  set fileUrl(value: string) {
+    this._fileUrl = value;
   }
 }

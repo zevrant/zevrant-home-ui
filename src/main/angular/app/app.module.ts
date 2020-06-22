@@ -45,6 +45,8 @@ import {PasswordResetComponent} from "./login/password-reset/password-reset.comp
 import {QRCodeModule} from "angularx-qrcode";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDialogModule} from "@angular/material/dialog";
+import {ThingiverseService} from "./services/thingiverse.service";
+import {CultsService} from "./services/cults.service";
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import {MatDialogModule} from "@angular/material/dialog";
     LoginService,
     HttpService,
     PrintService,
-    ModelService
+    ModelService,
+    ThingiverseService,
+    CultsService
   ],
   bootstrap: [AppComponent]
 })

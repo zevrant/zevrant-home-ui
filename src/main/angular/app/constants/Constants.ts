@@ -38,4 +38,8 @@ export class Constants {
   public static setRoles(value: string[]) {
     this._roles = value;
   }
+
+  public static getCultsUrl(){
+    return "https://cults3d.com";
+  }
 }

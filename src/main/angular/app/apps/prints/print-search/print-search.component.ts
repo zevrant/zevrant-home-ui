@@ -12,6 +12,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {ThingiverseHit} from "../../../rest/response/ThingiverseHit";
 import {ThingiverseTag} from "../../../rest/response/ThingiverseTag";
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
+import {CultsService} from "../../../services/cults.service";
 
 class ModelSearchField {
   public static MODEL_NAME: string = "MODEL_NAME";
@@ -33,10 +34,12 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     tagSearch: new FormControl(this.tagSearch, []),
     source: new FormControl(this.source, [])
   });
+  private sources = ["Thingverse", "Cults"];
   thingverseLogin;
   private assetToken: string;
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(private modelService: ModelService, private snackBarService: SnackbarService,
-              private thingiverseService: ThingiverseService, private sanitizer: DomSanitizer) { }
+              private thingiverseService: ThingiverseService, private cultsService: CultsService) { }
 
   ngOnInit() {
     this.searchModel(0, 20);
@@ -83,6 +86,9 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
       case "Thingiverse": {
         return this.thingiverseSearch(page, pageSize);
       }
+      case "Cults": {
+        return this.cultsSearch(page);
+      }
     }
     this.modelService.searchModel(modelName, array, ModelSearchField.MODEL_NAME,  true, page, pageSize)
       .then((data) => {
@@ -102,7 +108,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
   }
 
   async getCoverPhoto(model: Model) {
-    if (this.source.value === "Thingiverse") {
+    if (this.source.value === "Thingiverse" || this.source.value === "Cults") {
       return model.coverPhoto;
     }
     if(model.coverPhoto === null) {
@@ -114,7 +120,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
 
   async download(currentModel: Model) {
     let element = document.getElementById("test");
-    if(this.source.value === "Thingiverse"){
+    if(this.sources.indexOf(this.source.value) >= 0){
       // element.setAttribute('href', `${Constants.outsourceBaseUrl}/thingiverse/download/${currentModel.id}`);
       window.location.href = currentModel.url;
     } else {
@@ -147,4 +153,20 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
       });
     })
   }
+
+  cultsSearch(page: number) {
+    let searchValue: string = this.modelSearch.value;
+    if(searchValue === null || searchValue === "") {
+      searchValue = ' ';
+    }
+    this.isLoading.next(true)
+    this.cultsService.searchModel(searchValue, page + 1).then(data => {
+      this.searchData = data;
+    }).catch(() => {
+      this.snackBarService.displayMessage("We are currently processing your request try again in a few minutes.", 10000);
+    }).finally(() => {
+      this.isLoading.next(false);
+    });
+  }
+
 }
