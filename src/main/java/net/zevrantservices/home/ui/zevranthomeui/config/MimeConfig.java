@@ -10,7 +10,7 @@ public class MimeConfig implements WebServerFactoryCustomizer<ConfigurableServle
   @Override
   public void customize(ConfigurableServletWebServerFactory factory) {
     MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
-    mappings.add("html", "text/javascript");
+    mappings.add("js", "application/javascript");
     factory.setMimeMappings(mappings);
   }
 }
