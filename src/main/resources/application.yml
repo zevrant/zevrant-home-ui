@@ -11,7 +11,7 @@ server:
     max-threads: 1
   servlet:
     context-path: /${spring.application.name}
-  port: 7644
+  port: 8080
   max-http-header-size: 99999999999
 
 eureka:
@@ -35,19 +35,18 @@ zuul:
     time-to-live: 10000
   routes:
     model:
-      sensitiveHeaders:
       path: /zevrant-model-service/**
-      service-id: ZEVRANT-MODEL-SERVICE
+      url: http://localhost
       stripPrefix: false
     oauth:
       sensitiveHeaders:
       path: /zevrant-oauth2-service/**
-      service-id: ZEVRANT-OAUTH2-SERVICE
+      url: http://localhost
       stripPrefix: false
     outsource:
       sensitiveHeaders:
       path: /zevrant-outsource-service/**
-      service-id: ZEVRANT-OUTSOURCE-SERVICE
+      url: http://localhost
       stripPrefix: false
 
 management:
