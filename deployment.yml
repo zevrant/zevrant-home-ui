@@ -18,7 +18,7 @@ spec:
         - name: regcred
       containers:
         - name: zevrant-home-ui
-          image: zevrant/zevrant-home-ui:latest
+          image: zevrant/zevrant-home-ui:$VERSION
           env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
