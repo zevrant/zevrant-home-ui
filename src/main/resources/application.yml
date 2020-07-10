@@ -25,6 +25,8 @@ eureka:
     serviceUrl:
       defaultZone: http://127.0.0.1:8999/eureka/
 
+
+
 zuul:
   host:
     connect-timeout-millis: 60000
