@@ -11,7 +11,7 @@ RUN useradd -m -d /usr/local/microservices/zevrant-home-services/zevrant-home-ui
 
 RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-home-ui /usr/local/microservices/zevrant-home-services/zevrant-home-ui /storage/keys
 
-RUN apt-get install -y postgresql-client dnsutils
+RUN apt-get update; apt-get install -y postgresql-client dnsutils
 
 USER zevrant-home-ui
 
