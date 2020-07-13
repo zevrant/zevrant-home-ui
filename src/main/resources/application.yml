@@ -5,7 +5,8 @@ spring:
     multipart:
       max-request-size: 999999999999999999
       max-file-size: 999999999999999999
-
+  profiles:
+    active: local
 server:
   tomcat:
     max-threads: 1
