@@ -1,17 +1,25 @@
 server:
+  servlet:
+    context-path: /${spring.application.name}
   ssl:
-    key-store: /storage/keys/zevrant-services.p12
+    key-store: /usr/local/microservices/zevrant-home-services/zevrant-oauth2-service/zevrant-services.p12
     key-store-type: PKCS12
-    key-store-password: ${ssl.keystore.password}
-zevrant:
-  bucketName: zevrant-resources
-  keystore: prod/ssl/keystore.p12
-  encrypted:
-    properties: ssl/keystore/password
-  ssl:
-    key-store: /storage/keys/zevrant-services.p12
-    key-store-password: ${ssl.keystore.password}
+    key-store-password: ${password}
 
-context:
-  initializer:
-    classes: net.zevrant.services.security.common.secrets.management.services.EncryptedPropertyContextInitializer
+zuul:
+  routes:
+    model:
+      sensitiveHeaders:
+      path: /zevrant-model-service/**
+      url: https://zevrant-model-service
+      stripPrefix: false
+    oauth:
+      sensitiveHeaders:
+      path: /zevrant-oauth2-service/**
+      url: https://zevrant-oauth2-service
+      stripPrefix: false
+    outsource:
+      sensitiveHeaders:
+      path: /zevrant-outsource-service/**
+      url: https://zevrant-outsource-service
+      stripPrefix: false
