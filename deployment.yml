@@ -31,7 +31,7 @@ spec:
                   name: aws-secret-key
                   key: aws-secret-key
           ports:
-            - containerPort: 8080
+            - containerPort: 9001
           readinessProbe:
             httpGet:
               scheme: HTTPS
