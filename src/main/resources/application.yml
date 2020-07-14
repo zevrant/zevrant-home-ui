@@ -6,25 +6,18 @@ spring:
       max-request-size: 999999999999999999
       max-file-size: 999999999999999999
   profiles:
-    active: local
+    active: develop
 server:
   tomcat:
     max-threads: 1
   port: 8080
   max-http-header-size: 99999999999
-
-eureka:
-  instance:
-    preferIpAddress: true
-    leaseRenewalIntervalInSeconds: 1
-    leaseExpirationDurationInSeconds: 2
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://127.0.0.1:8999/eureka/
-
-
+  ssl:
+    key-store: /storage/keys/zevrant-services.p12
+    key-store-type: PKCS12
+    key-store-password: ${password}
+    key-alias: 1
+    enabled: true
 
 zuul:
   host:
@@ -58,11 +51,4 @@ management:
   health:
     ldap:
       enabled: false
-
-ribbon:
-  eureka:
-    enable: true
-  isSecure: false
-  ReadTimeout: 60000
-  ConnectTimeout: 60000
 
