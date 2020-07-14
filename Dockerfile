@@ -24,5 +24,5 @@ CMD mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials\
  && echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials\
  && openssl req -newkey rsa:4096 -nodes -keyout ~/private.pem -x509 -days 365 -out ~/public.crt -subj "/C=US/ST=New York/L=Brooklyn/O=Example Brooklyn Company/CN=examplebrooklyn.com"\
  && password=`date +%s | sha256sum | base64 | head -c 32`\
- && openssl pkcs12 -export -inkey ~/private.pem -in ~/public.crt -passout "pass:$password" -out /storage/keys/zevrant-services.p12\
+ && openssl pkcs12 -export -inkey ~/private.pem -in ~/public.crt -passout "pass:$password" -out /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-services.p12\
  && java -Xmx32G -jar -Dspring.profiles.active=$ENVIRONMENT -Dpassword=$password /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
