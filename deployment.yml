@@ -20,6 +20,8 @@ spec:
         - name: zevrant-home-ui
           image: zevrant/zevrant-home-ui:$VERSION
           env:
+            - name: ENVIRONMENT
+              value: $ENVIRONMENT
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
