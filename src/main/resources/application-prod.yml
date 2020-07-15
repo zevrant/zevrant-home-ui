@@ -24,3 +24,4 @@ zuul:
       url: https://zevrant-outsource-service
       stripPrefix: false
   ssl-hostname-validation-enabled: false
+
