@@ -28,18 +28,19 @@ zuul:
   routes:
     model:
       path: /zevrant-model-service/**
-      url: http://localhost
+      url: https://localhost:9003
       stripPrefix: false
     oauth:
       sensitiveHeaders:
       path: /zevrant-oauth2-service/**
-      url: http://localhost:9001
+      url: https://localhost:9001
       stripPrefix: false
     outsource:
       sensitiveHeaders:
       path: /zevrant-outsource-service/**
-      url: http://localhost
+      url: https://localhost:9004
       stripPrefix: false
+  ssl-hostname-validation-enabled: false
 
 management:
   endpoints:
