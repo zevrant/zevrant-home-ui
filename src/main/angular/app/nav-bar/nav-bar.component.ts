@@ -88,12 +88,22 @@ export class NavBarComponent implements OnInit {
   }
 
   private getRoles(){
+    if(!isNotNullOrUndefined(this.storage.get(Constants.username))){
+      this.getUsername().then(() => {
+        this.getRolesHelper()
+      });
+    } else {
+      this.getRolesHelper()
+    }
+  }
+
+  private getRolesHelper() {
     this.userService.getRoles(this.storage.get(Constants.username)).then((data) => {
       Constants.setRoles(data);
       this.checkRoles();
     }).catch(err => {
       console.log(err);
-    });
+    })
   }
 
   private checkRoles() {

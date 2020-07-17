@@ -27,6 +27,7 @@ zuul:
     time-to-live: 10000
   routes:
     model:
+      sensitiveHeaders:
       path: /zevrant-model-service/**
       url: https://localhost:9003
       stripPrefix: false
