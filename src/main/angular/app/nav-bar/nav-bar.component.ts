@@ -46,6 +46,7 @@ export class NavBarComponent implements OnInit {
       this.checkRoles();
       this.router.navigate(["login"]);
     })
+
   }
 
   isLoggedIn(): boolean {
