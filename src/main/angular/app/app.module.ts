@@ -47,6 +47,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDialogModule} from "@angular/material/dialog";
 import {ThingiverseService} from "./services/thingiverse.service";
 import {CultsService} from "./services/cults.service";
+import {APP_BASE_HREF} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -102,7 +103,11 @@ import {CultsService} from "./services/cults.service";
     PrintService,
     ModelService,
     ThingiverseService,
-    CultsService
+    CultsService,
+    {
+      provide: APP_BASE_HREF,
+      useValue: window['base-href']
+    }
   ],
   bootstrap: [AppComponent]
 })

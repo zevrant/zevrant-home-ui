@@ -19,11 +19,11 @@ export class Constants {
   }
 
   public static get modelBaseUrl() {
-    return "zuul/zevrant-model-service/";
+    return "zevrant-model-service/";
   }
 
   public static get outsourceBaseUrl() {
-    return "zuul/zevrant-outsource-service/";
+    return "zevrant-outsource-service/";
   }
 
   public static get baseUrl(): string {
