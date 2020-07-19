@@ -83,6 +83,11 @@ npm_run_build {
 
 }
 
+task moveFavIcon(type: Copy) {
+  from file("$buildDir/resources/main/favicon.ico")
+  into file("$buildDir/resources/main/static")
+}
+
 test {
   useJUnitPlatform()
 }
@@ -99,4 +104,5 @@ task npm_run_test(type: NpmTask) {
 
 tasks.compileJava.finalizedBy tasks.npm_run_build
 tasks.npm_run_build.dependsOn(tasks.npmInstall)
+tasks.bootJar.dependsOn(tasks.moveFavIcon)
 tasks.test.finalizedBy tasks.npm_run_test
