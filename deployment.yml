@@ -40,9 +40,3 @@ spec:
               path: /zevrant-home-ui/actuator/health
               port: 8080
             initialDelaySeconds: 10
-          livenessProbe:
-            httpGet:
-              scheme: HTTPS
-              path: /zevrant-home-ui/actuator/health
-              port: 8080
-            initialDelaySeconds: 10
