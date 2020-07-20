@@ -28,6 +28,10 @@ export class UserService {
     return this.http.get(Constants.oauthBaseUrl + "user/roles", null);
   }
 
+  public getAllRoles(): Promise<string[]> {
+    return this.http.get(Constants.oauthBaseUrl + "user/all-roles", null);
+  }
+
   updateUsers(users: User[]) {
     return this.http.put(Constants.oauthBaseUrl + "user/bulk", null, users);
   }

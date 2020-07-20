@@ -48,6 +48,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {ThingiverseService} from "./services/thingiverse.service";
 import {CultsService} from "./services/cults.service";
 import {APP_BASE_HREF} from "@angular/common";
+import {CdkColumnDef} from "@angular/cdk/table";
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import {APP_BASE_HREF} from "@angular/common";
         MatDialogModule
     ],
   providers: [
+    CdkColumnDef,
     LoginService,
     HttpService,
     PrintService,

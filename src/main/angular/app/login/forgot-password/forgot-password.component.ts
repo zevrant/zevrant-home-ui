@@ -3,6 +3,10 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 import {LoginService} from "../../services/login.service";
 import {Router} from "@angular/router";
 import {SnackbarService} from "../../services/snackbar.service";
+import {BehaviorSubject} from "rxjs";
+import {Tag} from "../../apps/prints/print-upload/tag";
+import {UserService} from "../../services/user.service";
+import {Role} from "../../rest/response/Role";
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,6 +14,7 @@ import {SnackbarService} from "../../services/snackbar.service";
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent implements OnInit {
+
 
   resetPassword:FormGroup = new FormGroup({
     email: new FormControl(this.email, [
@@ -20,6 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router, private snackBarService: SnackbarService) { }
 
   ngOnInit(): void {
+
   }
 
   get email(): AbstractControl {
@@ -35,4 +41,6 @@ export class ForgotPasswordComponent implements OnInit {
       this.router.navigateByUrl('');
     })
   }
+
+
 }

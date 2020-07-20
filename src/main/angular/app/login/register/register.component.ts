@@ -3,6 +3,9 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 import {HttpClient} from "@angular/common/http";
 import {regexValidator} from "../../directives/regex-validator.directive";
 import {Router} from "@angular/router";
+import {Role} from "../../rest/response/Role";
+import {BehaviorSubject} from "rxjs";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-register',
@@ -27,13 +30,24 @@ export class RegisterComponent implements OnInit {
     ])
   });
 
-  private http: HttpClient;
   private config;
-  constructor(http: HttpClient, private router: Router) {
-    this.http=http;
+
+  userRoles = new BehaviorSubject<Array<Role>>([]);
+  displayedColumns = ["Desired Role", "Is Applied"];
+  private appliedRoles: string[] = [];
+
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) {
+
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.userService.getAllRoles().then(data => {
+      let dataRoles: Array<Role> = [];
+      for(let role in data) {
+        dataRoles.push(new Role(data[role], false));
+      }
+      this.userRoles.next(dataRoles);
+    });
   }
 
   onSubmit() {
@@ -68,5 +82,16 @@ export class RegisterComponent implements OnInit {
       return this.registerForm.get('fullName');
     }
     return null;
+  }
+
+  applyRole(role: Role) {
+    let index: number = this.appliedRoles.indexOf(role.role);
+    if (index > -1) {
+      this.appliedRoles = this.appliedRoles.splice(index, 1);
+      role.isApplied = false;
+      return;
+    }
+    this.appliedRoles.push(role.role);
+    role.isApplied = true;
   }
 }

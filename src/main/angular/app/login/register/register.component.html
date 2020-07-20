@@ -1,6 +1,6 @@
 <mat-card color="primary">
+  <h1>Enter Registration Info</h1>
   <form color="primary" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <h1>Enter Registration Info</h1>
     <div *ngIf="username.invalid && (username.dirty || username.touched)"
          class="alert alert-danger">
 
@@ -17,6 +17,21 @@
     <mat-form-field color="primary">
       <input placeholder="username" matInput id="username"  formControlName="username"/>
     </mat-form-field>
+    <div class="line-break"></div>
+    <div>
+      <table [dataSource]="userRoles" class="mat-elevation-z8" mat-table>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        <ng-container matColumnDef="Desired Role">
+          <th *matHeaderCellDef mat-header-cell>Desired Role</th>
+          <td mat-cell data-label="ID" *matCellDef="let role"><span  class="push" id="{{role.role}}">{{role.role}}</span></td>
+        </ng-container>
+        <ng-container matColumnDef="Is Applied">
+          <th *matHeaderCellDef mat-header-cell><span class="center">Is Applied</span></th>
+          <td mat-cell data-label="ID" *matCellDef="let role"><mat-checkbox class="checkbox center" (click)="applyRole(role)" [checked]="role.isApplied | async"></mat-checkbox></td>
+        </ng-container>
+      </table>
+    </div>
     <br>
     <div *ngIf="password.invalid && (password.dirty || password.touched)"
          class="alert alert-danger">
