@@ -1,15 +1,15 @@
 export class RoleResponse {
 
-  constructor(private _totalElements: number, private _roles: Array<string>){
+  constructor(private _totalRoles: number, private _roles: Array<string>){
 
   }
 
-  get totalElements(): number {
-    return this._totalElements;
+  get totalRoles(): number {
+    return this._totalRoles;
   }
 
-  set totalElements(value: number) {
-    this._totalElements = value;
+  set totalRoles(value: number) {
+    this._totalRoles = value;
   }
 
   get roles(): Array<string> {
