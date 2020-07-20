@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+@media (prefers-color-scheme: dark) {
+  .day.dark-scheme {
+    @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+  }
+  .night.dark-scheme {
+    @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .day.light-scheme {
+    @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+  }
+
+  .night.light-scheme {
+    @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+  }
+}
+

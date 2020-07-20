@@ -3,6 +3,7 @@ import {HttpService} from "./http.service";
 import {Constants} from "../constants/Constants";
 import {User} from "../rest/response/User";
 import {BehaviorSubject} from "rxjs";
+import {RoleResponse} from "../rest/response/RoleResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,11 @@ export class UserService {
   }
 
   public getAllUserRoles(): Promise<string[]> {
-    return this.http.get(Constants.oauthBaseUrl + "user/roles", null);
+    return this.http.get(Constants.oauthBaseUrl + "user/all-roles", null);
   }
 
-  public getAllRoles(): Promise<string[]> {
-    return this.http.get(Constants.oauthBaseUrl + "user/all-roles", null);
+  public searchRoles(page: any, pageSize: any): Promise<RoleResponse> {
+    return this.http.get(Constants.oauthBaseUrl + `user/roles/search/${page}/${pageSize}`, null);
   }
 
   updateUsers(users: User[]) {

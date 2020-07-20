@@ -4,16 +4,25 @@ import {UserService} from "../services/user.service";
 import {SnackbarService} from "../services/snackbar.service";
 import {BehaviorSubject} from "rxjs";
 import {Constants} from "../constants/Constants";
+import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {regexValidator} from "../directives/regex-validator.directive";
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
 
   users: User[];
-  UserRoles: string[] = Constants.getRoles();
+  userRoles: string[] = Constants.getRoles();
+  addTagsForm: FormGroup = new FormGroup({
+    addTag: new FormControl(this.addTag, [
+      Validators.required,
+    ])
+  });
+  totalRows: any;
+  displayedColumns: any;
   constructor(private userService: UserService, private snackBarService: SnackbarService) {
     this.getAllRoles();
     this.getAllUsers();
@@ -31,7 +40,7 @@ export class AdminComponent implements OnInit {
 
   getAllRoles() {
     this.userService.getAllUserRoles().then(data => {
-      this.UserRoles = data;
+      this.userRoles = data;
     });
   }
 
@@ -55,5 +64,20 @@ export class AdminComponent implements OnInit {
     }).catch((response) =>{
       this.snackBarService.displayMessage(response, 10000);
     })
+  }
+
+  onSubmit() {
+
+  }
+
+  get addTag(): AbstractControl {
+    if(this.addTagsForm){
+      return this.addTagsForm.get('addTag');
+    }
+    return null;
+  }
+
+  roleSearch(number: number, number2: number) {
+
   }
 }

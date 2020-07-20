@@ -15,7 +15,7 @@ let twoFactorCode = null;
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
   focus: BehaviorSubject<boolean> = new BehaviorSubject(false);

@@ -1,5 +1,7 @@
-<mat-card color="primary">
+<div [style.height]="'5%'" color="primary"></div>
+<mat-card class="center container mat-elevation-z8">
   <h1>Enter Registration Info</h1>
+  <div class="line-break"></div>
   <form color="primary" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div *ngIf="username.invalid && (username.dirty || username.touched)"
          class="alert alert-danger">
@@ -18,21 +20,6 @@
       <input placeholder="username" matInput id="username"  formControlName="username"/>
     </mat-form-field>
     <div class="line-break"></div>
-    <div>
-      <table [dataSource]="userRoles" class="mat-elevation-z8" mat-table>
-        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-        <ng-container matColumnDef="Desired Role">
-          <th *matHeaderCellDef mat-header-cell>Desired Role</th>
-          <td mat-cell data-label="ID" *matCellDef="let role"><span  class="push" id="{{role.role}}">{{role.role}}</span></td>
-        </ng-container>
-        <ng-container matColumnDef="Is Applied">
-          <th *matHeaderCellDef mat-header-cell><span class="center">Is Applied</span></th>
-          <td mat-cell data-label="ID" *matCellDef="let role"><mat-checkbox class="checkbox center" (click)="applyRole(role)" [checked]="role.isApplied | async"></mat-checkbox></td>
-        </ng-container>
-      </table>
-    </div>
-    <br>
     <div *ngIf="password.invalid && (password.dirty || password.touched)"
          class="alert alert-danger">
 
@@ -49,10 +36,36 @@
     <mat-form-field color="primary">
       <input matInput type='password' placeholder="password" id="password"  formControlName="password"/>
     </mat-form-field>
-    <br>
+    <div class="line-break"></div>
     <mat-form-field color="primary">
       <input placeholder="full name" matInput id="full-name"  formControlName="fullName"/>
     </mat-form-field>
-    <button mat-button type="submit" color="primary" >Submit</button>
   </form>
+  <div class="big">
+    <mat-paginator
+      [length]="totalRows"
+      [pageIndex]="0"
+      [pageSize]="4"
+      [pageSizeOptions]="[4]"
+      [style.float]="'left'">
+      <button mat-button (click)="roleSearch(0,4)">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-paginator>
+    <div class="line-break"></div>
+    <table [dataSource]="userRoles" mat-table color="secondary">
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+      <ng-container matColumnDef="Desired Role">
+        <th *matHeaderCellDef mat-header-cell>Desired Role</th>
+        <td mat-cell data-label="ID" *matCellDef="let role"><span  class="push" id="{{role.role}}">{{role.role}}</span></td>
+      </ng-container>
+      <ng-container matColumnDef="Is Applied">
+        <th *matHeaderCellDef mat-header-cell><span class="center">Is Applied</span></th>
+        <td mat-cell data-label="ID" *matCellDef="let role"><mat-checkbox class="checkbox center" (click)="applyRole(role)" [checked]="role.isApplied | async"></mat-checkbox></td>
+      </ng-container>
+    </table>
+  </div>
+  <div class="line-break"></div>
+  <button mat-button type="submit" (click)="onSubmit()" color="primary" >Submit</button>
 </mat-card>

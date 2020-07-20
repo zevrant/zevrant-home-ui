@@ -146,5 +146,10 @@
   "defaultProject": "zevrant-home-ui",
   "cli": {
     "analytics": "821f8501-49c5-4189-9950-14079cad4676"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
   }
 }

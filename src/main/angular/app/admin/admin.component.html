@@ -1,14 +1,28 @@
-<table>
-  <tr>
-    <th></th>
-    <th *ngFor="let role of UserRoles">{{role}}</th>
-  </tr>
-  <tr *ngFor="let user of users">
-    <td>{{user.username}}</td>
-    <td *ngFor="let role of UserRoles" >
-      <mat-checkbox (change)="updateRole(user, role)" [checked]="containsRole(user, role) | async"></mat-checkbox>
-    </td>
-  </tr>
-  <button mat-button (click)="save()">Save</button>
-</table>
+<div class="big">
+  <mat-paginator
+    [length]="totalRows"
+    [pageIndex]="0"
+    [pageSize]="4"
+    [pageSizeOptions]="[4]"
+    [style.float]="'left'">
+    <button mat-button (click)="roleSearch(0,4)">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-paginator>
+  <br>
+  <table [dataSource]="users" mat-table color="secondary">
+    <tr mat-header-row *matHeaderRowDef="userRoles"></tr>
+    <tr mat-row *matRowDef="let row; columns: userRoles;"></tr>
+    <ng-container *ngFor="let role of userRoles" [matColumnDef]="role">
+      <th *matHeaderCellDef mat-header-cell>{{role}}</th>
+      <td mat-cell data-label="ID" *matCellDef="let user"><mat-checkbox (change)="updateRole(user, role)" [checked]="containsRole(user, role) | async"></mat-checkbox></td>
+    </ng-container>
+  </table>
+</div>
 
+<form color="primary" [formGroup]="addTagsForm" (ngSubmit)="onSubmit()">
+  <mat-form-field color="primary">
+    <input placeholder="add tag" matInput id="add-tag"  formControlName="addTag"/>
+  </mat-form-field>
+  <button mat-button type="submit" color="primary">Submit</button>
+</form>

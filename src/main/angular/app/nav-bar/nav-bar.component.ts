@@ -13,7 +13,7 @@ import {UserService} from "../services/user.service";
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
 
@@ -54,6 +54,9 @@ export class NavBarComponent implements OnInit {
     if(isDefined){
       let expiresIn = this.storage.get(Constants.expiresInName);
       let currentDate = new Date();
+      if(this.storage.get(Constants.username) == "login") {
+        return false;
+      }
       if(expiresIn && currentDate.getTime() > expiresIn) {
         this.storage.clear();
         this.loginService.logoutEmitter.emit("loggedOut");

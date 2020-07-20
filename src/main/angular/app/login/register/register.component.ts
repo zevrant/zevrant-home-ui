@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {regexValidator} from "../../directives/regex-validator.directive";
@@ -6,13 +6,15 @@ import {Router} from "@angular/router";
 import {Role} from "../../rest/response/Role";
 import {BehaviorSubject} from "rxjs";
 import {UserService} from "../../services/user.service";
+import {MatPaginator} from "@angular/material/paginator";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, AfterViewInit {
   registerForm: FormGroup = new FormGroup({
     username: new FormControl(this.username, [
       Validators.required,
@@ -31,35 +33,37 @@ export class RegisterComponent implements OnInit {
   });
 
   private config;
-
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
   userRoles = new BehaviorSubject<Array<Role>>([]);
   displayedColumns = ["Desired Role", "Is Applied"];
   private appliedRoles: string[] = [];
+  totalRows: number;
 
-  constructor(private http: HttpClient, private router: Router, private userService: UserService) {
+  constructor(private http: HttpClient, private router: Router, private userService: UserService, private snackBarService: SnackbarService) {
 
   }
 
-  async ngOnInit() {
-    this.userService.getAllRoles().then(data => {
-      let dataRoles: Array<Role> = [];
-      for(let role in data) {
-        dataRoles.push(new Role(data[role], false));
-      }
-      this.userRoles.next(dataRoles);
-    });
+  ngOnInit(): void {
+    this.roleSearch(0, 4);
+  }
+
+  ngAfterViewInit() {
+    this.paginator.page.subscribe((event) => this.roleSearch(this.paginator.pageIndex, this.paginator.pageSize));
   }
 
   onSubmit() {
     let message = {
-      "username": this.registerForm.get("username").value,
-      "password": this.registerForm.get("password").value,
-      "fullName": this.registerForm.get("fullName").value
+      "clientId": this.registerForm.get("username").value,
+      "clientSecret": this.registerForm.get("password").value,
+      "fullName": this.registerForm.get("fullName").value,
+      "roles": this.appliedRoles
     };
-    this.http.post("zevrant-oauth2-service/email", message)
-      .subscribe((data: any) => {
-        this.config = data;
-        this.router.navigateByUrl("");
+      this.http.post("zevrant-oauth2-service/register", message).toPromise()
+        .then((data: any) => {
+          this.router.navigateByUrl("");
+        }).catch((error)=> {
+          this.snackBarService.displayMessage("The chosen username has already been taken, please choose another and try again.", 10000);
       });
   }
 
@@ -94,4 +98,16 @@ export class RegisterComponent implements OnInit {
     this.appliedRoles.push(role.role);
     role.isApplied = true;
   }
+
+  roleSearch(page, pageSize) {
+    this.userService.searchRoles(page, pageSize).then(data => {
+      let dataRoles: Array<Role> = [];
+      for(let role in data.roles) {
+        dataRoles.push(new Role(data.roles[role], false));
+      }
+      this.userRoles.next(dataRoles);
+      this.totalRows = data.totalElements;
+    });
+  }
+
 }

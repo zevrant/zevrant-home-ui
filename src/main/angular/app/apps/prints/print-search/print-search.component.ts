@@ -22,7 +22,7 @@ class ModelSearchField {
 @Component({
   selector: 'app-print-search',
   templateUrl: './print-search.component.html',
-  styleUrls: ['./print-search.component.css']
+  styleUrls: ['./print-search.component.scss']
 })
 export class PrintSearchComponent implements OnInit, AfterViewInit {
   searchData: Array<Model>;

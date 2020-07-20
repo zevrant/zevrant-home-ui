@@ -13,7 +13,7 @@ import {TagResponse} from "../../../rest/response/TagResponse";
 @Component({
   selector: 'app-print-upload',
   templateUrl: './print-upload.component.html',
-  styleUrls: ['./print-upload.component.css']
+  styleUrls: ['./print-upload.component.scss']
 })
 export class PrintUploadComponent implements OnInit, OnChanges {
   files: File;
