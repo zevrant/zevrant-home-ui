@@ -4,6 +4,7 @@ import {Constants} from "../constants/Constants";
 import {User} from "../rest/response/User";
 import {BehaviorSubject} from "rxjs";
 import {RoleResponse} from "../rest/response/RoleResponse";
+import {AddRole} from "../rest/request/AddRole";
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,10 @@ export class UserService {
 
   async getRoles(username: string): Promise<string[]> {
     return this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null);
+  }
+
+  addRole(role: string, desc: string) {
+    let addRole = new AddRole(role, desc);
+    return this.http.post(Constants.oauthBaseUrl + "user/roles", null, addRole);
   }
 }

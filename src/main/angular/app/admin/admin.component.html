@@ -11,18 +11,30 @@
   </mat-paginator>
   <br>
   <table [dataSource]="users" mat-table color="secondary">
-    <tr mat-header-row *matHeaderRowDef="userRoles"></tr>
-    <tr mat-row *matRowDef="let row; columns: userRoles;"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <ng-container matColumnDef="Username">
+      <th *matHeaderCellDef mat-header-cell>User</th>
+      <td mat-cell data-label="user" *matCellDef="let user">{{user.username}}</td>
+    </ng-container>
     <ng-container *ngFor="let role of userRoles" [matColumnDef]="role">
       <th *matHeaderCellDef mat-header-cell>{{role}}</th>
-      <td mat-cell data-label="ID" *matCellDef="let user"><mat-checkbox (change)="updateRole(user, role)" [checked]="containsRole(user, role) | async"></mat-checkbox></td>
+      <td mat-cell data-label="role" *matCellDef="let user"><mat-checkbox (change)="updateRole(user, role)" [checked]="containsRole(user, role) | async"></mat-checkbox></td>
+    </ng-container>
+    <ng-container matColumnDef="Delete User">
+      <th *matHeaderCellDef mat-header-cell>Delete User</th>
+      <td mat-cell data-label="Delete User" *matCellDef="let user"><button mat-button (click)="deleteUser()"><mat-icon>delete</mat-icon></button></td>
     </ng-container>
   </table>
 </div>
 
-<form color="primary" [formGroup]="addTagsForm" (ngSubmit)="onSubmit()">
+<form color="primary" [formGroup]="addRolesForm" (ngSubmit)="onSubmit()">
   <mat-form-field color="primary">
-    <input placeholder="add tag" matInput id="add-tag"  formControlName="addTag"/>
+    <input placeholder="add role" matInput id="add-role"  formControlName="addRole"/>
+  </mat-form-field>
+  <br>
+  <mat-form-field color="primary">
+    <textarea placeholder="role description here" matInput id="roleDesc" formControlName="roleDesc"></textarea>
   </mat-form-field>
   <button mat-button type="submit" color="primary">Submit</button>
 </form>

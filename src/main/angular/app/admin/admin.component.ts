@@ -16,9 +16,12 @@ export class AdminComponent implements OnInit {
 
   users: User[];
   userRoles: string[] = Constants.getRoles();
-  addTagsForm: FormGroup = new FormGroup({
-    addTag: new FormControl(this.addTag, [
+  addRolesForm: FormGroup = new FormGroup({
+    addRole: new FormControl(this.addRole, [
       Validators.required,
+    ]),
+    roleDesc: new FormControl(this.roleDesc, [
+      Validators.required
     ])
   });
   totalRows: any;
@@ -41,6 +44,11 @@ export class AdminComponent implements OnInit {
   getAllRoles() {
     this.userService.getAllUserRoles().then(data => {
       this.userRoles = data;
+      this.displayedColumns = ["Username"];
+      data.forEach((role) => {
+        this.displayedColumns.push(role);
+      })
+      this.displayedColumns.push("Delete User");
     });
   }
 
@@ -67,17 +75,30 @@ export class AdminComponent implements OnInit {
   }
 
   onSubmit() {
-
+    let tag = this.addRole.value
+    let desc = this.roleDesc.value
+    this.userService.addRole(tag, desc);
   }
 
-  get addTag(): AbstractControl {
-    if(this.addTagsForm){
-      return this.addTagsForm.get('addTag');
+  get addRole(): AbstractControl {
+    if(this.addRolesForm){
+      return this.addRolesForm.get('addRole');
+    }
+    return null;
+  }
+
+  get roleDesc(): AbstractControl {
+    if(this.addRolesForm){
+      return this.addRolesForm.get('roleDesc');
     }
     return null;
   }
 
   roleSearch(number: number, number2: number) {
+
+  }
+
+  deleteUser() {
 
   }
 }
