@@ -8,6 +8,7 @@ import {AdminComponent} from "./admin/admin.component";
 import {AccountComponent} from "./account/account.component";
 import {ForgotPasswordComponent} from "./login/forgot-password/forgot-password.component";
 import {PasswordResetComponent} from "./login/password-reset/password-reset.component";
+import {DndComponent} from "./apps/dnd/dnd.component";
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'login/forgot-password', component: ForgotPasswordComponent },
   { path: 'login/password-reset/:token', component: PasswordResetComponent },
+  { path: 'dnd', component: DndComponent},
   { path: '**', redirectTo: '' }
 ];
 
