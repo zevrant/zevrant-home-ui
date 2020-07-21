@@ -27,27 +27,27 @@ export class LoginService {
 
   login(username: string, password: string, twoFactor): Promise<any> {
 
-    let headers = new HttpHeaders().set("client_id", username);
-    headers = headers.set("client_secret", password);
-    if(isNotNullOrUndefined(twoFactor) && twoFactor.length > 0){
-      headers = headers.set("oneTimePad", twoFactor);
-    }
+    let body = new URLSearchParams();
+    body.set('client_id', username);
+    body.set('client_secret', password);
+    body.set('grant_type', 'client_credentials');
+    body.set('scope', 'DEFAULT');
 
-    return this.http.post(Constants.oauthBaseUrl + "token", null, {headers: headers}).toPromise().then((data) => {
+    let headers = new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")
+
+    return this.http.post(Constants.oauthBaseUrl + "oauth/token", body.toString(), {headers: headers}).toPromise().then((data) => {
       let response: LoginResponse = JSON.parse(JSON.stringify(data));
-      this.local.set(Constants.oauthTokenName, response.accessToken);
-      let date = new Date();
-      date.setTime(date.getTime() + response.expiresIn * 1000)
-      this.local.set(Constants.expiresInName, date.getTime());
+      this.local.set(Constants.oauthTokenName, response.access_token);
       let local = this.local;
       let logoutEmitter = this.logoutEmitter;
       new Promise((res) => {
         setTimeout(function() {
           local.clear();
           logoutEmitter.emit("loggedOut");
-        }, response.expiresIn * 1000);
+        }, response.expires_in * 1000);
       });
       this.loginEmitter.emit("loggedIn");
+
     });
 
   }

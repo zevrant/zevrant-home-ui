@@ -54,9 +54,6 @@ export class NavBarComponent implements OnInit {
     if(isDefined){
       let expiresIn = this.storage.get(Constants.expiresInName);
       let currentDate = new Date();
-      if(this.storage.get(Constants.username) == "login") {
-        return false;
-      }
       if(expiresIn && currentDate.getTime() > expiresIn) {
         this.storage.clear();
         this.loginService.logoutEmitter.emit("loggedOut");
@@ -70,7 +67,8 @@ export class NavBarComponent implements OnInit {
   }
 
   private getUsername() {
-    let headers: HttpHeaders = new HttpHeaders().set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
+    let token = this.storage.get(Constants.oauthTokenName);
+    let headers: HttpHeaders = new HttpHeaders().set("Authorization", "bearer " + token);
     return this.http.get(Constants.oauthBaseUrl + "user/username", headers).then((data) => {
       this.username = JSON.parse(JSON.stringify(data)).username;
       this.storage.set(Constants.username, this.username);

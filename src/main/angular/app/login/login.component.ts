@@ -35,7 +35,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loginService.login(this.username.value, this.password.value, this.twoFactor.value).catch((error: any) => {
+    this.loginService.login(this.username.value, this.password.value, this.twoFactor.value)
+      .then(() => {
+        this.router.navigate([""])
+      })
+      .catch((error: any) => {
       this.snackBar.open(error.error.message);
       new Promise( resolve => setTimeout(resolve, 10000) ).then(() => {
         this.snackBar.dismiss();

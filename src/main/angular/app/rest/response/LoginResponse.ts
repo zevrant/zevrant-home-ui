@@ -1,28 +1,28 @@
 
 export class LoginResponse {
 
-  private _accessToken: string;
-  private _expiresIn: number;
+  private _access_token: string;
+  private _expires_in: number;
 
 
-  constructor(accessToken: string, expiresIn: number) {
-    this._accessToken = accessToken;
-    this._expiresIn = expiresIn;
+  constructor(access_Token: string, expiresIn: number) {
+    this._access_token = access_Token;
+    this._expires_in = expiresIn;
   }
 
-  get accessToken(): string {
-    return this._accessToken;
+  get access_token(): string {
+    return this._access_token;
   }
 
-  set accessToken(value: string) {
-    this._accessToken = value;
+  set access_token(value: string) {
+    this._access_token = value;
   }
 
-  get expiresIn(): number {
-    return this._expiresIn;
+  get expires_in(): number {
+    return this._expires_in;
   }
 
-  set expiresIn(value: number) {
-    this._expiresIn = value;
+  set expires_in(value: number) {
+    this._expires_in = value;
   }
 }
