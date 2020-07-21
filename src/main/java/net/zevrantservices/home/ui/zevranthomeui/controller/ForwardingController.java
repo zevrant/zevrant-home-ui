@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 @Controller
 public class ForwardingController {
@@ -15,8 +16,8 @@ public class ForwardingController {
   }
 
   @RequestMapping("main/angular/favicon.ico")
-  public byte[] getFavIcon() throws IOException {
+  public InputStream getFavIcon() throws IOException {
     ClassPathResource resource = new ClassPathResource("favicon.ico");
-    return resource.getInputStream().readAllBytes();
+    return resource.getInputStream();
   }
 }
