@@ -76,10 +76,9 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
-    this.http.delete(Constants.oauthBaseUrl + "token", null).then(() => {
+    this.http.delete(Constants.oauthBaseUrl + `token/${this.username}`, null).then(() => {
       this.storage.remove(Constants.username);
       this.storage.remove(Constants.oauthTokenName);
-      this.username = null;
       this.router.navigate([""]);
       this.loginService.logout();
     });
