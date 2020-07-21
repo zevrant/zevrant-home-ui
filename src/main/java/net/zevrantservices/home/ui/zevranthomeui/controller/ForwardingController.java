@@ -1,6 +1,5 @@
 package net.zevrantservices.home.ui.zevranthomeui.controller;
 
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,9 +14,8 @@ public class ForwardingController {
     return "forward:/";
   }
 
-  @RequestMapping("main/angular/favicon.ico")
+  @RequestMapping("/favicon.ico")
   public InputStream getFavIcon() throws IOException {
-    ClassPathResource resource = new ClassPathResource("favicon.ico");
-    return resource.getInputStream();
+    return getClass().getResourceAsStream("/angular/favicon.ico");
   }
 }

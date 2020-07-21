@@ -26,6 +26,7 @@
       <td mat-cell data-label="Delete User" *matCellDef="let user"><button mat-button (click)="deleteUser()"><mat-icon>delete</mat-icon></button></td>
     </ng-container>
   </table>
+  <button mat-button (click)="save()" color="primary">Save</button>
 </div>
 
 <form color="primary" [formGroup]="addRolesForm" (ngSubmit)="onSubmit()">

@@ -104,5 +104,5 @@ task npm_run_test(type: NpmTask) {
 
 tasks.compileJava.finalizedBy tasks.npm_run_build
 tasks.npm_run_build.dependsOn(tasks.npmInstall)
-tasks.bootJar.dependsOn(tasks.moveFavIcon)
+//tasks.bootJar.dependsOn(tasks.moveFavIcon)
 tasks.test.finalizedBy tasks.npm_run_test
