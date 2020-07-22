@@ -35,7 +35,11 @@ export class UserService {
     return <Promise<Array<string>>> this.http.get(Constants.oauthBaseUrl + "user/all-roles", null).then((data) => {
       data.forEach((role) => {
         this._roles[role] = new BehaviorSubject<boolean>(false);
-      })
+      }).catch((error) => {
+        if(error.error == "invalid_token") {
+          this.storage.clear();
+        }
+      });
     });
 
   }
