@@ -49,6 +49,10 @@ import {ThingiverseService} from "./services/thingiverse.service";
 import {CultsService} from "./services/cults.service";
 import {APP_BASE_HREF} from "@angular/common";
 import {CdkColumnDef} from "@angular/cdk/table";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {DndComponent} from "./apps/dnd/dnd.component";
+import {MatListModule} from "@angular/material/list";
+import {CreateCampaignComponent} from "./apps/dnd/create-campaign/create-campaign.component";
 
 @NgModule({
   declarations: [
@@ -67,37 +71,41 @@ import {CdkColumnDef} from "@angular/cdk/table";
     BottomSheetOverviewSheet,
     ForgotPasswordComponent,
     PasswordResetComponent,
+    DndComponent,
+    CreateCampaignComponent
   ],
-    imports: [
-        BrowserModule.withServerTransition({appId: 'serverApp'}),
-        MatBottomSheetModule,
-        AppRoutingModule,
-        MatTableModule,
-        MatCheckboxModule,
-        BrowserAnimationsModule,
-        MatMenuModule,
-        MatSliderModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatToolbarModule,
-        HttpClientModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatTabsModule,
-        MatIconModule,
-        LazyLoadImageModule,
-        MatTooltipModule,
-        MatExpansionModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatProgressSpinnerModule,
-        QRCodeModule,
-        MatSelectModule,
-        MatDialogModule
-    ],
+  imports: [
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
+    MatBottomSheetModule,
+    AppRoutingModule,
+    MatTableModule,
+    MatCheckboxModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatSliderModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatTabsModule,
+    MatIconModule,
+    LazyLoadImageModule,
+    MatTooltipModule,
+    MatExpansionModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    QRCodeModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatListModule
+  ],
   providers: [
     CdkColumnDef,
     LoginService,

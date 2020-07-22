@@ -1,1 +1,13 @@
-<p>dnd works!</p>
+<mat-sidenav-container color="primary">
+  <mat-sidenav #sidenav mode="side" opened fixedInViewport="non-fixed"
+                fixedBottomGap="0" fixedTopGap="64">
+    <mat-nav-list>
+      <mat-list-item *ngIf="hasRole('D&D-admin') | async">
+        <h3 routerLink="create-campaign">Create Campaign</h3>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+</mat-sidenav-container>
+
+

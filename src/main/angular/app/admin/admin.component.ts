@@ -6,6 +6,7 @@ import {BehaviorSubject} from "rxjs";
 import {Constants} from "../constants/Constants";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {regexValidator} from "../directives/regex-validator.directive";
+import {LocalStorageService} from "angular-web-storage";
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +16,7 @@ import {regexValidator} from "../directives/regex-validator.directive";
 export class AdminComponent implements OnInit {
 
   users: User[];
-  userRoles: string[] = Constants.getRoles();
+  userRoles: string[];
   addRolesForm: FormGroup = new FormGroup({
     addRole: new FormControl(this.addRole, [
       Validators.required,
@@ -26,7 +27,8 @@ export class AdminComponent implements OnInit {
   });
   totalRows: any;
   displayedColumns: any;
-  constructor(private userService: UserService, private snackBarService: SnackbarService) {
+  constructor(private userService: UserService, private snackBarService: SnackbarService,
+              private localStorageService: LocalStorageService) {
     this.getAllRoles();
     this.getAllUsers();
   }
@@ -38,17 +40,6 @@ export class AdminComponent implements OnInit {
     this.userService.getAllUsers().then(data => {
       this.users = data;
       console.log(data);
-    });
-  }
-
-  getAllRoles() {
-    this.userService.getAllUserRoles().then(data => {
-      this.userRoles = data;
-      this.displayedColumns = ["Username"];
-      data.forEach((role) => {
-        this.displayedColumns.push(role);
-      })
-      this.displayedColumns.push("Delete User");
     });
   }
 
@@ -68,6 +59,7 @@ export class AdminComponent implements OnInit {
 
   save() {
     this.userService.updateUsers(this.users).then((response) => {
+      this.userService.getRoles(this.localStorageService.get(Constants.username));
       this.snackBarService.displayMessage("successfully updated users", 10000);
     }).catch((response) =>{
       this.snackBarService.displayMessage(response, 10000);
@@ -100,5 +92,16 @@ export class AdminComponent implements OnInit {
 
   deleteUser() {
 
+  }
+
+  private async getAllRoles() {
+    await this.userService.getAllUserRoles();
+    let data = Object.keys(this.userService.roles);
+    this.userRoles = data;
+    this.displayedColumns = ["Username"];
+    data.forEach((role) => {
+      this.displayedColumns.push(role);
+    });
+    this.displayedColumns.push("Delete User");
   }
 }

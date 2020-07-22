@@ -12,7 +12,6 @@ export class PrintsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.roles = Constants.getRoles();
   }
 
 }
