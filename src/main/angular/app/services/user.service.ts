@@ -6,11 +6,14 @@ import {BehaviorSubject} from "rxjs";
 import {RoleResponse} from "../rest/response/RoleResponse";
 import {AddRole} from "../rest/request/AddRole";
 import {HttpClient} from "@angular/common/http";
+import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  private _roles: Object = {};
 
   constructor(private http: HttpService, private httpClient: HttpClient) {
   }
@@ -27,8 +30,13 @@ export class UserService {
     return this.http.get(Constants.oauthBaseUrl + "user", null);
   }
 
-  public getAllUserRoles(): Promise<string[]> {
-    return this.http.get(Constants.oauthBaseUrl + "user/all-roles", null);
+  public async getAllUserRoles(): Promise<Array<string>> {
+    return <Promise<Array<string>>> this.http.get(Constants.oauthBaseUrl + "user/all-roles", null).then((data) => {
+      data.forEach((role) => {
+        this._roles[role] = new BehaviorSubject<boolean>(false);
+      })
+    });
+
   }
 
   public searchRoles(page: any, pageSize: any): Promise<any> {
@@ -39,8 +47,15 @@ export class UserService {
     return this.http.put(Constants.oauthBaseUrl + "user/bulk", null, users);
   }
 
-  async getRoles(username: string): Promise<string[]> {
-    return this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null);
+  getRoles(username: string) {
+    this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null).then((data) => {
+      data.forEach((role) => {
+        this._roles[role].next(true);
+      })
+    }).catch(err => {
+        console.log(err);
+    });
+
   }
 
   addRole(role: string, desc: string) {
@@ -49,4 +64,19 @@ export class UserService {
   }
 
 
+  hasRole(role: string): BehaviorSubject<boolean> {
+    if(isNotNullOrUndefined(this._roles[role])) {
+      return this._roles[role];
+    }
+    this._roles[role] = new BehaviorSubject<boolean>(false);
+    return this._roles[role];
+  }
+
+  deleteRoles() {
+    this._roles = {};
+  }
+
+  get roles(): Object {
+    return this._roles;
+  }
 }

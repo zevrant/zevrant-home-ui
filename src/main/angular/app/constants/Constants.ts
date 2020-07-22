@@ -1,6 +1,6 @@
-export class Constants {
+import {BehaviorSubject} from "rxjs";
 
-  private static _roles: string[] = [];
+export class Constants {
 
   public static get oauthTokenName(): string {
     return "LOCAL_STORAGE_TOKEN";
@@ -29,14 +29,6 @@ export class Constants {
   public static get baseUrl(): string {
       return "http://localhost:7644/zevrant-home-ui/";
       // return "https://zevrant-services.com:7644/zevrant-home-ui/";
-  }
-
-  public static getRoles(): string[] {
-    return this._roles;
-  }
-
-  public static setRoles(value: string[]) {
-    this._roles = value;
   }
 
   public static getCultsUrl(){

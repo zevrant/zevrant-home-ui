@@ -19,16 +19,15 @@ export class NavBarComponent implements OnInit {
 
   private baseUrl: string;
   username: string;
-  isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  isPrints: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
   private subcription: any;
   private logoutSubscription: any;
+
   constructor(private storage: LocalStorageService, private http: HttpService,
               private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService,
               private userService: UserService) {
     this.baseUrl = Constants.baseUrl;
     this.username = (this.storage.get(Constants.username)) ? this.storage.get("username") : "Login";
+
   }
 
   ngOnInit() {
@@ -36,14 +35,17 @@ export class NavBarComponent implements OnInit {
     this.subcription = this.loginService.getLoginEmitter().subscribe((event) => {
       this.getUsername().then(() => {
         this.getRoles();
+      }).catch((error) => {
+          if(error.error == "invalid_token") {
+            this.storage.clear();
+          }
       });
 
     });
 
     this.logoutSubscription = this.loginService.logoutEmitter.subscribe((event)=>{
       this.username = null;
-
-      this.checkRoles();
+      this.userService.deleteRoles();
       this.router.navigate(["login"]);
     })
 
@@ -84,11 +86,12 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  private hasRole(role: string, subject: BehaviorSubject<boolean>) {
-    subject.next(Constants.getRoles().indexOf(role) >= 0);
+  hasRole(role: string): BehaviorSubject<boolean> {
+    return this.userService.hasRole(role)
   }
 
   private getRoles(){
+    this.userService.getAllUserRoles()
     if(!isNotNullOrUndefined(this.storage.get(Constants.username))){
       this.getUsername().then(() => {
         this.getRolesHelper()
@@ -99,17 +102,7 @@ export class NavBarComponent implements OnInit {
   }
 
   private getRolesHelper() {
-    this.userService.getRoles(this.storage.get(Constants.username)).then((data) => {
-      Constants.setRoles(data);
-      this.checkRoles();
-    }).catch(err => {
-      console.log(err);
-    })
-  }
-
-  private checkRoles() {
-    this.hasRole('admin', this.isAdmin);
-    this.hasRole('prints', this.isPrints);
+    this.userService.getRoles(this.storage.get(Constants.username));
   }
 
 }

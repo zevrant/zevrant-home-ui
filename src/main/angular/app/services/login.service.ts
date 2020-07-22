@@ -73,7 +73,6 @@ export class LoginService {
   }
 
   logout() {
-    Constants.setRoles([]);
     this.logoutEmitter.emit("loggedout");
   }
 
