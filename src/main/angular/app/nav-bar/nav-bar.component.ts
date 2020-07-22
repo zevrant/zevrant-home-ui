@@ -35,10 +35,6 @@ export class NavBarComponent implements OnInit {
     this.subcription = this.loginService.getLoginEmitter().subscribe((event) => {
       this.getUsername().then(() => {
         this.getRoles();
-      }).catch((error) => {
-          if(error.error == "invalid_token") {
-            this.storage.clear();
-          }
       });
 
     });

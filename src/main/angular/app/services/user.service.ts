@@ -7,6 +7,7 @@ import {RoleResponse} from "../rest/response/RoleResponse";
 import {AddRole} from "../rest/request/AddRole";
 import {HttpClient} from "@angular/common/http";
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
+import {StorageService} from "angular-web-storage";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UserService {
 
   private _roles: Object = {};
 
-  constructor(private http: HttpService, private httpClient: HttpClient) {
+  constructor(private http: HttpService, private httpClient: HttpClient, private storage: StorageService) {
   }
 
   public getUserByName(username: String): Promise<User> {
@@ -52,8 +53,10 @@ export class UserService {
       data.forEach((role) => {
         this._roles[role].next(true);
       })
-    }).catch(err => {
-        console.log(err);
+    }).catch((error) => {
+      if(error.error == "invalid_token") {
+        this.storage.clear();
+      }
     });
 
   }
