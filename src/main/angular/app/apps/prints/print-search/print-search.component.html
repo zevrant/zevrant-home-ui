@@ -13,7 +13,7 @@
       <mat-label>Results Source</mat-label>
       <mat-select formControlName="source" color="primary">
         <mat-option value="Zevrant Services">Zevrant Services</mat-option>
-        <mat-option value="Thingiverse" (click)="paginatorSearch()">Thingverse</mat-option>
+        <mat-option value="Thingiverse" (click)="paginatorSearch()">Thingiverse</mat-option>
         <mat-option value="Cults" (click)="paginatorSearch()">Cults</mat-option>
       </mat-select>
     </mat-form-field>
@@ -42,6 +42,7 @@
         <button (click)="updateTags(model)" color="accent" mat-button matTooltip="Add Tag">
           <mat-icon>library_add</mat-icon>
         </button>
+        <a id="download"></a>
         <button (click)="download(model)" mat-button color="accent" >
           <mat-icon>cloud_download</mat-icon>
         </button>

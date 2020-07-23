@@ -34,7 +34,7 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     tagSearch: new FormControl(this.tagSearch, []),
     source: new FormControl(this.source, [])
   });
-  private sources = ["Thingverse", "Cults"];
+  sources = ["Thingiverse", "Cults"];
   thingverseLogin;
   private assetToken: string;
   isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -121,16 +121,21 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
   }
 
   async download(currentModel: Model) {
-    let element = document.getElementById("test");
-    if(this.sources.indexOf(this.source.value) >= 0){
-      // element.setAttribute('href', `${Constants.outsourceBaseUrl}/thingiverse/download/${currentModel.id}`);
+    let element = document.getElementById("download");
+    let source = this.source.value
+    if(this.sources.indexOf(source) >= 0){
       window.location.href = currentModel.url;
     } else {
-      element.setAttribute('href', `${Constants.baseUrl}zuul/zevrant-model-service/models/${currentModel.fileName}.${currentModel.fileExtension}`);
+      this.modelService.downloadModel(currentModel.fileName, currentModel.fileExtension).then((byteArray) => {
+        let blob = new Blob([byteArray], { type: 'application/octet-stream' });
+        const a = document.createElement('a');
+        const objectUrl = URL.createObjectURL(blob);
+        a.href = objectUrl;
+        a.download = `${currentModel.fileName}.${currentModel.fileExtension}`
+        a.click();
+        URL.revokeObjectURL(objectUrl);
+      });
     }
-    element.setAttribute('download', currentModel.fileName + ".zip");
-    element.setAttribute("type", "application/octet-stream");
-    element.click()
   }
 
   updateTags(model: Model) {

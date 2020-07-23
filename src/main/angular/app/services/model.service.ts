@@ -66,4 +66,8 @@ export class ModelService {
     let headers = new HttpHeaders().set("tags", tags);
     return this.http.put(Constants.modelBaseUrl + `models/${fileName}`, headers, null);
   }
+
+  downloadModel(fileName: string, fileExtension: string): Promise<ArrayBuffer> {
+    return this.http.getBlob(`${Constants.modelBaseUrl}models/${fileName}.${fileExtension}`, null);
+  }
 }
