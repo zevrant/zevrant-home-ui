@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Constants} from "../constants/Constants";
 import {LocalStorageService} from "angular-web-storage";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +28,12 @@ export class HttpService {
     return this.http.get(url, {headers: headers, responseType: "arraybuffer"}).toPromise();
   }
 
-  post(url: string, headers: HttpHeaders, body: any): Promise<any> {
+  post(url: string, headers: HttpHeaders, body: any): Observable<any> {
     if (!headers) {
       headers = new HttpHeaders()
     }
     headers = headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
-    return this.http.post(url, body, {headers: headers}).toPromise();
+    return this.http.post(url, body, {headers: headers});
   }
 
   put(url: string, headers: HttpHeaders, body: any): Promise<any> {

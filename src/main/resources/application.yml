@@ -19,12 +19,12 @@ server:
 
 zuul:
   host:
-    connect-timeout-millis: 60000
-    socket-timeout-millis: 60000
+    connect-timeout-millis: 1200000
+    socket-timeout-millis: 1200000
     max-total-connections: 200
     max-per-route-connections: 20
     time-unit: MILLISECONDS
-    time-to-live: 10000
+    time-to-live: 1000000
   routes:
     model:
       sensitiveHeaders:
@@ -40,6 +40,11 @@ zuul:
       sensitiveHeaders:
       path: /zevrant-outsource-service/**
       url: https://localhost:9004
+      stripPrefix: false
+    dnd:
+      sensitiveHeaders:
+      path: /zevrant-dnd-service/**
+      url: https://localhost:9005
       stripPrefix: false
   ssl-hostname-validation-enabled: false
 

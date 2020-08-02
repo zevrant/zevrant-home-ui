@@ -1,4 +1,29 @@
 .container {
-  display: flex;
-  justify-content: center;
+  display: inline;
+  width: 100%;
+}
+
+form {
+  width: 100%;
+  display: inline;
+}
+
+mat-form-field {
+  margin: 1%;
+}
+
+.push {
+  margin-left: 35%;
+}
+
+h1 {
+  margin-left: 8.5%;
+}
+
+mat-card {
+  margin-top: 10%;
+}
+
+button {
+  margin-left: 55%;
 }

@@ -39,7 +39,6 @@ export class AdminComponent implements OnInit {
   getAllUsers(){
     this.userService.getAllUsers().then(data => {
       this.users = data;
-      console.log(data);
     });
   }
 
@@ -53,7 +52,6 @@ export class AdminComponent implements OnInit {
   }
 
   containsRole(user: User, role: string) {
-    console.log(user.username + " " + role + " " + (user.roles.indexOf(role) >= 0));
    return new BehaviorSubject(user.roles.indexOf(role) >= 0);
   }
 

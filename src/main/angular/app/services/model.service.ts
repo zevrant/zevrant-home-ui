@@ -30,7 +30,7 @@ export class ModelService {
       .append("fileName", fileName);
     let response = this.http.post(Constants.modelBaseUrl + "models", headers, formData);
     this.uploadEmitter.emit("uploaded");
-    return response;
+    return response.toPromise();
   }
 
   convertTagString(tags: string){

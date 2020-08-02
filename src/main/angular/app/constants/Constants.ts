@@ -14,6 +14,10 @@ export class Constants {
     return "zevrant-oauth2-service/";
   }
 
+  public static get dndBaseUrl(): string {
+    return "zevrant-dnd-service/";
+  }
+
   public static get username() {
     return "USERNAME"
   }

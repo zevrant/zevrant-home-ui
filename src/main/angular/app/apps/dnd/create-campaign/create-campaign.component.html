@@ -1,8 +1,40 @@
-<app-dnd></app-dnd>
-
 <mat-card>
   <div class="container">
-    <p>this is a test</p>
+    <form color="primary" [formGroup]="createCampaignForm" (submit)="onSubmit()">
+      <div class="push">
+        <h1>Enter Campaign Information</h1>
+        <br>
+        <mat-form-field color="primary">
+          <input matInput color="primary" id="campaignName" placeholder="Campaign Name" formControlName="campaignName">
+        </mat-form-field>
+        <mat-form-field color="primary">
+          <input matInput color="primary" id="ruleset" placeholder="Ruleset" formControlName="ruleset">
+        </mat-form-field>
+        <mat-form-field color="primary">
+          <input matInput color="primary" id="frequency" placeholder="Frequency" formControlName="frequency">
+        </mat-form-field>
+      </div>
+      <br>
+      <div class="push">
+        <mat-form-field color="primary">
+          <input matInput [matDatepicker]="picker" color="primary" id="startDate" placeholder="Start Date" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field color="primary">
+          <input matTimepicker color="primary" id="startTime" placeholder="Start Time" formControlName="startTime">
+        </mat-form-field>
+        <mat-form-field color="primary">
+          <mat-select color="primary" id="timezone" placeholder="Time Zone" formControlName="timezoneControl">
+            <mat-option *ngFor="let timezone of timezones" [value]="timezone">(GMT{{timezone.offset}}) {{timezone.timezoneName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <button type="submit" color="accent" mat-button matTooltip="Create Campaign">
+          Submit
+        </button>
+      </div>
+    </form>
   </div>
 </mat-card>
 

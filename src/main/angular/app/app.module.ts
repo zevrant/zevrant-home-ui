@@ -53,7 +53,11 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {DndComponent} from "./apps/dnd/dnd.component";
 import {MatListModule} from "@angular/material/list";
 import {CreateCampaignComponent} from "./apps/dnd/create-campaign/create-campaign.component";
-
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatTimepickerModule} from "mat-timepicker";
+import {MatMomentDateModule} from "@angular/material-moment-adapter"
+import {CampaignComponent} from "./apps/dnd/campaign/campaign.component";
+import {DndModule} from "./apps/dnd/dnd.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,8 +75,6 @@ import {CreateCampaignComponent} from "./apps/dnd/create-campaign/create-campaig
     BottomSheetOverviewSheet,
     ForgotPasswordComponent,
     PasswordResetComponent,
-    DndComponent,
-    CreateCampaignComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),
@@ -104,7 +106,11 @@ import {CreateCampaignComponent} from "./apps/dnd/create-campaign/create-campaig
     MatSelectModule,
     MatDialogModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatDatepickerModule,
+    MatTimepickerModule,
+    MatMomentDateModule,
+    DndModule
   ],
   providers: [
     CdkColumnDef,
