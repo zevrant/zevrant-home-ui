@@ -123,7 +123,7 @@ export class PrintUploadComponent implements OnInit, OnChanges {
   }
 
   async addTag() {
-    this.tagService.uploadTag(this.tagSearch.value).toPromise().then(() => {
+    this.tagService.uploadTag(this.tagSearch.value).then(() => {
       this.searchTag();
     });
   }

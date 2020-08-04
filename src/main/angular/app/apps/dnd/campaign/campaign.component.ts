@@ -83,7 +83,7 @@ export class CampaignComponent implements OnInit {
   submit() {
     this.mode.next("query");
     this.showProgress = true;
-    this.dndService.uploadSession(this.sessionName.value, this.campaignName, this.sessionNotesLink.value, this.fileData, this.sessionNumber.value).subscribe((event)=> {
+    this.dndService.uploadSession(this.sessionName.value, this.campaignName, this.sessionNotesLink.value, this.fileData, this.sessionNumber.value).then((event)=> {
       this.mode.next("determinate");
       let progressEvent = event;
       let interval = setInterval(() => {

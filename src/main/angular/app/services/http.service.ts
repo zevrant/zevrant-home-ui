@@ -28,12 +28,12 @@ export class HttpService {
     return this.http.get(url, {headers: headers, responseType: "arraybuffer"}).toPromise();
   }
 
-  post(url: string, headers: HttpHeaders, body: any): Observable<any> {
+  post(url: string, headers: HttpHeaders, body: any): Promise<any> {
     if (!headers) {
       headers = new HttpHeaders()
     }
     headers = headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
-    return this.http.post(url, body, {headers: headers});
+    return this.http.post(url, body, {headers: headers}).toPromise();
   }
 
   put(url: string, headers: HttpHeaders, body: any): Promise<any> {

@@ -19,7 +19,7 @@ export class DndService {
                         startDate: string, startTime: string, offset: number): Promise<any> {
     let campaignRequest: CreateCampaignRequest = new CreateCampaignRequest(campaignName, ruleset, frequency,
                                                                             startDate, startTime, offset);
-    return this.http.post(Constants.dndBaseUrl + "campaigns", null, campaignRequest).toPromise();
+    return this.http.post(Constants.dndBaseUrl + "campaigns", null, campaignRequest);
   }
 
   public getProgress(uuid: string): Promise<any> {

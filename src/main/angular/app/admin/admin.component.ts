@@ -68,13 +68,7 @@ export class AdminComponent implements OnInit {
   onSubmit() {
     let tag = this.addRole.value
     let desc = this.roleDesc.value
-    this.userService.addRole(tag, desc).toPromise()
-      .then((data) => {
-        console.log(data)
-      })
-      .catch((error)=> {
-      console.error(error)
-    });
+    this.userService.addRole(tag, desc);
   }
 
   get addRole(): AbstractControl {
