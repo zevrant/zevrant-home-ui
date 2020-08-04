@@ -7,6 +7,7 @@ import {Constants} from "../constants/Constants";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {regexValidator} from "../directives/regex-validator.directive";
 import {LocalStorageService} from "angular-web-storage";
+import {error} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-admin',
@@ -67,7 +68,13 @@ export class AdminComponent implements OnInit {
   onSubmit() {
     let tag = this.addRole.value
     let desc = this.roleDesc.value
-    this.userService.addRole(tag, desc);
+    this.userService.addRole(tag, desc).toPromise()
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((error)=> {
+      console.error(error)
+    });
   }
 
   get addRole(): AbstractControl {
