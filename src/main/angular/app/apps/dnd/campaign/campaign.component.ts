@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {BehaviorSubject} from "rxjs";
@@ -6,12 +6,13 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 import {DndService} from "../../../services/dnd.service";
 import {SnackbarService} from "../../../services/snackbar.service";
-import {MatProgressBar} from "@angular/material/progress-bar";
+import {MatExpansionPanel} from "@angular/material/expansion";
 
 @Component({
   selector: 'app-campaign',
   templateUrl: './campaign.component.html',
-  styleUrls: ['./campaign.component.scss']
+  styleUrls: ['./campaign.component.scss'],
+  viewProviders: [MatExpansionPanel]
 })
 export class CampaignComponent implements OnInit {
 
@@ -43,6 +44,7 @@ export class CampaignComponent implements OnInit {
       this.campaignName = params['name'];
       this.isAdmin.next(this.userService.hasRole(this.campaignName + "-admin").getValue());
     });
+    this.isAdmin.next(this.userService.hasRole(this.campaignName + "-admin").getValue());
   }
 
   ngOnInit(): void {
@@ -89,13 +91,12 @@ export class CampaignComponent implements OnInit {
       let interval = setInterval(() => {
         this.dndService.getProgress(event.uuid).then((result) => {
           progressEvent.bytesTransfered = result.bytesTransfered;
-          if(progressEvent.bytesTransfered == progressEvent.maxBytes) {
+          if(progressEvent.bytesTransfered >= this.fileData.byteLength) {
             this.progress.next(100);
             clearInterval(interval)
             this.showProgress = false;
             this.snackbarService.displayMessage("Upload Comeplete.", 10000);
             this.dndService.deleteProgress(progressEvent.uuid);
-
           } else {
             console.log(progressEvent.bytesTransfered / this.fileData.byteLength * 100);
             this.progress.next(progressEvent.bytesTransfered / this.fileData.byteLength * 100);

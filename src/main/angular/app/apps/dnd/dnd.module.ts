@@ -22,6 +22,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {DndService} from "../../services/dnd.service";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {SnackbarService} from "../../services/snackbar.service";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import {SnackbarService} from "../../services/snackbar.service";
         RouterModule,
         MatIconModule,
         MatProgressBarModule,
+        MatExpansionModule,
     ],
   declarations: [
     DndComponent,
