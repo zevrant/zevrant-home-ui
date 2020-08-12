@@ -63,7 +63,7 @@
       </ng-container>
       <ng-container matColumnDef="Is Applied">
         <th *matHeaderCellDef mat-header-cell><span class="center">Is Applied</span></th>
-        <td mat-cell data-label="ID" *matCellDef="let role"><mat-checkbox class="checkbox center" (click)="applyRole(role)" [checked]="role.isApplied | async"></mat-checkbox></td>
+        <td mat-cell data-label="ID" *matCellDef="let role"><mat-checkbox class="checkbox center" (change)="applyRole(role)" [checked]="containsRole(role)"></mat-checkbox></td>
       </ng-container>
     </table>
   </div>

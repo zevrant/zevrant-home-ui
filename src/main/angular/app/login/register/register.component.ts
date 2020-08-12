@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {regexValidator} from "../../directives/regex-validator.directive";
@@ -40,7 +40,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   private appliedRoles: string[] = [];
   totalRows: number;
 
-  constructor(private http: HttpClient, private router: Router, private userService: UserService, private snackBarService: SnackbarService) {
+  constructor(private http: HttpClient, private router: Router, private userService: UserService, private snackBarService: SnackbarService,
+              private changeDetectorRef: ChangeDetectorRef) {
 
   }
 
@@ -89,14 +90,15 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   applyRole(role: Role) {
+    console.log(role);
     let index: number = this.appliedRoles.indexOf(role.role);
     if (index > -1) {
-      this.appliedRoles = this.appliedRoles.splice(index, 1);
+      delete this.appliedRoles[index];
       role.isApplied = false;
-      return;
+    } else {
+      this.appliedRoles.push(role.role);
+      role.isApplied = true;
     }
-    this.appliedRoles.push(role.role);
-    role.isApplied = true;
   }
 
   async roleSearch(page, pageSize) {
@@ -106,8 +108,17 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         dataRoles.push(new Role(data.roles[role], false));
       }
       this.userRoles.next(dataRoles);
+      this.userRoles.getValue().forEach(role => {
+        if(this.appliedRoles.indexOf(role.role) >= 0) {
+          role.isApplied = true;
+        }
+      })
       this.totalRows = data.totalRoles;
     });
   }
 
+  containsRole(role: Role) {
+    console.log(this.appliedRoles)
+    return role.isApplied;
+  }
 }
