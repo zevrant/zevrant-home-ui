@@ -5,6 +5,7 @@ import {Timezone} from "./Timezone";
 import {DndService} from "../../../services/dnd.service";
 import {error} from "@angular/compiler/src/util";
 import {SnackbarService} from "../../../services/snackbar.service";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-create-campaign',
   templateUrl: './create-campaign.component.html',
@@ -13,7 +14,7 @@ import {SnackbarService} from "../../../services/snackbar.service";
 export class CreateCampaignComponent implements OnInit {
   timezones: Array<Timezone> = [];
 
-  createCampaignForm: FormGroup = new FormGroup({
+  createCampaignForm: FormGroup =  new FormGroup({
     campaignName: new FormControl(this.campaignName, [
       Validators.required
     ]),
@@ -34,7 +35,7 @@ export class CreateCampaignComponent implements OnInit {
     ])
   });
 
-  constructor(private dndService: DndService, private snackbarService: SnackbarService) {
+  constructor(private dndService: DndService, private snackbarService: SnackbarService, private router: Router) {
     let timezones = momentTimezone.tz.names()
     timezones.forEach((timezone) => {
       let zone: Timezone = new Timezone(timezone,momentTimezone().tz(timezone).utcOffset() / 60)
@@ -50,9 +51,9 @@ export class CreateCampaignComponent implements OnInit {
     let offset = momentTimezone().tz(this.timezoneControl.value.timezoneName).utcOffset() / 60
     this.dndService.createCampaign(this.campaignName.value, this.ruleset.value, this.frequency.value, this.startDate.value, this.startTime.value.toString(), offset).then((response) => {
       this.dndService.sessionListEmitter.emit("updated");
-      this.createCampaignForm.reset();
+      this.router.navigateByUrl("/dnd/campaign/" + encodeURI(this.campaignName.value));
     }).catch((error)=> {
-      this.snackbarService.displayMessage(error.error, 10000);
+      this.snackbarService.displayMessage(error.error.message, 10000);
     });
   }
 

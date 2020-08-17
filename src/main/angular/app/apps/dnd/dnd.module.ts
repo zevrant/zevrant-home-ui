@@ -23,28 +23,30 @@ import {DndService} from "../../services/dnd.service";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {SnackbarService} from "../../services/snackbar.service";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatStepperModule} from "@angular/material/stepper";
 
 
 @NgModule({
-    imports: [
-        MatFormFieldModule,
-        MatCardModule,
-        MatDatepickerModule,
-        MatOptionModule,
-        MatSelectModule,
-        CommonModule,
-        MatButtonModule,
-        MatTooltipModule,
-        ReactiveFormsModule,
-        MatTimepickerModule,
-        MatInputModule,
-        MatListModule,
-        MatSidenavModule,
-        RouterModule,
-        MatIconModule,
-        MatProgressBarModule,
-        MatExpansionModule,
-    ],
+  imports: [
+    MatFormFieldModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatOptionModule,
+    MatSelectModule,
+    CommonModule,
+    MatButtonModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
+    MatTimepickerModule,
+    MatInputModule,
+    MatListModule,
+    MatSidenavModule,
+    RouterModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatExpansionModule,
+    MatStepperModule,
+  ],
   declarations: [
     DndComponent,
     CampaignComponent,
