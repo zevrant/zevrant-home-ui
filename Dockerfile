@@ -13,7 +13,7 @@ RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-h
 
 RUN apt-get update; apt-get install -y postgresql-client dnsutils curl
 
-USER zevrant-home-ui
+#USER zevrant-home-ui
 
 COPY build/libs/zevrant-home-ui-*.jar /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
 
