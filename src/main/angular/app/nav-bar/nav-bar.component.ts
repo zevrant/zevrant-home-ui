@@ -31,7 +31,9 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getRoles();
+    if(this.username !== "Login") {
+      this.getRoles();
+    }
     this.subcription = this.loginService.getLoginEmitter().subscribe((event) => {
       this.getUsername().then(() => {
         this.getRoles();
