@@ -54,7 +54,7 @@ export class UserService {
         this._roles[role].next(true);
       })
     }).catch((error) => {
-      if(error.error.error == "invalid_token") {
+      if(error && error.error && error.error.error == "invalid_token") {
         this.storage.clear();
       }
     });
