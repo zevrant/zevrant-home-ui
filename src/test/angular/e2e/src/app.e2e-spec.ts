@@ -1,4 +1,4 @@
-import {AppPage} from './app.po';
+import {AppPage} from './pages/app.po';
 import {browser, logging} from 'protractor';
 
 describe('workspace-project App', () => {
@@ -8,10 +8,11 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    console.log("expect")
-    expect(page.getTitleText()).toEqual('ZevrantHomeUi');
+  it('should display welcome message', async () => {
+    await page.navigateTo();
+    apage.getTitleText());
+
+    // expect(text).toEqual('ZevrantHomeUi');
   });
 
   afterEach(async () => {

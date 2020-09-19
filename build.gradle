@@ -31,6 +31,9 @@ repositories {
 
 ext {
   set('springCloudVersion', 'Hoxton.SR3')
+  serenityCoreVersion = '2.3.4'
+  serenityCucumberVersion = '2.3.4'
+  junitVersion = '4.12'
 }
 
 dependencies {
@@ -40,6 +43,13 @@ dependencies {
   implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'org.springframework.security:spring-security-test'
+  testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '2.2'
+  testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+    "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
+    "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+    "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
+    "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
+
   compile group: 'javax.mail', name: 'javax.mail-api', version: '1.6.2'
 }
 

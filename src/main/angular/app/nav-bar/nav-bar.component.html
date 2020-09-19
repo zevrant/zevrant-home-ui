@@ -1,7 +1,7 @@
 <p>
   <mat-toolbar color="primary">
     <a mat-button color="secondary" routerLink="">Home</a>
-    <button mat-button color="secondary" [matMenuTriggerFor]="appsMenu">Apps</button>
+    <button mat-button color="secondary" id="appsMenu" [matMenuTriggerFor]="appsMenu">Apps</button>
     <button *ngIf="hasRole('admin') | async" mat-button color="secondary" routerLink="administration">Admin Area</button>
     <span color="primary" class="fill-space"></span>
     <button *ngIf="!isLoggedIn()" id="loginButton" color="secondary" mat-button routerLink="login">Login</button>
@@ -10,11 +10,11 @@
   </mat-toolbar>
 </p>
 <mat-menu #appsMenu="matMenu" color="primary">
-  <a mat-menu-item color="secondary" *ngIf="hasRole('prints') | async" routerLink="prints">prints</a>
-  <a mat-menu-item color="secondary" *ngIf="hasRole('D&D') | async" routerLink="dnd">D&D</a>
+  <a mat-menu-item color="secondary" id="prints" *ngIf="hasRole('prints') | async" routerLink="prints">prints</a>
+  <a mat-menu-item color="secondary" id="D&D" *ngIf="hasRole('D&D') | async" routerLink="dnd">D&D</a>
 </mat-menu>
 
 <mat-menu #userMenu="matMenu" color="primary">
-  <a color="secondary" mat-menu-item routerLink="account">account</a>
+  <a color="secondary" id="settings" mat-menu-item routerLink="account">account</a>
   <a (click)="logout()" id="logout" color="secondary" mat-menu-item>logout</a>
 </mat-menu>
