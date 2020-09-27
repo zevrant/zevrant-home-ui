@@ -30,18 +30,16 @@ export class NavBarComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     if(this.username !== "Login") {
-      this.getRoles();
+      await this.getRoles();
     }
-    this.subcription = this.loginService.getLoginEmitter().subscribe((event) => {
-      this.getUsername().then(() => {
-        this.getRoles();
-      });
-
+    this.subcription = this.loginService.getLoginEmitter().subscribe(async () => {
+      await this.getUsername();
+      await this.getRoles();
     });
 
-    this.logoutSubscription = this.loginService.logoutEmitter.subscribe((event)=>{
+    this.logoutSubscription = this.loginService.logoutEmitter.subscribe(()=>{
       this.username = null;
       this.userService.deleteRoles();
       this.router.navigate(["login"]);
@@ -66,34 +64,31 @@ export class NavBarComponent implements OnInit {
     return false;
   }
 
-  private getUsername() {
+  private async getUsername() {
     let token = this.storage.get(Constants.oauthTokenName);
     let headers: HttpHeaders = new HttpHeaders().set("Authorization", "bearer " + token);
-    return this.http.get(Constants.oauthBaseUrl + "user/username", headers).then((data) => {
-      this.username = JSON.parse(JSON.stringify(data)).username;
-      this.storage.set(Constants.username, this.username);
-    });
+    let data = await this.http.get(Constants.oauthBaseUrl + "user/username", headers);
+    this.username = JSON.parse(JSON.stringify(data)).username;
+    this.storage.set(Constants.username, this.username);
   }
 
-  logout() {
-    this.http.delete(Constants.oauthBaseUrl + `token/${this.username}`, null).then(() => {
-      this.storage.remove(Constants.username);
-      this.storage.remove(Constants.oauthTokenName);
-      this.router.navigate([""]);
-      this.loginService.logout();
-    });
+  async logout() {
+    await this.http.delete(Constants.oauthBaseUrl + `token/${this.username}`, null);
+    this.storage.remove(Constants.username);
+    this.storage.remove(Constants.oauthTokenName);
+    this.loginService.logout();
+    await this.router.navigate([""]);
   }
 
   hasRole(role: string): BehaviorSubject<boolean> {
     return this.userService.hasRole(role)
   }
 
-  private getRoles(){
-    this.userService.getAllUserRoles()
+  private async getRoles(){
+    await this.userService.getAllUserRoles()
     if(!isNotNullOrUndefined(this.storage.get(Constants.username))){
-      this.getUsername().then(() => {
-        this.getRolesHelper()
-      });
+      await this.getUsername();
+      this.getRolesHelper()
     } else {
       this.getRolesHelper()
     }

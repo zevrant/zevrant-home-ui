@@ -49,6 +49,9 @@ export class UserService {
   }
 
   getRoles(username: string) {
+    if(!isNotNullOrUndefined(username)) {
+      return null;
+    }
     this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null).then((data) => {
       data.forEach((role) => {
         this._roles[role].next(true);

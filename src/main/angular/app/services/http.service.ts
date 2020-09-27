@@ -12,12 +12,12 @@ export class HttpService {
   constructor(private http: HttpClient, private storage: LocalStorageService) {
   }
 
-  get(url: string, headers: HttpHeaders): Promise<any> {
+  async get(url: string, headers: HttpHeaders): Promise<any> {
     if (!headers) {
       headers = new HttpHeaders()
     }
     headers = headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
-    return this.http.get(url, {headers: headers}).toPromise();
+    return this.http.get(url, {headers: headers});
   }
 
   getBlob(url: string, headers: HttpHeaders) {
