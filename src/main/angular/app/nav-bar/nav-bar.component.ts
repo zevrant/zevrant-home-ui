@@ -55,7 +55,7 @@ export class NavBarComponent implements OnInit {
       this.userLoggedIn = undefined;
     });
 
-    this.logoutSubscription = this.loginService.logoutEmitter.subscribe((event)=>{
+    this.logoutSubscription = this.loginService.logoutEmitter.subscribe(()=>{
       this.username = null;
       this.userService.deleteRoles();
       this.router.navigate(["login"]);

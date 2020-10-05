@@ -49,4 +49,8 @@ export class DndService {
   public deleteProgress(uuid:string): Promise<any> {
     return this.http.delete(Constants.dndBaseUrl + `sessions/progress/${uuid}`, null);
   }
+
+  public deleteCampaign(campaignName: string) {
+    return this.http.delete(Constants.dndBaseUrl + `campaigns/${campaignName}`, null);
+  }
 }

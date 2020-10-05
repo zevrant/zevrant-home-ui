@@ -26,11 +26,11 @@
         </mat-form-field>
         <mat-form-field color="primary">
           <mat-select color="primary" id="timezone" placeholder="Time Zone" formControlName="timezoneControl">
-            <mat-option *ngFor="let timezone of timezones" [value]="timezone">(GMT{{timezone.offset}}) {{timezone.timezoneName}}</mat-option>
+            <mat-option id="{{timezone}}" *ngFor="let timezone of timezones" [value]="timezone">(GMT{{timezone.offset}}) {{timezone.timezoneName}}</mat-option>
           </mat-select>
         </mat-form-field>
         <br>
-        <button type="submit" color="accent" mat-button matTooltip="Create Campaign">
+        <button type="submit" id="campaignSubmit" color="accent" mat-button matTooltip="Create Campaign">
           Submit
         </button>
       </div>

@@ -106,5 +106,19 @@ export class CampaignComponent implements OnInit {
       },1000)
     })
   }
+
+  async deleteCampaign() {
+    try {
+      await this.dndService.deleteCampaign(this.campaignName);
+    } catch {
+      this.snackbarService.displayMessage("failed to delete campaign", 10000)
+    }
+  }
+
+  hasRole(role: string): BehaviorSubject<boolean> {
+    let test = this.userService.hasRole(role);
+    console.log(test);
+    return test;
+  }
 }
 
