@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
-import {Constants} from "../constants/Constants";
+import {ADMIN_ROLE, Constants, DND_ROLE, PRINTS_ROLE} from "../constants/Constants";
 import {HttpHeaders} from "@angular/common/http";
 import {PlatformLocation} from "@angular/common";
 import {Router} from "@angular/router";
@@ -21,22 +21,38 @@ export class NavBarComponent implements OnInit {
   username: string;
   private subcription: any;
   private logoutSubscription: any;
+  private isModels: BehaviorSubject<boolean>;
+  private isDnd: BehaviorSubject<boolean>;
+  public ADMIN_ROLE = ADMIN_ROLE;
+  public PRINTS_ROLE = PRINTS_ROLE;
+  public DND_ROLE = DND_ROLE;
+  private permissions: Array<BehaviorSubject<boolean>> = [];
+  public Promise = Promise;
+  public userLoggedIn: boolean = undefined;
 
   constructor(private storage: LocalStorageService, private http: HttpService,
               private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService,
               private userService: UserService) {
     this.baseUrl = Constants.baseUrl;
     this.username = (this.storage.get(Constants.username)) ? this.storage.get("username") : "Login";
-
+    this.permissions[ADMIN_ROLE] = new BehaviorSubject<boolean>(false);
+    this.permissions[PRINTS_ROLE] = new BehaviorSubject<boolean>(false)
   }
 
   ngOnInit() {
-    this.getRoles();
-    this.subcription = this.loginService.getLoginEmitter().subscribe((event) => {
-      this.getUsername().then(() => {
-        this.getRoles();
-      });
+    if(this.isLoggedIn()) {
+      this.username = (this.storage.get(Constants.username));
+      this.userService.getAllUserRoles()
+      this.getRoles();
+    }
 
+    this.subcription = this.loginService.getLoginEmitter().subscribe(async (event) => {
+      this.getRoles();
+      await this.userService.getAllUserRoles();
+      let username = (await this.userService.getUsername()).username;
+      this.storage.set(Constants.username, username);
+      this.username = username;
+      this.userLoggedIn = undefined;
     });
 
     this.logoutSubscription = this.loginService.logoutEmitter.subscribe((event)=>{
@@ -47,58 +63,27 @@ export class NavBarComponent implements OnInit {
 
   }
 
-  isLoggedIn(): boolean {
-    let isDefined = isNotNullOrUndefined(this.storage.get(Constants.oauthTokenName));
-    if(isDefined){
-      let expiresIn = this.storage.get(Constants.expiresInName);
-      let currentDate = new Date();
-      if(expiresIn && currentDate.getTime() > expiresIn) {
-        this.storage.clear();
-        this.loginService.logoutEmitter.emit("loggedOut");
-        return false;
-      }else{
-        this.username = this.storage.get(Constants.username);
-        return true;
-      }
-    }
-    return false;
+  public hasRole(role: string) {
+    console.log(role)
+    console.log(this.userService.roles)
+    console.log(this.userService.hasRole(role).value)
+    return this.userService.hasRole(role);
   }
 
-  private getUsername() {
-    let token = this.storage.get(Constants.oauthTokenName);
-    let headers: HttpHeaders = new HttpHeaders().set("Authorization", "bearer " + token);
-    return this.http.get(Constants.oauthBaseUrl + "user/username", headers).then((data) => {
-      this.username = JSON.parse(JSON.stringify(data)).username;
-      this.storage.set(Constants.username, this.username);
-    });
-  }
-
-  logout() {
-    this.http.delete(Constants.oauthBaseUrl + `token/${this.username}`, null).then(() => {
-      this.storage.remove(Constants.username);
-      this.storage.remove(Constants.oauthTokenName);
-      this.router.navigate([""]);
-      this.loginService.logout();
-    });
-  }
-
-  hasRole(role: string): BehaviorSubject<boolean> {
-    return this.userService.hasRole(role)
-  }
-
-  private getRoles(){
-    this.userService.getAllUserRoles()
-    if(!isNotNullOrUndefined(this.storage.get(Constants.username))){
-      this.getUsername().then(() => {
-        this.getRolesHelper()
-      });
-    } else {
-      this.getRolesHelper()
+  public getRoles() {
+    if(this.username !== 'Login') {
+      this.userService.getRoles(this.username);
     }
   }
 
-  private getRolesHelper() {
-    this.userService.getRoles(this.storage.get(Constants.username));
+  public isLoggedIn(): boolean {
+    return isNotNullOrUndefined(this.storage.get(Constants.username)) && isNotNullOrUndefined(this.storage.get(Constants.oauthTokenName));
+  }
+
+  public logout() {
+    this.username = "Login";
+    this.storage.clear();
+    this.userLoggedIn = undefined;
   }
 
 }

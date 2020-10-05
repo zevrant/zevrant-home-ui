@@ -8,13 +8,13 @@ import {AddRole} from "../rest/request/AddRole";
 import {HttpClient} from "@angular/common/http";
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 import {LocalStorageService, StorageService} from "angular-web-storage";
-
+import {Username} from "../rest/response/Username"
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private _roles: Object = {};
+  private _roles: Array<BehaviorSubject<boolean>> = [];
 
   constructor(private http: HttpService, private httpClient: HttpClient, private storage: LocalStorageService) {
   }
@@ -31,13 +31,11 @@ export class UserService {
     return this.http.get(Constants.oauthBaseUrl + "user", null);
   }
 
-  public async getAllUserRoles(): Promise<Array<string>> {
-    return <Promise<Array<string>>> this.http.get(Constants.oauthBaseUrl + "user/all-roles", null).then((data) => {
-      data.forEach((role) => {
-        this._roles[role] = new BehaviorSubject<boolean>(false);
-      });
+  public async getAllUserRoles() {
+    let data = await this.http.get(Constants.oauthBaseUrl + "user/all-roles", null);
+    await data.forEach((role) => {
+      this._roles[role] = new BehaviorSubject<boolean>(false);
     });
-
   }
 
   public searchRoles(page: any, pageSize: any): Promise<any> {
@@ -66,7 +64,6 @@ export class UserService {
     return this.http.post(Constants.oauthBaseUrl + "user/roles", null, addRole);
   }
 
-
   hasRole(role: string): BehaviorSubject<boolean> {
     if(isNotNullOrUndefined(this._roles[role])) {
       return this._roles[role];
@@ -76,10 +73,14 @@ export class UserService {
   }
 
   deleteRoles() {
-    this._roles = {};
+    this._roles = [];
   }
 
   get roles(): Object {
     return this._roles;
+  }
+
+  public getUsername(): Promise<Username> {
+    return this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
   }
 }
