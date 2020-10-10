@@ -50,7 +50,10 @@ export class UserService {
     if(!isNotNullOrUndefined(username)) {
       return null;
     }
-    this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null).then((data) => {
+    this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null).then(async (data) => {
+      if(!isNotNullOrUndefined(this._roles) || this._roles.length === 0) {
+        await this.getAllUserRoles();
+      }
       data.forEach((role) => {
         this._roles[role].next(true);
       })
@@ -83,7 +86,7 @@ export class UserService {
     return this._roles;
   }
 
-  public getUsername(): Promise<Username> {
-    return this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
+  public async getUsername(): Promise<Username> {
+    return await this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
   }
 }

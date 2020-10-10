@@ -90,7 +90,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   applyRole(role: Role) {
-    console.log(role);
+    // console.log(role);
     let index: number = this.appliedRoles.indexOf(role.role);
     if (index > -1) {
       delete this.appliedRoles[index];
@@ -118,7 +118,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   containsRole(role: Role) {
-    console.log(this.appliedRoles)
     return role.isApplied;
   }
 }

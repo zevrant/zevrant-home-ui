@@ -98,7 +98,7 @@ export class CampaignComponent implements OnInit {
             this.snackbarService.displayMessage("Upload Comeplete.", 10000);
             this.dndService.deleteProgress(progressEvent.uuid);
           } else {
-            console.log(progressEvent.bytesTransfered / this.fileData.byteLength * 100);
+            // console.log(progressEvent.bytesTransfered / this.fileData.byteLength * 100);
             this.progress.next(progressEvent.bytesTransfered / this.fileData.byteLength * 100);
           }
         });
@@ -117,7 +117,7 @@ export class CampaignComponent implements OnInit {
 
   hasRole(role: string): BehaviorSubject<boolean> {
     let test = this.userService.hasRole(role);
-    console.log(test);
+    // console.log(test);
     return test;
   }
 }

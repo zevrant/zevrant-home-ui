@@ -64,9 +64,6 @@ export class NavBarComponent implements OnInit {
   }
 
   public hasRole(role: string) {
-    console.log(role)
-    console.log(this.userService.roles)
-    console.log(this.userService.hasRole(role).value)
     return this.userService.hasRole(role);
   }
 
