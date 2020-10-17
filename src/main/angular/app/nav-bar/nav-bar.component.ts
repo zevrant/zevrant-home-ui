@@ -21,12 +21,9 @@ export class NavBarComponent implements OnInit {
   username: string;
   private subcription: any;
   private logoutSubscription: any;
-  private isModels: BehaviorSubject<boolean>;
-  private isDnd: BehaviorSubject<boolean>;
   public ADMIN_ROLE = ADMIN_ROLE;
   public PRINTS_ROLE = PRINTS_ROLE;
   public DND_ROLE = DND_ROLE;
-  private permissions: Array<BehaviorSubject<boolean>> = [];
   public Promise = Promise;
   public userLoggedIn: boolean = undefined;
 
@@ -35,8 +32,8 @@ export class NavBarComponent implements OnInit {
               private userService: UserService) {
     this.baseUrl = Constants.baseUrl;
     this.username = (this.storage.get(Constants.username)) ? this.storage.get("username") : "Login";
-    this.permissions[ADMIN_ROLE] = new BehaviorSubject<boolean>(false);
-    this.permissions[PRINTS_ROLE] = new BehaviorSubject<boolean>(false)
+    this.userService.roles[ADMIN_ROLE] = new BehaviorSubject<boolean>(false);
+    this.userService.roles[PRINTS_ROLE] = new BehaviorSubject<boolean>(false)
   }
 
   ngOnInit() {
@@ -47,32 +44,36 @@ export class NavBarComponent implements OnInit {
     }
 
     this.subcription = this.loginService.getLoginEmitter().subscribe(async (event) => {
-      this.getRoles();
+      await this.getRoles();
       await this.userService.getAllUserRoles();
       let username = (await this.userService.getUsername()).username;
       this.storage.set(Constants.username, username);
       this.username = username;
       this.userLoggedIn = undefined;
+      window.location.reload()
     });
 
     this.logoutSubscription = this.loginService.logoutEmitter.subscribe(()=>{
       this.username = null;
       this.userService.deleteRoles();
-      this.router.navigate(["login"]);
+      this.router.navigate([""]);
+      window.location.reload()
     })
 
   }
 
   public hasRole(role: string) {
-    console.log(role)
-    console.log(this.userService.roles)
-    console.log(this.userService.hasRole(role).value)
-    return this.userService.hasRole(role);
+    if(isNotNullOrUndefined(this.userService.roles[role])){
+      console.log(role + ": " + this.userService.roles[role].value)
+    } else {
+      console.log(undefined)
+    }
+    return this.userService.roles[role];
   }
 
-  public getRoles() {
+  public async getRoles() {
     if(this.username !== 'Login') {
-      this.userService.getRoles(this.username);
+      await this.userService.getRoles(this.username)
     }
   }
 
@@ -84,6 +85,7 @@ export class NavBarComponent implements OnInit {
     this.username = "Login";
     this.storage.clear();
     this.userLoggedIn = undefined;
+    this.loginService.logoutEmitter.emit("logged out");
   }
 
 }

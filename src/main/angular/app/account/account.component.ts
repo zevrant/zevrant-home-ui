@@ -105,7 +105,7 @@ export class AccountComponent implements OnInit {
         this.snackBarService.displayMessage("Account changes were successfully saved", 10000);
       }
     }).catch((error) => {
-      console.log(error)
+      console.error(error)
       let errors = error.error.errors;
       if (isNotNullOrUndefined(errors)) {
         this.snackBarService.displayMessage(errors[0].field + " " + errors[0].defaultMessage, 10000);

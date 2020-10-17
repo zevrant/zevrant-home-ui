@@ -17,7 +17,7 @@ export class HttpService {
       headers = new HttpHeaders()
     }
     headers = headers.set("Authorization", "bearer " + this.storage.get(Constants.oauthTokenName));
-    return this.http.get(url, {headers: headers});
+    return this.http.get(url, {headers: headers}).toPromise();
   }
 
   getBlob(url: string, headers: HttpHeaders) {

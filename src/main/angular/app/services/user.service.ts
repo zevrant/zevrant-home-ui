@@ -46,11 +46,14 @@ export class UserService {
     return this.http.put(Constants.oauthBaseUrl + "user/bulk", null, users);
   }
 
-  getRoles(username: string) {
+  async getRoles(username: string) {
     if(!isNotNullOrUndefined(username)) {
       return null;
     }
-    this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null).then((data) => {
+    await this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null).then(async (data) => {
+      if(!isNotNullOrUndefined(this._roles) || this._roles.length === 0) {
+        await this.getAllUserRoles();
+      }
       data.forEach((role) => {
         this._roles[role].next(true);
       })
@@ -76,14 +79,17 @@ export class UserService {
   }
 
   deleteRoles() {
+    this._roles.forEach((role) => {
+      role.next(false);
+    })
     this._roles = [];
   }
 
-  get roles(): Object {
+  get roles(): Array<BehaviorSubject<boolean>> {
     return this._roles;
   }
 
-  public getUsername(): Promise<Username> {
-    return this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
+  public async getUsername(): Promise<Username> {
+    return await this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
   }
 }
