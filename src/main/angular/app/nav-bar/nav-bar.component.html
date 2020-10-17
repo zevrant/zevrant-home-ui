@@ -5,7 +5,7 @@
     <button *ngIf="hasRole(ADMIN_ROLE) | async" mat-button color="secondary" routerLink="administration">Admin Area</button>
     <span color="primary" class="fill-space"></span>
     <button *ngIf="!isLoggedIn()" color="secondary" id="login" mat-button routerLink="login">Login</button>
-    <button *ngIf="isLoggedIn()" [mat-menu-trigger-for]="userMenu" color="secondary" mat-button>{{username}}</button>
+    <button *ngIf="isLoggedIn()" [mat-menu-trigger-for]="userMenu" color="secondary" id="userMenu" mat-button>{{username}}</button>
   </mat-toolbar>
 </p>
 <mat-menu #appsMenu="matMenu" color="primary">
