@@ -9,6 +9,7 @@ import {HttpClient} from "@angular/common/http";
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 import {LocalStorageService, StorageService} from "angular-web-storage";
 import {Username} from "../rest/response/Username"
+import {SnackbarService} from "./snackbar.service";
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,8 @@ export class UserService {
 
   private _roles: Array<BehaviorSubject<boolean>> = [];
 
-  constructor(private http: HttpService, private httpClient: HttpClient, private storage: LocalStorageService) {
+  constructor(private http: HttpService, private httpClient: HttpClient, private storage: LocalStorageService,
+              private snackbarService: SnackbarService) {
   }
 
   public getUserByName(username: String): Promise<User> {
@@ -90,6 +92,10 @@ export class UserService {
   }
 
   public async getUsername(): Promise<Username> {
-    return await this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
+    try {
+      return await this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
+    } catch(exception) {
+      this.snackbarService.displayMessage(exception.error, 10000)
+    }
   }
 }
