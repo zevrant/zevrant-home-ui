@@ -21,23 +21,19 @@ export class NavBarComponent implements OnInit {
   username: string;
   private subcription: any;
   private logoutSubscription: any;
-  private isModels: BehaviorSubject<boolean>;
-  private isDnd: BehaviorSubject<boolean>;
   public ADMIN_ROLE = ADMIN_ROLE;
   public PRINTS_ROLE = PRINTS_ROLE;
   public DND_ROLE = DND_ROLE;
-  private permissions: Array<BehaviorSubject<boolean>> = [];
   public Promise = Promise;
   public userLoggedIn: boolean = undefined;
-  public isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private storage: LocalStorageService, private http: HttpService,
               private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService,
               private userService: UserService) {
     this.baseUrl = Constants.baseUrl;
     this.username = (this.storage.get(Constants.username)) ? this.storage.get("username") : "Login";
-    this.permissions[ADMIN_ROLE] = new BehaviorSubject<boolean>(false);
-    this.permissions[PRINTS_ROLE] = new BehaviorSubject<boolean>(false)
+    this.userService.roles[ADMIN_ROLE] = new BehaviorSubject<boolean>(false);
+    this.userService.roles[PRINTS_ROLE] = new BehaviorSubject<boolean>(false)
   }
 
   ngOnInit() {
@@ -67,18 +63,17 @@ export class NavBarComponent implements OnInit {
   }
 
   public hasRole(role: string) {
-    if(isNotNullOrUndefined(this.permissions[role])){
-      console.log(role + ": " + this.permissions[role].value)
+    if(isNotNullOrUndefined(this.userService.roles[role])){
+      console.log(role + ": " + this.userService.roles[role].value)
     } else {
       console.log(undefined)
     }
-    return this.permissions[role];
+    return this.userService.roles[role];
   }
 
   public async getRoles() {
     if(this.username !== 'Login') {
       await this.userService.getRoles(this.username)
-      this.permissions = this.userService.roles;
     }
   }
 
