@@ -95,7 +95,8 @@ export class UserService {
     try {
       return await this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
     } catch(exception) {
-      this.snackbarService.displayMessage(exception.error, 10000)
+      console.error(exception)
+      this.snackbarService.displayMessage(exception.error.error, 10000)
     }
   }
 }
