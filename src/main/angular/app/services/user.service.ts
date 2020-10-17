@@ -46,11 +46,11 @@ export class UserService {
     return this.http.put(Constants.oauthBaseUrl + "user/bulk", null, users);
   }
 
-  getRoles(username: string) {
+  async getRoles(username: string) {
     if(!isNotNullOrUndefined(username)) {
       return null;
     }
-    this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null).then(async (data) => {
+    await this.http.get(Constants.oauthBaseUrl + `user/roles/${username}`, null).then(async (data) => {
       if(!isNotNullOrUndefined(this._roles) || this._roles.length === 0) {
         await this.getAllUserRoles();
       }
@@ -85,7 +85,7 @@ export class UserService {
     this._roles = [];
   }
 
-  get roles(): Object {
+  get roles(): Array<BehaviorSubject<boolean>> {
     return this._roles;
   }
 

@@ -30,6 +30,7 @@ export class NavBarComponent implements OnInit {
   public Promise = Promise;
   public userLoggedIn: boolean = undefined;
   public isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(private storage: LocalStorageService, private http: HttpService,
               private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService,
               private userService: UserService) {
@@ -47,32 +48,37 @@ export class NavBarComponent implements OnInit {
     }
 
     this.subcription = this.loginService.getLoginEmitter().subscribe(async (event) => {
-      this.getRoles();
+      await this.getRoles();
       await this.userService.getAllUserRoles();
       let username = (await this.userService.getUsername()).username;
       this.storage.set(Constants.username, username);
       this.username = username;
       this.userLoggedIn = undefined;
+      window.location.reload()
     });
 
     this.logoutSubscription = this.loginService.logoutEmitter.subscribe(()=>{
       this.username = null;
       this.userService.deleteRoles();
-      this.router.navigate(["login"]);
-      this.userService.deleteRoles()
+      this.router.navigate([""]);
+      window.location.reload()
     })
 
   }
 
   public hasRole(role: string) {
-    console.log(role + ": " + this.userService.hasRole(role))
-    this.userService.hasRole(role);
-    return true;
+    if(isNotNullOrUndefined(this.permissions[role])){
+      console.log(role + ": " + this.permissions[role].value)
+    } else {
+      console.log(undefined)
+    }
+    return this.permissions[role];
   }
 
-  public getRoles() {
+  public async getRoles() {
     if(this.username !== 'Login') {
-      this.userService.getRoles(this.username);
+      await this.userService.getRoles(this.username)
+      this.permissions = this.userService.roles;
     }
   }
 
@@ -84,6 +90,7 @@ export class NavBarComponent implements OnInit {
     this.username = "Login";
     this.storage.clear();
     this.userLoggedIn = undefined;
+    this.loginService.logoutEmitter.emit("logged out");
   }
 
 }
