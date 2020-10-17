@@ -79,6 +79,9 @@ export class UserService {
   }
 
   deleteRoles() {
+    this._roles.forEach((role) => {
+      role.next(false);
+    })
     this._roles = [];
   }
 

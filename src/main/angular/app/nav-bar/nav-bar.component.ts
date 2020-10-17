@@ -29,7 +29,7 @@ export class NavBarComponent implements OnInit {
   private permissions: Array<BehaviorSubject<boolean>> = [];
   public Promise = Promise;
   public userLoggedIn: boolean = undefined;
-
+  public isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(private storage: LocalStorageService, private http: HttpService,
               private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService,
               private userService: UserService) {
@@ -59,12 +59,15 @@ export class NavBarComponent implements OnInit {
       this.username = null;
       this.userService.deleteRoles();
       this.router.navigate(["login"]);
+      this.userService.deleteRoles()
     })
 
   }
 
   public hasRole(role: string) {
-    return this.userService.hasRole(role);
+    console.log(role + ": " + this.userService.hasRole(role))
+    this.userService.hasRole(role);
+    return true;
   }
 
   public getRoles() {
