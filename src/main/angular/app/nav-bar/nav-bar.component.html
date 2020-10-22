@@ -1,16 +1,16 @@
 <p>
   <mat-toolbar color="primary">
     <a mat-button color="secondary" routerLink="">Home</a>
-    <button mat-button color="secondary" [matMenuTriggerFor]="appsMenu">Apps</button>
-    <button *ngIf="hasRole(ADMIN_ROLE) | async" mat-button color="secondary" routerLink="administration">Admin Area</button>
+    <button mat-button color="secondary" id="appsMenu" [matMenuTriggerFor]="appsMenu">Apps</button>
+    <button *ngIf="hasRole(ADMIN_ROLE) | async" mat-button color="secondary" id="adminPage" routerLink="administration">Admin Area</button>
     <span color="primary" class="fill-space"></span>
     <button *ngIf="!isLoggedIn()" color="secondary" id="login" mat-button routerLink="login">Login</button>
     <button *ngIf="isLoggedIn()" [mat-menu-trigger-for]="userMenu" color="secondary" id="userMenu" mat-button>{{username}}</button>
   </mat-toolbar>
 </p>
 <mat-menu #appsMenu="matMenu" color="primary">
-  <a mat-menu-item color="secondary" *ngIf="hasRole(PRINTS_ROLE) | async" routerLink="prints">prints</a>
-  <a mat-menu-item color="secondary" *ngIf="hasRole(DND_ROLE) | async" routerLink="dnd">D&D</a>
+  <a mat-menu-item color="secondary" id="prints" *ngIf="hasRole(PRINTS_ROLE) | async" routerLink="prints">prints</a>
+  <a mat-menu-item color="secondary" id="D&D" *ngIf="hasRole(DND_ROLE) | async" routerLink="dnd">D&D</a>
 </mat-menu>
 
 <mat-menu #userMenu="matMenu" color="primary">

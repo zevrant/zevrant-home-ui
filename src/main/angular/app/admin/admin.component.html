@@ -19,14 +19,14 @@
     </ng-container>
     <ng-container *ngFor="let role of userRoles" [matColumnDef]="role">
       <th *matHeaderCellDef mat-header-cell>{{role}}</th>
-      <td mat-cell data-label="role" *matCellDef="let user"><mat-checkbox (change)="updateRole(user, role)" [checked]="containsRole(user, role) | async"></mat-checkbox></td>
+      <td mat-cell data-label="role" id="{{user.username}}-{{role}}" *matCellDef="let user"><mat-checkbox  (change)="updateRole(user, role)" [checked]="containsRole(user, role) | async"></mat-checkbox></td>
     </ng-container>
     <ng-container matColumnDef="Delete User">
       <th *matHeaderCellDef mat-header-cell>Delete User</th>
       <td mat-cell data-label="Delete User" *matCellDef="let user"><button mat-button (click)="deleteUser()"><mat-icon>delete</mat-icon></button></td>
     </ng-container>
   </table>
-  <button mat-button (click)="save()" color="primary">Save</button>
+  <button mat-button id="save" (click)="save()" color="primary">Save</button>
 </div>
 
 <form color="primary" [formGroup]="addRolesForm" (ngSubmit)="onSubmit()">

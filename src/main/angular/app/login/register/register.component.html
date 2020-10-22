@@ -59,11 +59,11 @@
       <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
       <ng-container matColumnDef="Desired Role">
         <th *matHeaderCellDef mat-header-cell>Desired Role</th>
-        <td mat-cell data-label="ID" *matCellDef="let role"><span  class="push" id="{{role.role}}">{{role.role}}</span></td>
+        <td mat-cell data-label="ID" *matCellDef="let role"><span  class="push">{{role.role}}</span></td>
       </ng-container>
       <ng-container matColumnDef="Is Applied">
         <th *matHeaderCellDef mat-header-cell><span class="center">Is Applied</span></th>
-        <td mat-cell data-label="ID" *matCellDef="let role"><mat-checkbox class="checkbox center" (change)="applyRole(role)" [checked]="containsRole(role)"></mat-checkbox></td>
+        <td mat-cell data-label="ID" *matCellDef="let role"><mat-checkbox id="{{role.role}}" class="checkbox center" (change)="applyRole(role)" [checked]="containsRole(role)"></mat-checkbox></td>
       </ng-container>
     </table>
   </div>

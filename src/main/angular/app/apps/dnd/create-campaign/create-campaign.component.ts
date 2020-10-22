@@ -49,9 +49,9 @@ export class CreateCampaignComponent implements OnInit {
 
   onSubmit() {
     let offset = momentTimezone().tz(this.timezoneControl.value.timezoneName).utcOffset() / 60
-    this.dndService.createCampaign(this.campaignName.value, this.ruleset.value, this.frequency.value, this.startDate.value, this.startTime.value.toString(), offset).then((response) => {
+    this.dndService.createCampaign(this.campaignName.value, this.ruleset.value, this.frequency.value, this.startDate.value, this.startTime.value.toString(), offset).then(async (response) => {
       this.dndService.sessionListEmitter.emit("updated");
-      this.router.navigateByUrl("/dnd/campaign/" + encodeURI(this.campaignName.value));
+      await this.router.navigateByUrl("/dnd/campaign/" + encodeURI(this.campaignName.value));
     }).catch((error)=> {
       this.snackbarService.displayMessage(error.error.message, 10000);
     });
