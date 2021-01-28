@@ -22,16 +22,6 @@ spec:
           env:
             - name: ENVIRONMENT
               value: $ENVIRONMENT
-            - name: AWS_ACCESS_KEY_ID
-              valueFrom:
-                secretKeyRef:
-                  name: aws-access-key
-                  key: aws-access-key-id
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: aws-secret-key
-                  key: aws-secret-key
           ports:
             - containerPort: 9001
           readinessProbe:
