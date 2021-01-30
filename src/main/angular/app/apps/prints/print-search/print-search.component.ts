@@ -86,10 +86,18 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
     }
     switch (this.source.value) {
       case "Thingiverse": {
-        return this.thingiverseSearch(page, pageSize);
+        await this.thingiverseSearch(page, pageSize);
+        if(this.searchData.length == 0) {
+          this.snackBarService.displayMessage("No search results found for '" + modelName + "'.", 10000)
+        }
+        return;
       }
       case "Cults": {
-        return this.cultsSearch(page);
+        await this.cultsSearch(page);
+        if(this.searchData.length == 0) {
+          this.snackBarService.displayMessage("No search results found for '" + modelName + "'.", 10000)
+        }
+        return;
       }
     }
     await this.modelService.searchModel(modelName, array, ModelSearchField.MODEL_NAME,  true, page, pageSize)
