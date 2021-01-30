@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
-import {ADMIN_ROLE, Constants, DND_ROLE, PRINTS_ROLE} from "../constants/Constants";
+import {ADMIN_ROLE, Constants, PRINTS_ROLE} from "../constants/Constants";
 import {HttpHeaders} from "@angular/common/http";
 import {PlatformLocation} from "@angular/common";
 import {Router} from "@angular/router";
@@ -23,7 +23,6 @@ export class NavBarComponent implements OnInit {
   private logoutSubscription: any;
   public ADMIN_ROLE = ADMIN_ROLE;
   public PRINTS_ROLE = PRINTS_ROLE;
-  public DND_ROLE = DND_ROLE;
   public Promise = Promise;
   public userLoggedIn: boolean = undefined;
 
@@ -63,11 +62,6 @@ export class NavBarComponent implements OnInit {
   }
 
   public hasRole(role: string) {
-    if(isNotNullOrUndefined(this.userService.roles[role])){
-      console.log(role + ": " + this.userService.roles[role].value)
-    } else {
-      console.log(undefined)
-    }
     return this.userService.roles[role];
   }
 

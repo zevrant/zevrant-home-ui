@@ -8,9 +8,6 @@ import {AdminComponent} from "./admin/admin.component";
 import {AccountComponent} from "./account/account.component";
 import {ForgotPasswordComponent} from "./login/forgot-password/forgot-password.component";
 import {PasswordResetComponent} from "./login/password-reset/password-reset.component";
-import {DndComponent} from "./apps/dnd/dnd.component";
-import {CreateCampaignComponent} from "./apps/dnd/create-campaign/create-campaign.component";
-import {CampaignComponent} from "./apps/dnd/campaign/campaign.component";
 
 
 const routes: Routes = [
@@ -23,14 +20,6 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'login/forgot-password', component: ForgotPasswordComponent },
   { path: 'login/password-reset/:token', component: PasswordResetComponent },
-  {
-    path:  'dnd',
-    component:  DndComponent,
-    children: [
-      {path:  'create-campaign', component:  CreateCampaignComponent },
-      {path:  'campaign/:name', component:  CampaignComponent},
-    ]
-  },
   { path: '**', redirectTo: '' }
 ];
 

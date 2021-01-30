@@ -3,7 +3,6 @@ import {BehaviorSubject} from "rxjs";
 
 export const PRINTS_ROLE: string = "prints";
 export const ADMIN_ROLE: string = "admin";
-export const DND_ROLE: string = 'D&D'
 export class Constants {
 
   public static get oauthTokenName(): string {
@@ -16,10 +15,6 @@ export class Constants {
 
   public static get oauthBaseUrl(): string {
     return "zevrant-oauth2-service/";
-  }
-
-  public static get dndBaseUrl(): string {
-    return "zevrant-dnd-service/";
   }
 
   public static get username() {
