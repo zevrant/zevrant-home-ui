@@ -23,10 +23,5 @@ zuul:
       path: /zevrant-outsource-service/**
       url: https://zevrant-outsource-service
       stripPrefix: false
-    dnd:
-      sensitiveHeaders:
-      path: /zevrant-dnd-service/**
-      url: https://zevrant-dnd-service
-      stripPrefix: false
   ssl-hostname-validation-enabled: false
 

@@ -25,7 +25,7 @@ spec:
             - name: ENVIRONMENT
               value: $ENVIRONMENT
           ports:
-            - containerPort: 9001
+            - containerPort: 8080
           readinessProbe:
             httpGet:
               scheme: HTTPS

@@ -4,19 +4,20 @@
   </div>
   <form color="primary" [formGroup]="searchModelForm">
     <mat-form-field>
-      <input matInput placeholder="search models" (keyup)="paginatorSearch()" formControlName="modelSearch" color="primary"/>
+      <input matInput placeholder="search models" formControlName="modelSearch" color="primary"/>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="search tags" (keyup)="paginatorSearch()" formControlName="tagSearch" color="primary"/>
+      <input matInput placeholder="search tags" formControlName="tagSearch" color="primary"/>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Results Source</mat-label>
-      <mat-select formControlName="source" color="primary">
+      <mat-select formControlName="source" color="primary" placeholder="Zevrant Services">
         <mat-option value="Zevrant Services">Zevrant Services</mat-option>
         <mat-option value="Thingiverse" (click)="paginatorSearch()">Thingiverse</mat-option>
         <mat-option value="Cults" (click)="paginatorSearch()">Cults</mat-option>
       </mat-select>
     </mat-form-field>
+    <button mat-button (click)="paginatorSearch()"><mat-icon>search</mat-icon></button>
     <mat-paginator
       [length]="totalRows"
       [pageIndex]="0"

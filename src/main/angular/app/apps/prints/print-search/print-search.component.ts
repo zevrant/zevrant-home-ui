@@ -160,6 +160,11 @@ export class PrintSearchComponent implements OnInit, AfterViewInit {
         this.searchData.push(model);
         this.searchModelForm.addControl(model.fileName, new FormControl())
       });
+    }).catch((error) => {
+      console.error(error);
+      this.snackBarService.displayMessage(error.message, 10000);
+    }).finally(() => {
+      this.isLoading.next(false);
     })
   }
 

@@ -50,14 +50,10 @@ import {CultsService} from "./services/cults.service";
 import {APP_BASE_HREF} from "@angular/common";
 import {CdkColumnDef} from "@angular/cdk/table";
 import {MatSidenavModule} from "@angular/material/sidenav";
-import {DndComponent} from "./apps/dnd/dnd.component";
 import {MatListModule} from "@angular/material/list";
-import {CreateCampaignComponent} from "./apps/dnd/create-campaign/create-campaign.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatTimepickerModule} from "mat-timepicker";
 import {MatMomentDateModule} from "@angular/material-moment-adapter"
-import {CampaignComponent} from "./apps/dnd/campaign/campaign.component";
-import {DndModule} from "./apps/dnd/dnd.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,7 +106,6 @@ import {DndModule} from "./apps/dnd/dnd.module";
     MatDatepickerModule,
     MatTimepickerModule,
     MatMomentDateModule,
-    DndModule
   ],
   providers: [
     CdkColumnDef,
