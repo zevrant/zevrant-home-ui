@@ -103,7 +103,12 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   async roleSearch(page, pageSize) {
     this.userService.searchRoles(page, pageSize).then(data => {
       let dataRoles: Array<Role> = [];
+      let i = 0;
       for(let role in data.roles) {
+        if(data.roles[role].includes("-service")) {
+          i++;
+          continue;
+        }
         dataRoles.push(new Role(data.roles[role], false));
       }
       this.userRoles.next(dataRoles);
@@ -112,7 +117,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
           role.isApplied = true;
         }
       })
-      this.totalRows = data.totalRoles;
+      this.totalRows = data.totalRoles - i;
     });
   }
 
