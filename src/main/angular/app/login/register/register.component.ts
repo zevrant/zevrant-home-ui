@@ -105,7 +105,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       let dataRoles: Array<Role> = [];
       let i = 0;
       for(let role in data.roles) {
-        if(data.roles[role].includes("-service")) {
+        if(data.roles[role].includes("-service")
+          || data.roles[role].includes("admin")) {
           i++;
           continue;
         }
