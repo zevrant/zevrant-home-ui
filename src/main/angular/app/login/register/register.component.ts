@@ -103,13 +103,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   async roleSearch(page, pageSize) {
     this.userService.searchRoles(page, pageSize).then(data => {
       let dataRoles: Array<Role> = [];
-      let i = 0;
       for(let role in data.roles) {
-        if(data.roles[role].includes("-service")
-          || data.roles[role].includes("admin")) {
-          i++;
-          continue;
-        }
         dataRoles.push(new Role(data.roles[role], false));
       }
       this.userRoles.next(dataRoles);
