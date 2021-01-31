@@ -112,7 +112,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
           role.isApplied = true;
         }
       })
-      this.totalRows = data.totalRoles - i;
+      this.totalRows = data.totalRoles;
     });
   }
 
