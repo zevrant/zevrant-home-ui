@@ -41,7 +41,8 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
   implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
-  compile group: 'io.prometheus', name: 'simpleclient', version: '0.10.0'
+  implementation 'io.micrometer:micrometer-registry-prometheus'
+
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'org.springframework.security:spring-security-test'
