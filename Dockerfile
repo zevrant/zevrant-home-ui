@@ -17,7 +17,9 @@ COPY build/libs/zevrant-home-ui-*.jar /usr/local/microservices/zevrant-home-serv
 
 RUN mkdir ~/.aws; echo "[default]" > ~/.aws/config; echo "region = us-east-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config
 
-CMD openssl req -newkey rsa:4096 -nodes -keyout ~/private.pem -x509 -days 365 -out ~/public.crt -subj "/C=US/ST=New York/L=Brooklyn/O=Example Brooklyn Company/CN=examplebrooklyn.com"\
- && password=`date +%s | sha256sum | base64 | head -c 32`\
- && openssl pkcs12 -export -inkey ~/private.pem -in ~/public.crt -passout "pass:$password" -out /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-services.p12\
+RUN curl https://raw.githubusercontent.com/zevrant/zevrant-services-pipeline/master/bash/zevrant-services-start.sh > ~/startup.sh \
+  && curl https://raw.githubusercontent.com/zevrant/zevrant-services-pipeline/master/bash/openssl.conf > ~/openssl.conf
+
+CMD password=`date +%s | sha256sum | base64 | head -c 32`\
+ && bash ~/startup.sh zevrant-home-ui $password \
  && java -Xmx32G -jar -Dcom.sun.net.ssl.checkRevocation=false -Dspring.profiles.active=$ENVIRONMENT -Dpassword=$password /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
