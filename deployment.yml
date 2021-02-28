@@ -24,6 +24,11 @@ spec:
           env:
             - name: ENVIRONMENT
               value: $ENVIRONMENT
+            - name: PROXY_CREDENTIALS
+              valueFrom:
+                secretKeyRef:
+                  name: proxy-creds
+                  key: proxyCreds
             - name: POD_IP
               valueFrom:
                 fieldRef:
