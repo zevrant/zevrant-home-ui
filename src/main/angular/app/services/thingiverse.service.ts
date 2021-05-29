@@ -5,21 +5,21 @@ import {ThingiverseSearchResponse} from "../rest/response/ThingiverseSearchRespo
 import {HttpHeaders} from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ThingiverseService {
 
-  constructor(private http: HttpService) {
+    constructor(private http: HttpService) {
 
-  }
+    }
 
-  search(searchTerm: string, page: number, pageSize: number): Promise<ThingiverseSearchResponse> {
-    return this.http.get(Constants.outsourceBaseUrl + `thingiverse/search/${searchTerm}/${page}/${pageSize}`, null);
-  }
+    search(searchTerm: string, page: number, pageSize: number): Promise<ThingiverseSearchResponse> {
+        return this.http.get(Constants.outsourceBaseUrl + `thingiverse/search/${searchTerm}/${page}/${pageSize}`, null);
+    }
 
-  getCoverPhoto(thumbnail: string) {
-    let headers: HttpHeaders = new HttpHeaders();
-    headers.set("url", thumbnail);
-    return this.http.getBlob(Constants.outsourceBaseUrl + "thingiverse/photo/", headers);
-  }
+    getCoverPhoto(thumbnail: string) {
+        let headers: HttpHeaders = new HttpHeaders();
+        headers.set("url", thumbnail);
+        return this.http.getBlob(Constants.outsourceBaseUrl + "thingiverse/photo/", headers);
+    }
 }

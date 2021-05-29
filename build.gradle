@@ -1,10 +1,10 @@
 plugins {
-  id 'org.springframework.boot' version '2.2.2.RELEASE'
-  id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-  id "com.github.node-gradle.node" version "3.0.1"
-  id 'org.unbroken-dome.test-sets' version '2.2.1'
-  id 'org.sonarqube' version '2.7'
-  id 'java'
+    id 'org.springframework.boot' version '2.5.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "com.github.node-gradle.node" version "3.0.1"
+//    id 'org.unbroken-dome.test-sets' version '2.2.1'
+    id 'org.sonarqube' version '2.7'
+    id 'java'
 }
 
 group = 'net.zevrant-services.home.ui'
@@ -12,125 +12,128 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.11'
 
 if (project.hasProperty('projVersion')) {
-  project.version = project.projVersion
-  ext.isSnapshot = false
+    project.version = project.projVersion
+    ext.isSnapshot = false
 } else {
-  project.version = '0.0.1-snapshot'
+    project.version = '0.0.1-snapshot'
 }
 
 repositories {
-  mavenLocal()
-  mavenCentral()
-  maven {
-    url "s3://zevrant-artifact-store"
-    authentication {
-      awsIm(AwsImAuthentication)
+    mavenLocal()
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+    maven {
+        url "s3://zevrant-artifact-store"
+        authentication {
+            awsIm(AwsImAuthentication)
+        }
     }
-  }
 }
 
 ext {
-  set('springCloudVersion', 'Hoxton.SR3')
-  serenityCoreVersion = '2.3.4'
-  serenityCucumberVersion = '2.3.4'
-  junitVersion = '4.12'
+    set('springCloudVersion', "2020.0.3-SNAPSHOT")
+    serenityCoreVersion = '2.3.4'
+    serenityCucumberVersion = '2.3.4'
+    junitVersion = '4.12'
 }
 
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-actuator'
-  implementation 'org.springframework.boot:spring-boot-starter-web'
-  implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
-  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
-  implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation  'javax.mail:javax.mail-api:1.6.2'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '2.2'
+    testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
+            "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
 
 
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
-  testImplementation 'org.springframework.security:spring-security-test'
-  testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '2.2'
-  testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
-    "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
-    "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
-    "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
-    "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
-
-  compile group: 'javax.mail', name: 'javax.mail-api', version: '1.6.2'
 }
 
 dependencyManagement {
-  imports {
-    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-  }
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 
 node {
-  version = '10.16.3'
-  download = true
-  distBaseUrl = 'https://nodejs.org/dist'
+    version = '14.15.4'
+    download = true
+    distBaseUrl = 'https://nodejs.org/dist'
 }
 
 npmInstall {
-  inputs.file 'package.json'
-  inputs.file 'package-lock.json'
+    inputs.file 'package.json'
+    inputs.file 'package-lock.json'
 
-  outputs.files fileTree('nodeModules')
+    outputs.files fileTree('nodeModules')
 }
 
 npm_run_build {
-  // make sure the build task is executed only when appropriate files change
+    // make sure the build task is executed only when appropriate files change
 //  inputs.files fileTree('src/main/angular')
 //
 //  // 'node_modules' appeared not reliable for dependency change detection (the task was rerun without changes)
 //  // though 'package.json' and 'package-lock.json' should be enough anyway
-  outputs.upToDateWhen { false }
+    outputs.upToDateWhen { false }
 
 //
-  outputs.file 'src/main/resources/static/index.html'
-  outputs.file 'src/main/resources/static/main-es5.js'
-  outputs.file 'src/main/resources/static/main-es2015.js'
-  outputs.file 'src/main/resources/static/polyfill-es5.js'
-  outputs.file 'src/main/resources/static/runtime-es5.js'
-  outputs.file 'src/main/resources/static/styles-es5.js'
-  outputs.file 'src/main/resources/static/styles-es2015.js'
-  outputs.file 'src/main/resources/static/vendor-es5.js'
-  outputs.file 'src/main/resources/static/vendor-es2015.js'
+    outputs.file 'src/main/resources/static/index.html'
+    outputs.file 'src/main/resources/static/main-es5.js'
+    outputs.file 'src/main/resources/static/main-es2015.js'
+    outputs.file 'src/main/resources/static/polyfill-es5.js'
+    outputs.file 'src/main/resources/static/runtime-es5.js'
+    outputs.file 'src/main/resources/static/styles-es5.js'
+    outputs.file 'src/main/resources/static/styles-es2015.js'
+    outputs.file 'src/main/resources/static/vendor-es5.js'
+    outputs.file 'src/main/resources/static/vendor-es2015.js'
 
 }
 
 task moveFavIcon(type: Copy) {
-  from file("$buildDir/resources/main/favicon.ico")
-  into file("$buildDir/resources/main/static")
+    from file("src/main/resources/favicon.ico")
+    into file("src/main/resources/static/favicon.ico")
 }
 
 test {
-  useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 clean {
     doFirst {
-      delete files("${rootDir}/src/main/resources/static/")
+        delete files("${rootDir}/src/main/resources/static/")
     }
 }
 
 task npm_run_test(type: NpmTask) {
-  args = ['run', 'test']
+    args = ['run', 'test']
 }
 
-testSets {
-  integrationTest { dirName = 'integrationTest' }
-}
+//testSets {
+//    integrationTest { dirName = 'integrationTest' }
+//}
 
-integrationTest {
-  useJUnitPlatform ()
-}
+//integrationTest {
+//    useJUnitPlatform()
+//}
 
 task npx_run_update(type: NpxTask) {
-  command = 'npm-check-updates'
-  args = ['-u']
+    command = 'npm-check-updates'
+    args = ['-u']
 }
 
 tasks.compileJava.finalizedBy npm_run_build
 tasks.npm_run_build.dependsOn(tasks.npmInstall)
+tasks.npm_run_build.finalizedBy tasks.moveFavIcon
 tasks.bootJar.dependsOn(tasks.moveFavIcon)
 tasks.npx_run_update.finalizedBy(tasks.npmInstall)
 tasks.npx_run_update.finalizedBy(tasks.npm_run_build)
