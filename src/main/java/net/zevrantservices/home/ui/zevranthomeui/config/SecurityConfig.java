@@ -1,21 +1,25 @@
 package net.zevrantservices.home.ui.zevranthomeui.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableReactiveMethodSecurity
+@EnableWebFluxSecurity
+public class SecurityConfig {
 
-  @Override
-  protected void configure(HttpSecurity security) throws Exception {
-    security
-      .httpBasic().disable()
-      .csrf().disable();
-    security.authorizeRequests().anyRequest().permitAll();
-  }
+    @Bean
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity security) {
+        security
+                .httpBasic().disable()
+                .csrf().disable();
+        security.authorizeExchange().pathMatchers("/**").permitAll();
+        return security.build();
+    }
 
 
 }
