@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {SocketIoConfig} from 'ngx-socket-io';
+// import {SocketIoConfig} from 'ngx-socket-io';
 
 
 @Injectable({
@@ -7,6 +7,6 @@ import {SocketIoConfig} from 'ngx-socket-io';
 })
 export class CameraFeedService {
 
-    config: SocketIoConfig = {url: 'http://:4201', options: {}};
+    // config: SocketIoConfig = {url: 'http://:4201', options: {}};
 
 }

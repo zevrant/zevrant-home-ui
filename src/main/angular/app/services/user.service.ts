@@ -45,7 +45,7 @@ export class UserService {
     }
 
     public async searchRoles(page: any, pageSize: any): Promise<any> {
-        return this.httpClient.get(Constants.oauthBaseUrl + `user/roles/search/${page}/${pageSize}`, {headers: null});
+        return this.http.get(Constants.oauthBaseUrl + `user/roles/search/${page}/${pageSize}`, null);
     }
 
     updateUsers(users: User[]) {
@@ -93,7 +93,7 @@ export class UserService {
 
     public async getUsername(): Promise<Username> {
         try {
-            return await this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
+            return this.http.get(Constants.oauthBaseUrl.concat("user/username"), null);
         } catch (exception) {
             console.error(exception)
             this.snackbarService.displayMessage(exception.error.error + " " + exception.error.message, 10000)

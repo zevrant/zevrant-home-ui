@@ -22,10 +22,10 @@ spring:
           uri: https://localhost:9004
           predicates:
             - Path=/zevrant-outsource-service/**
-        - id: kafka-proxy
-          uri: ws://localhost:9008
-          predicates:
-            - Path=/socket.io
+#        - id: kafka-proxy
+#          uri: ws://localhost:9008
+#          predicates:
+#            - Path=/socket.io
   main:
     allow-bean-definition-overriding: true
 

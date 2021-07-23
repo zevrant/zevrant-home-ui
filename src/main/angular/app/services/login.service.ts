@@ -3,74 +3,77 @@ import {Constants} from "../constants/Constants";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LocalStorageService} from "angular-web-storage";
 import {LoginResponse} from "../rest/response/LoginResponse";
+import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class LoginService {
 
-    private loginEmitter: EventEmitter<string> = new EventEmitter<string>();
+  private loginEmitter: EventEmitter<string> = new EventEmitter<string>();
+  private _logoutEmitter: EventEmitter<string> = new EventEmitter<string>();
+  constructor(private local: LocalStorageService, private http: HttpClient) {
 
-    constructor(private local: LocalStorageService, private http: HttpClient) {
+  }
 
-    }
+  getLoginEmitter(): EventEmitter<String> {
+    return this.loginEmitter;
+  }
 
-    private _logoutEmitter: EventEmitter<string> = new EventEmitter<string>();
+  get logoutEmitter(): EventEmitter<string> {
+    return this._logoutEmitter;
+  }
 
-    get logoutEmitter(): EventEmitter<string> {
-        return this._logoutEmitter;
-    }
 
-    getLoginEmitter(): EventEmitter<String> {
-        return this.loginEmitter;
-    }
+  login(username: string, password: string, twoFactor): Promise<any> {
 
-    async login(username: string, password: string, twoFactor): Promise<any> {
+    let body = new URLSearchParams();
+    body.set('client_id', username);
+    body.set('client_secret', password);
+    body.set('grant_type', 'client_credentials');
+    body.set('scope', 'DEFAULT');
 
-        let body = new URLSearchParams();
-        body.set('client_id', username);
-        body.set('client_secret', password);
-        body.set('grant_type', 'client_credentials');
-        body.set('scope', 'DEFAULT');
+    let headers = new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")
 
-        let headers = new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")
+    return this.http.post(Constants.oauthBaseUrl + "oauth/token", body.toString(), {headers: headers}).toPromise().then((data) => {
+      let response: LoginResponse = JSON.parse(JSON.stringify(data));
+      this.local.set(Constants.oauthTokenName, response.access_token);
+      let local = this.local;
+      let logoutEmitter = this.logoutEmitter;
+      new Promise((res) => {
+        setTimeout(function() {
+          local.clear();
+          logoutEmitter.emit("loggedOut");
+        }, response.expires_in * 1000);
+      });
+      this.loginEmitter.emit("loggedIn");
 
-        let data = await this.http.post(Constants.oauthBaseUrl + "oauth/token", body.toString(), {headers: headers});
-        let response: LoginResponse = JSON.parse(JSON.stringify(data));
-        this.local.set(Constants.oauthTokenName, response.access_token);
-        let local = this.local;
-        let logoutEmitter = this.logoutEmitter;
-        new Promise((res) => {
-            setTimeout(function () {
-                local.clear();
-                logoutEmitter.emit("loggedOut");
-            }, response.expires_in * 1000);
-        });
-        this.loginEmitter.emit("loggedIn");
-    }
+    });
 
-    async forgotPassword(emailAddress: string) {
-        let body = {
-            emailAddress: emailAddress
-        };
-        return this.http.post(Constants.oauthBaseUrl + "user/forgot-password", body, {headers: null});
-    }
+  }
 
-    async resetPassword(token: string, password: string, passwordConfirmation: string, username: string) {
-        let headers = new HttpHeaders();
-        headers = headers.set("authorization", `bearer ${token}`);
-        let body = {
-            username: username,
-            originalUsername: username,
-            password: password,
-            passwordConfirmation: passwordConfirmation,
-        };
+  forgotPassword(emailAddress: string){
+    let body = {
+      emailAddress: emailAddress
+    };
+    return this.http.post(Constants.oauthBaseUrl + "user/forgot-password", body, {headers: null}).toPromise();
+  }
 
-        return this.http.put(Constants.oauthBaseUrl + "user/password-reset", body, {headers: headers});
-    }
+  resetPassword(token: string, password: string, passwordConfirmation: string, username: string) {
+    let headers = new HttpHeaders();
+    headers = headers.set("authorization", `bearer ${token}`);
+    let body = {
+      username: username,
+      originalUsername: username,
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+    };
 
-    logout() {
-        this.logoutEmitter.emit("loggedout");
-    }
+    return this.http.put(Constants.oauthBaseUrl + "user/password-reset", body, {headers: headers}).toPromise();
+  }
+
+  logout() {
+    this.logoutEmitter.emit("loggedout");
+  }
 
 }

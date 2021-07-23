@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {io} from "socket.io-client"
+// import {io} from "socket.io-client"
 
-const socket = io({
-    transports: ["websocket"]
-});
+// const socket = io({
+//     transports: ["websocket"]
+// });
 
 @Component({
     selector: 'app-camera-view',
@@ -13,7 +13,7 @@ const socket = io({
 export class CameraViewComponent implements OnInit {
 
     constructor() {
-        socket.connect()
+        // socket.connect()
     }
 
     ngOnInit() {

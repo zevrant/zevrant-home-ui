@@ -29,12 +29,13 @@ export class NavBarComponent implements OnInit {
     constructor(private storage: LocalStorageService, private http: HttpService,
                 private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService,
                 private userService: UserService) {
+
         this.baseUrl = Constants.baseUrl;
         this.username = (this.storage.get(Constants.username)) ? this.storage.get("username") : "Login";
         this.userService.roles[ADMIN_ROLE] = new BehaviorSubject<boolean>(false);
         this.userService.roles[PRINTS_ROLE] = new BehaviorSubject<boolean>(false)
     }
-
+//
     ngOnInit() {
         if (this.isLoggedIn()) {
             this.username = (this.storage.get(Constants.username));
@@ -45,11 +46,18 @@ export class NavBarComponent implements OnInit {
         this.subcription = this.loginService.getLoginEmitter().subscribe(async (event) => {
             await this.getRoles();
             await this.userService.getAllUserRoles();
-            let username = (await this.userService.getUsername()).username;
-            this.storage.set(Constants.username, username);
-            this.username = username;
-            this.userLoggedIn = undefined;
-            window.location.reload()
+            // let username =
+
+            console.log("USERNAME2: " + JSON.stringify(await this.userService.getUsername()))
+            this.userService.getUsername().then((data) => {
+              console.log("USERNAME3: " + JSON.stringify(data))
+            }).catch(err => {
+              console.error(JSON.stringify(err))
+            })
+            // this.storage.set(Constants.username, username);
+            // this.username = username;
+            // this.userLoggedIn = undefined;
+            // window.location.reload()
         });
 
         this.logoutSubscription = this.loginService.logoutEmitter.subscribe(() => {

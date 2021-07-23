@@ -48,8 +48,8 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '2.2'
-    testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-core', version: '2.2'
+    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
             "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
@@ -137,5 +137,5 @@ tasks.npm_run_build.finalizedBy tasks.moveFavIcon
 tasks.bootJar.dependsOn(tasks.moveFavIcon)
 tasks.npx_run_update.finalizedBy(tasks.npmInstall)
 tasks.npx_run_update.finalizedBy(tasks.npm_run_build)
-
+//
 //tasks.test.finalizedBy tasks.npm_run_test
