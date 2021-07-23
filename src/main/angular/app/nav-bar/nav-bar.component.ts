@@ -29,7 +29,9 @@ export class NavBarComponent implements OnInit {
     constructor(private storage: LocalStorageService, private http: HttpService,
                 private platformLocation: PlatformLocation, private router: Router, private loginService: LoginService,
                 private userService: UserService) {
-
+        this.http.get(Constants.oauthBaseUrl.concat("user/username"), null).then(data => {
+          console.log("Username4: ", JSON.stringify(data))
+        })
         this.baseUrl = Constants.baseUrl;
         this.username = (this.storage.get(Constants.username)) ? this.storage.get("username") : "Login";
         this.userService.roles[ADMIN_ROLE] = new BehaviorSubject<boolean>(false);
