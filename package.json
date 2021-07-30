@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --source-map=false",
+    "build": "ng build --output-path src/main/resources/static",
     "test": "ng test --no-watch ",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -45,7 +45,7 @@
     "ngx-filesaver": "^11.0.0",
     "ngx-socket-io": "^4.0.0",
     "npm": "^7.11.2",
-    "rxjs": "~7.0.0",
+    "rxjs": "~6.5.4",
     "socket.io": "^3.1.2",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

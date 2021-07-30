@@ -1,8 +1,8 @@
 spring:
   profiles:
     active: local
-  application:
-    name: zevrant-home-ui
+  main:
+    allow-bean-definition-overriding: true
   cloud:
     gateway:
       httpclient:
@@ -22,16 +22,12 @@ spring:
           uri: https://localhost:9004
           predicates:
             - Path=/zevrant-outsource-service/**
-#        - id: kafka-proxy
-#          uri: ws://localhost:9008
-#          predicates:
-#            - Path=/socket.io
-  main:
-    allow-bean-definition-overriding: true
-
+        - id: kafka-proxy
+          uri: ws://localhost:9008
+          predicates:
+            - Path=/socket.io
 server:
   port: 8080
-  max-http-header-size: 99999999999
   ssl:
     key-store: /storage/keys/zevrant-services.p12
     key-store-type: PKCS12
@@ -48,15 +44,12 @@ management:
     ldap:
       enabled: false
 
-#logging:
-#  level:
-#    root: info
-#    net.zevrantservices: debug
-#
-#kafka:
-#  bootstrapAddress: localhost:9092
-#  group:
-#    id: 1
-#  topic:
-#    video: zevrant-video-stream
+logging:
+  level:
+    root: info
+    com:
+      zevrant:
+        services:
+          zevranthomeui: debug
+
 

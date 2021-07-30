@@ -57,9 +57,9 @@ export class ModelService {
         return this.http.get(Constants.modelBaseUrl + `models/${fileName}/${page}/${pageSize}`, headers);
     }
 
-    async getCoverPhoto(fileName: String) {
+    async getCoverPhoto(fileName: String): Promise<ArrayBuffer> {
         let headers: HttpHeaders = new HttpHeaders().set("Content-Type", "image/jpeg");
-        return await this.http.getBlob(`${Constants.modelBaseUrl}models/coverphoto/${fileName}`, headers);
+        return await this.http.getBlob(`${Constants.modelBaseUrl}models/coverphoto/${fileName}`, headers).toPromise();
     }
 
     updateTags(fileName: string, tags: Array<string>) {
@@ -68,6 +68,6 @@ export class ModelService {
     }
 
     downloadModel(fileName: string, fileExtension: string): Promise<ArrayBuffer> {
-        return this.http.getBlob(`${Constants.modelBaseUrl}models/${fileName}.${fileExtension}`, null);
+        return this.http.getBlob(`${Constants.modelBaseUrl}models/${fileName}.${fileExtension}`, null).toPromise();
     }
 }
