@@ -13,7 +13,7 @@
 </p>
 <mat-menu #appsMenu="matMenu" color="primary">
     <a *ngIf="hasRole(PRINTS_ROLE) | async" color="secondary" id="prints" mat-menu-item routerLink="prints">prints</a>
-    <a *ngIf="hasRole(CAMERA_ROLE) | async" color="secondary" id="camera" mat-menu-item routerLink="camera">prints</a>
+    <a *ngIf="hasRole(CAMERA_ROLE) | async" color="secondary" id="camera" mat-menu-item routerLink="camera">camera</a>
 </mat-menu>
 
 <mat-menu #userMenu="matMenu" color="primary">

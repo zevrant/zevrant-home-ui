@@ -29,8 +29,15 @@ export class AdminComponent implements OnInit {
 
     constructor(private userService: UserService, private snackBarService: SnackbarService,
                 private localStorageService: LocalStorageService) {
-        this.getAllRoles();
-        this.getAllUsers();
+        this.init().then(() => {
+          console.debug("admin data loaded")
+        })
+    }
+
+    async init(): Promise<any> {
+      await this.getAllRoles();
+      console.log("here")
+      await this.getAllUsers();
     }
 
     get addRole(): AbstractControl {
@@ -50,10 +57,10 @@ export class AdminComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    getAllUsers() {
-        this.userService.getAllUsers().then(data => {
-            this.users = data;
-        });
+    async getAllUsers() {
+        let test = await this.userService.getAllUsers();
+        console.log(test)
+        this.users = test
     }
 
     updateRole(user: User, role: string) {
@@ -78,10 +85,16 @@ export class AdminComponent implements OnInit {
         })
     }
 
-    onSubmit() {
+    async onSubmit() {
         let tag = this.addRole.value
         let desc = this.roleDesc.value
-        this.userService.addRole(tag, desc);
+      try {
+          console.log("here")
+        await this.userService.addRole(tag, desc);
+      } catch (error) {
+          console.error(error)
+      }
+        await this.init()
     }
 
     roleSearch(number: number, number2: number) {

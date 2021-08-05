@@ -30,7 +30,6 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/main/angular/favicon.ico",
               "src/main/angular/assets"
             ],
             "styles": [

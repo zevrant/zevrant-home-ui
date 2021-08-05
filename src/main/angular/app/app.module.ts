@@ -54,6 +54,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatTimepickerModule} from "mat-timepicker";
 import {MatMomentDateModule} from "@angular/material-moment-adapter"
+import {MatCarouselModule} from "@ngbmodule/material-carousel"
 
 @NgModule({
     declarations: [
@@ -107,6 +108,7 @@ import {MatMomentDateModule} from "@angular/material-moment-adapter"
         MatDatepickerModule,
         MatTimepickerModule,
         MatMomentDateModule,
+        MatCarouselModule,
     ],
     providers: [
         CdkColumnDef,

@@ -59,7 +59,7 @@ export class ModelService {
 
     async getCoverPhoto(fileName: String): Promise<ArrayBuffer> {
         let headers: HttpHeaders = new HttpHeaders().set("Content-Type", "image/jpeg");
-        return await this.http.getBlob(`${Constants.modelBaseUrl}models/coverphoto/${fileName}`, headers).toPromise();
+        return await this.http.getBlob(`${Constants.modelBaseUrl}models/coverphoto/${fileName}`, headers);
     }
 
     updateTags(fileName: string, tags: Array<string>) {
@@ -68,6 +68,6 @@ export class ModelService {
     }
 
     downloadModel(fileName: string, fileExtension: string): Promise<ArrayBuffer> {
-        return this.http.getBlob(`${Constants.modelBaseUrl}models/${fileName}.${fileExtension}`, null).toPromise();
+        return this.http.getBlob(`${Constants.modelBaseUrl}models/${fileName}.${fileExtension}`, null);
     }
 }

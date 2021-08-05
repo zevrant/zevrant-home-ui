@@ -71,7 +71,7 @@ export class UserService {
 
     }
 
-    addRole(role: string, desc: string) {
+    addRole(role: string, desc: string): Promise<any> {
         let addRole = new AddRole(role, desc);
         return this.http.post(Constants.oauthBaseUrl + "user/roles", null, addRole);
     }
