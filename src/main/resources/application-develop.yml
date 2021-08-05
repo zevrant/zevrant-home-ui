@@ -23,4 +23,9 @@ zuul:
       path: /zevrant-outsource-service/**
       url: https://zevrant-outsource-service
       stripPrefix: false
+    backup:
+      sensitiveHeaders:
+      path: /zevrant-backup-service/**
+      url: https://zevrant-backup-service
+      stripPrefix: false
   ssl-hostname-validation-enabled: false
