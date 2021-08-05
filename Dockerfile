@@ -20,6 +20,7 @@ RUN mkdir ~/.aws; echo "[default]" > ~/.aws/config; echo "region = us-east-1" >>
 RUN curl https://raw.githubusercontent.com/zevrant/zevrant-services-pipeline/master/bash/zevrant-services-start.sh > ~/startup.sh \
   && curl https://raw.githubusercontent.com/zevrant/zevrant-services-pipeline/master/bash/openssl.conf > ~/openssl.conf
 
-CMD password=`date +%s | sha256sum | base64 | head -c 32`\
- && bash ~/startup.sh zevrant-home-ui $password \
+CMD export ROLE_ARN="arn:aws:iam::725235728275:role/OauthServiceRole" \
+ && password=`date +%s | sha256sum | base64 | head -c 32` \
+ && bash ~/startup.sh zevrant-backup-service $password \
  && java -Xmx32G -jar -Dcom.sun.net.ssl.checkRevocation=false -Dspring.profiles.active=$ENVIRONMENT -Dpassword=$password /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
