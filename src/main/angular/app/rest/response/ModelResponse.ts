@@ -3,22 +3,22 @@ import {Model} from "./Model";
 export class ModelResponse {
 
 
-  constructor(private _models: Array<Model>, private _totalRows: number) {
-  }
+    constructor(private _models: Array<Model>, private _totalRows: number) {
+    }
 
-  get models(): Array<Model> {
-    return this._models;
-  }
+    get models(): Array<Model> {
+        return this._models;
+    }
 
-  set models(value: Array<Model>) {
-    this._models = value;
-  }
+    set models(value: Array<Model>) {
+        this._models = value;
+    }
 
-  get totalRows(): number {
-    return this._totalRows;
-  }
+    get totalRows(): number {
+        return this._totalRows;
+    }
 
-  set totalRows(value: number) {
-    this._totalRows = value;
-  }
+    set totalRows(value: number) {
+        this._totalRows = value;
+    }
 }

@@ -1,15 +1,14 @@
-
 export class WebPage {
 
-  constructor(private _html:string) {
-  }
+    constructor(private _html: string) {
+    }
 
 
-  get html(): string {
-    return this._html;
-  }
+    get html(): string {
+        return this._html;
+    }
 
-  set html(value: string) {
-    this._html = value;
-  }
+    set html(value: string) {
+        this._html = value;
+    }
 }

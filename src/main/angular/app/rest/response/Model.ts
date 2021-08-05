@@ -1,75 +1,79 @@
 import {BehaviorSubject} from "rxjs";
 
 export class Model {
-  private _isTagsSelected: BehaviorSubject<boolean>
-  private _id: number;
-  private _url: string;
-  private _fileUrl: string;
-  constructor(private _fileName: string, private _coverPhoto: any, private _fileExtension: string,
-              private _tags: Array<string>) {
-  }
+    constructor(private _fileName: string, private _coverPhoto: any, private _fileExtension: string,
+                private _tags: Array<string>) {
+    }
 
-  get url(): string {
-    return this._url;
-  }
+    private _isTagsSelected: BehaviorSubject<boolean>
 
-  set url(value: string) {
-    this._url = value;
-  }
+    get isTagsSelected(): BehaviorSubject<boolean> {
+        return this._isTagsSelected;
+    }
 
-  get id(): number {
-    return this._id;
-  }
+    set isTagsSelected(value: BehaviorSubject<boolean>) {
+        this._isTagsSelected = value;
+    }
 
-  set id(value: number) {
-    this._id = value;
-  }
+    private _id: number;
 
-  get fileName(): string {
-    return this._fileName;
-  }
+    get id(): number {
+        return this._id;
+    }
 
-  set fileName(value: string) {
-    this._fileName = value;
-  }
+    set id(value: number) {
+        this._id = value;
+    }
 
-  get coverPhoto(): any {
-    return this._coverPhoto;
-  }
+    private _url: string;
 
-  set coverPhoto(value: any) {
-    this._coverPhoto = value;
-  }
+    get url(): string {
+        return this._url;
+    }
 
-  get tags(): Array<string> {
-    return this._tags;
-  }
+    set url(value: string) {
+        this._url = value;
+    }
 
-  set tags(value: Array<string>) {
-    this._tags = value;
-  }
+    private _fileUrl: string;
 
-  get fileExtension(): string {
-    return this._fileExtension;
-  }
+    get fileUrl(): string {
+        return this._fileUrl;
+    }
 
-  set fileExtension(value: string) {
-    this._fileExtension = value;
-  }
+    set fileUrl(value: string) {
+        this._fileUrl = value;
+    }
 
-  get isTagsSelected(): BehaviorSubject<boolean> {
-    return this._isTagsSelected;
-  }
+    get fileName(): string {
+        return this._fileName;
+    }
 
-  set isTagsSelected(value: BehaviorSubject<boolean>) {
-    this._isTagsSelected = value;
-  }
+    set fileName(value: string) {
+        this._fileName = value;
+    }
 
-  get fileUrl(): string {
-    return this._fileUrl;
-  }
+    get coverPhoto(): any {
+        return this._coverPhoto;
+    }
 
-  set fileUrl(value: string) {
-    this._fileUrl = value;
-  }
+    set coverPhoto(value: any) {
+        this._coverPhoto = value;
+    }
+
+    get tags(): Array<string> {
+        return this._tags;
+    }
+
+    set tags(value: Array<string>) {
+        this._tags = value;
+    }
+
+    get fileExtension(): string {
+        return this._fileExtension;
+    }
+
+    set fileExtension(value: string) {
+        this._fileExtension = value;
+    }
 }

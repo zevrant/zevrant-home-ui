@@ -3,20 +3,20 @@ import {HttpService} from "./http.service";
 import {Constants} from "../constants/Constants";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TagService {
 
-  constructor(private http: HttpService) {
+    constructor(private http: HttpService) {
 
-  }
+    }
 
-  async searchTag(tag: string) {
-    return await this.http.get(Constants.modelBaseUrl + `tags/0/5/${tag}`, null);
-  }
+    async searchTag(tag: string) {
+        return await this.http.get(Constants.modelBaseUrl + `tags/0/5/${tag}`, null);
+    }
 
-  uploadTag(tag: string) {
-    return this.http.post(Constants.modelBaseUrl + 'tags', null, {tags: [tag]})
-  }
+    uploadTag(tag: string) {
+        return this.http.post(Constants.modelBaseUrl + 'tags', null, {tags: [tag]})
+    }
 
 }

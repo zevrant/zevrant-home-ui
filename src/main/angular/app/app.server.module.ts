@@ -10,17 +10,18 @@ import {UniversalInterceptor} from './universal-interceptor';
 import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
-  imports: [
-    AppModule,
-    ServerModule,
-    ModuleMapLoaderModule,
-    MatMenuModule
-  ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: UniversalInterceptor,
-    multi: true
-  }],
-  bootstrap: [AppComponent],
+    imports: [
+        AppModule,
+        ServerModule,
+        ModuleMapLoaderModule,
+        MatMenuModule
+    ],
+    providers: [{
+        provide: HTTP_INTERCEPTORS,
+        useClass: UniversalInterceptor,
+        multi: true
+    }],
+    bootstrap: [AppComponent],
 })
-export class AppServerModule {}
+export class AppServerModule {
+}
