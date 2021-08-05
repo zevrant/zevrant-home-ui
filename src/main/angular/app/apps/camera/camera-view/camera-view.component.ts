@@ -15,7 +15,7 @@ export class CameraViewComponent implements AfterViewInit {
     private socket;
 
     //es2017
-    videoBuffer: Uint8Array = new Uint8Array();
+    videoBuffer: Uint8Array = new Uint8Array([]);
 
     constructor(private cameraService: CameraFeedService) {
     }
