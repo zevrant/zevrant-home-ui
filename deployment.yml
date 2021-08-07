@@ -38,6 +38,6 @@ spec:
           readinessProbe:
             httpGet:
               scheme: HTTPS
-              path: /zevrant-home-ui/actuator/health
+              path: /actuator/health
               port: 8080
             initialDelaySeconds: 10
