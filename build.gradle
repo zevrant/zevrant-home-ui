@@ -75,7 +75,9 @@ test {
 
 clean {
   doFirst {
-    delete files("${rootDir}/build/resources/main/static/")
+    project.delete(files("${project.rootDir}/src/main/resources/static/*") {
+
+    })
   }
 }
 
