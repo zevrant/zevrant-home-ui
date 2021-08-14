@@ -5,3 +5,28 @@ server:
     key-store-password: ${password}
     key-alias: 1
     enabled: true
+
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
+        connect-timeout: 1200000
+      routes:
+        - id: model
+          uri: https://localhost:9003
+          predicates:
+            - Path=/zevrant-model-service/**
+        - id: oauth
+          uri: https://localhost:9001
+          predicates:
+            - Path=/zevrant-oauth2-service/**
+        - id: outsource
+          uri: https://localhost:9004
+          predicates:
+            - Path=/zevrant-outsource-service/**
+        - id: kafka-proxy
+          uri: ws://localhost:9008
+          predicates:
+            - Path=/socket.io
