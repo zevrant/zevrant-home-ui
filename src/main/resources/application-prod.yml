@@ -15,18 +15,18 @@ spring:
         connect-timeout: 1200000
       routes:
         - id: model
-          uri: https://localhost:9003
+          uri: https://zevrant-model-service
           predicates:
             - Path=/zevrant-model-service/**
         - id: oauth
-          uri: https://localhost:9001
+          uri: https://zevrant-oauth2-services
           predicates:
             - Path=/zevrant-oauth2-service/**
         - id: outsource
-          uri: https://localhost:9004
+          uri: https://zevrant-outsource-service
           predicates:
             - Path=/zevrant-outsource-service/**
         - id: kafka-proxy
-          uri: ws://localhost:9008
+          uri: wss://zevrant-kafka-proxy
           predicates:
             - Path=/socket.io
