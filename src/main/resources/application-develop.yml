@@ -1,26 +1,36 @@
 server:
-  servlet:
-    context-path: /${spring.application.name}
   ssl:
     key-store: /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-services.p12
     key-store-type: PKCS12
     key-store-password: ${password}
+    key-alias: 1
+    enabled: true
 
-zuul:
-  routes:
-    model:
-      sensitiveHeaders:
-      path: /zevrant-model-service/**
-      url: https://zevrant-model-service
-      stripPrefix: false
-    oauth:
-      sensitiveHeaders:
-      path: /zevrant-oauth2-service/**
-      url: https://zevrant-oauth2-service
-      stripPrefix: false
-    outsource:
-      sensitiveHeaders:
-      path: /zevrant-outsource-service/**
-      url: https://zevrant-outsource-service
-      stripPrefix: false
-  ssl-hostname-validation-enabled: false
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
+        connect-timeout: 1200000
+      routes:
+        - id: model
+          uri: https://zevrant-model-service
+          predicates:
+            - Path=/zevrant-model-service/**
+        - id: oauth
+          uri: https://zevrant-oauth2-service
+          predicates:
+            - Path=/zevrant-oauth2-service/**
+        - id: outsource
+          uri: https://zevrant-outsource-service
+          predicates:
+            - Path=/zevrant-outsource-service/**
+        - id: backup
+          uri: https://zevrant-backup-service
+          predicates:
+            - Path=/zevrant-backup-service/**
+        - id: kafka-proxy
+          uri: wss://zevrant-kafka-proxy
+          predicates:
+            - Path=/socket.io

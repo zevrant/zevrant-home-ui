@@ -1,18 +1,22 @@
 <p>
-  <mat-toolbar color="primary">
-    <a mat-button color="secondary" routerLink="">Home</a>
-    <button mat-button color="secondary" id="appsMenu" [matMenuTriggerFor]="appsMenu">Apps</button>
-    <button *ngIf="hasRole(ADMIN_ROLE) | async" mat-button color="secondary" id="adminPage" routerLink="administration">Admin Area</button>
-    <span color="primary" class="fill-space"></span>
-    <button *ngIf="!isLoggedIn()" color="secondary" id="login" mat-button routerLink="login">Login</button>
-    <button *ngIf="isLoggedIn()" [mat-menu-trigger-for]="userMenu" color="secondary" id="userMenu" mat-button>{{username}}</button>
-  </mat-toolbar>
+    <mat-toolbar color="primary">
+        <a color="secondary" mat-button routerLink="">Home</a>
+        <button [matMenuTriggerFor]="appsMenu" color="secondary" id="appsMenu" mat-button>Apps</button>
+        <button *ngIf="hasRole(ADMIN_ROLE) | async" color="secondary" id="adminPage" mat-button
+                routerLink="administration">Admin Area
+        </button>
+        <span class="fill-space" color="primary"></span>
+        <button *ngIf="!isLoggedIn()" color="secondary" id="login" mat-button routerLink="login">Login</button>
+        <button *ngIf="isLoggedIn()" [mat-menu-trigger-for]="userMenu" color="secondary" id="userMenu"
+                mat-button>{{username}}</button>
+    </mat-toolbar>
 </p>
 <mat-menu #appsMenu="matMenu" color="primary">
-  <a mat-menu-item color="secondary" id="prints" *ngIf="hasRole(PRINTS_ROLE) | async" routerLink="prints">prints</a>
+    <a *ngIf="hasRole(PRINTS_ROLE) | async" color="secondary" id="prints" mat-menu-item routerLink="prints">prints</a>
+    <a *ngIf="hasRole(CAMERA_ROLE) | async" color="secondary" id="camera" mat-menu-item routerLink="camera">camera</a>
 </mat-menu>
 
 <mat-menu #userMenu="matMenu" color="primary">
-  <a color="secondary" id="settings" mat-menu-item routerLink="account">account</a>
-  <a (click)="logout()" id="logout" color="secondary" mat-menu-item>logout</a>
+    <a color="secondary" id="settings" mat-menu-item routerLink="account">account</a>
+    <a (click)="logout()" color="secondary" id="logout" mat-menu-item>logout</a>
 </mat-menu>

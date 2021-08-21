@@ -1,1 +1,9 @@
-<p>camera-view works!</p>
+<mat-card>
+    <mat-carousel autoplay="false" loop="true" maxWidth="auto" maintainAspectRatio="true">
+        <mat-carousel-slide>
+            <video width="100%" height="100%" [src]="videoBuffer">
+
+            </video>
+        </mat-carousel-slide>
+    </mat-carousel>
+</mat-card>

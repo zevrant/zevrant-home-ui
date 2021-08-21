@@ -1,29 +1,39 @@
 <mat-card color="primary">
-  <div class="center" >
-    <form color="primary" [formGroup]="userUpdateForm" (ngSubmit)="submit()">
-      <mat-form-field color="primary">
-        <input matInput type="text" id="username" placeholder="username" formControlName="username" [(ngModel)]="user.username">
-      </mat-form-field>
-      <br>
-      <mat-form-field color="primary">
-        <input matInput type='password' placeholder="password" id="password"  formControlName="password" [(ngModel)]="user.password" [required]="isEmpty()">
-      </mat-form-field>
-      <br>
-      <mat-form-field color="primary">
-        <input type="password" matInput placeholder="Confirm Password" formControlName="passwordConfirmation" [(ngModel)]="user.passwordConfirmation" [required]="isEmpty()">
-      </mat-form-field>
-      <br>
-      <mat-form-field color="primary">
-        <input type="email" matInput placeholder="Email" id="email" formControlName="email" [(ngModel)]="user.emailAddress">
-      </mat-form-field>
-      <br>
-      <mat-label>Two Factor Authentication</mat-label>
-      <mat-checkbox class="checkbox" id="twoFactor" [disabled]="twoFactorEnabled | async" (change)="enableTwoFactor()" [checked]="twoFactorEnabled | async"></mat-checkbox>
-      <br>
-      <mat-label>Subscribe to News & Updates?</mat-label>
-      <mat-checkbox class="checkbox" id="subscribe" (change)="updateSubscription()" [checked]="subscribed | async"></mat-checkbox>
+    <div class="center">
+        <form (ngSubmit)="submit()" [formGroup]="userUpdateForm" color="primary">
+            <mat-form-field color="primary">
+                <input [(ngModel)]="user.username" formControlName="username" id="username" matInput
+                       placeholder="username"
+                       type="text">
+            </mat-form-field>
+            <br>
+            <mat-form-field color="primary">
+                <input [(ngModel)]="user.password" [required]="isEmpty()" formControlName="password" id="password"
+                       matInput
+                       placeholder="password" type='password'>
+            </mat-form-field>
+            <br>
+            <mat-form-field color="primary">
+                <input [(ngModel)]="user.passwordConfirmation" [required]="isEmpty()"
+                       formControlName="passwordConfirmation" matInput
+                       placeholder="Confirm Password" type="password">
+            </mat-form-field>
+            <br>
+            <mat-form-field color="primary">
+                <input [(ngModel)]="user.emailAddress" formControlName="email" id="email" matInput placeholder="Email"
+                       type="email">
+            </mat-form-field>
+            <br>
+            <mat-label>Two Factor Authentication</mat-label>
+            <mat-checkbox (change)="enableTwoFactor()" [checked]="twoFactorEnabled | async"
+                          [disabled]="twoFactorEnabled | async"
+                          class="checkbox" id="twoFactor"></mat-checkbox>
+            <br>
+            <mat-label>Subscribe to News & Updates?</mat-label>
+            <mat-checkbox (change)="updateSubscription()" [checked]="subscribed | async" class="checkbox"
+                          id="subscribe"></mat-checkbox>
 
-      <button mat-button id="settingsSubmit" type="submit" color="primary">Save Changes</button>
-    </form>
-  </div>
+            <button color="primary" id="settingsSubmit" mat-button type="submit">Save Changes</button>
+        </form>
+    </div>
 </mat-card>

@@ -1,58 +1,33 @@
+import org.gradle.work.InputChanges
+
 plugins {
-  id 'org.springframework.boot' version '2.2.2.RELEASE'
-  id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-  id "com.github.node-gradle.node" version "2.0.0"
-  id 'org.unbroken-dome.test-sets' version '2.2.1'
+  id 'org.springframework.boot' version '2.5.3'
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
   id 'org.sonarqube' version '2.7'
+  id "com.github.node-gradle.node" version "3.1.0"
   id 'java'
 }
 
-group = 'net.zevrant-services.home.ui'
+group = 'com.zevrant.services'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.11'
-
-if (project.hasProperty('projVersion')) {
-  project.version = project.projVersion
-  ext.isSnapshot = false
-} else {
-  project.version = '0.0.1-snapshot'
-}
+sourceCompatibility = '11'
 
 repositories {
-  mavenLocal()
   mavenCentral()
-  maven {
-    url "s3://zevrant-artifact-store"
-    authentication {
-      awsIm(AwsImAuthentication)
-    }
-  }
 }
 
 ext {
-  set('springCloudVersion', 'Hoxton.SR3')
-  serenityCoreVersion = '2.3.4'
-  serenityCucumberVersion = '2.3.4'
-  junitVersion = '4.12'
+  set('springCloudVersion', "2020.0.3")
 }
 
 dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-security'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
-  implementation 'org.springframework.boot:spring-boot-starter-web'
-  implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
-  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
-  compile group: 'io.prometheus', name: 'simpleclient', version: '0.10.0'
-
+  implementation 'org.springframework.boot:spring-boot-starter-webflux'
+  implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+  implementation 'io.micrometer:micrometer-registry-prometheus'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'org.springframework.security:spring-security-test'
-  testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '2.2'
-  testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
-    "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
-    "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
-    "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
-    "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
-
-  compile group: 'javax.mail', name: 'javax.mail-api', version: '1.6.2'
 }
 
 dependencyManagement {
@@ -61,9 +36,8 @@ dependencyManagement {
   }
 }
 
-
 node {
-  version = '10.16.3'
+  version = '14.15.4'
   download = true
   distBaseUrl = 'https://nodejs.org/dist'
 }
@@ -72,33 +46,27 @@ npmInstall {
   inputs.file 'package.json'
   inputs.file 'package-lock.json'
 
+  outputs.cacheIf { true }
+
   outputs.files fileTree('nodeModules')
 }
 
 npm_run_build {
   // make sure the build task is executed only when appropriate files change
-//  inputs.files fileTree('src/main/angular')
-//
-//  // 'node_modules' appeared not reliable for dependency change detection (the task was rerun without changes)
-//  // though 'package.json' and 'package-lock.json' should be enough anyway
-  outputs.upToDateWhen { false }
+  inputs.files fileTree('src/main/angular')
 
-//
-  outputs.file 'src/main/resources/static/index.html'
-  outputs.file 'src/main/resources/static/main-es5.js'
-  outputs.file 'src/main/resources/static/main-es2015.js'
-  outputs.file 'src/main/resources/static/polyfill-es5.js'
-  outputs.file 'src/main/resources/static/runtime-es5.js'
-  outputs.file 'src/main/resources/static/styles-es5.js'
-  outputs.file 'src/main/resources/static/styles-es2015.js'
-  outputs.file 'src/main/resources/static/vendor-es5.js'
-  outputs.file 'src/main/resources/static/vendor-es2015.js'
+  //
+  outputs.file "src/main/resources/static/index.html"
+  outputs.file "src/main/resources/static/main.js"
+  outputs.file "src/main/resources/static/polyfill.js"
+  outputs.file "src/main/resources/static/runtime.js"
+  outputs.file "src/main/resources/static/styles.css"
 
 }
 
 task moveFavIcon(type: Copy) {
-  from file("$buildDir/resources/main/favicon.ico")
-  into file("$buildDir/resources/main/static")
+  from file("src/main/angular/favicon.ico")
+  into file("src/main/resources/static/")
 }
 
 test {
@@ -106,24 +74,35 @@ test {
 }
 
 clean {
-    doFirst {
-      delete files("${rootDir}/src/main/resources/static/")
-    }
+  doFirst {
+    project.delete(files("${project.rootDir}/src/main/resources/static/*") {
+
+    })
+  }
 }
 
 task npm_run_test(type: NpmTask) {
   args = ['run', 'test']
 }
 
-testSets {
-  integrationTest { dirName = 'integrationTest' }
-}
+//testSets {
+//    integrationTest { dirName = 'integrationTest' }
+//}
 
-integrationTest {
-  useJUnitPlatform ()
+//integrationTest {
+//    useJUnitPlatform()
+//}
+
+task npx_run_update(type: NpxTask) {
+  command = 'npm-check-updates'
+  args = ['-u']
 }
 
 tasks.compileJava.finalizedBy npm_run_build
 tasks.npm_run_build.dependsOn(tasks.npmInstall)
+tasks.npm_run_build.finalizedBy tasks.moveFavIcon
 tasks.bootJar.dependsOn(tasks.moveFavIcon)
+tasks.npx_run_update.finalizedBy(tasks.npmInstall)
+tasks.npx_run_update.finalizedBy(tasks.npm_run_build)
+//
 //tasks.test.finalizedBy tasks.npm_run_test

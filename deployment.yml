@@ -24,11 +24,20 @@ spec:
           env:
             - name: ENVIRONMENT
               value: $ENVIRONMENT
+            - name: PROXY_CREDENTIALS
+              valueFrom:
+                secretKeyRef:
+                  name: proxy-creds
+                  key: proxyCreds
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
           ports:
             - containerPort: 8080
           readinessProbe:
             httpGet:
               scheme: HTTPS
-              path: /zevrant-home-ui/actuator/health
+              path: /actuator/health
               port: 8080
             initialDelaySeconds: 10
