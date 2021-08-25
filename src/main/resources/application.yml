@@ -23,7 +23,7 @@ spring:
           predicates:
             - Path=/zevrant-outsource-service/**
         - id: backup
-          uri: https://localhost:9009
+          uri: https://192.168.1.21:9009
           predicates:
             - Path=/zevrant-backup-service/**
         - id: kafka-proxy
