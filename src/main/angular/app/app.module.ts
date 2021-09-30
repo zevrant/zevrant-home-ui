@@ -55,6 +55,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatTimepickerModule} from "mat-timepicker";
 import {MatMomentDateModule} from "@angular/material-moment-adapter"
 import {MatCarouselModule} from "@ngbmodule/material-carousel"
+import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component";
 
 @NgModule({
     declarations: [
@@ -73,6 +74,7 @@ import {MatCarouselModule} from "@ngbmodule/material-carousel"
         BottomSheetOverviewSheet,
         ForgotPasswordComponent,
         PasswordResetComponent,
+        PrivacyPolicyComponent
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'serverApp'}),

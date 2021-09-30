@@ -36,6 +36,7 @@
     "angular-web-storage": "^10.0.0",
     "angular-webstorage-service": "latest",
     "angularx-qrcode": "^11.0.0",
+    "component": "^1.1.0",
     "document-register-element": "^1.14.10",
     "express": "^4.17.1",
     "file-saver": "^2.0.5",

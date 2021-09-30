@@ -9,6 +9,7 @@ import {AccountComponent} from "./account/account.component";
 import {ForgotPasswordComponent} from "./login/forgot-password/forgot-password.component";
 import {PasswordResetComponent} from "./login/password-reset/password-reset.component";
 import {CameraViewComponent} from "./apps/camera/camera-view/camera-view.component";
+import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component";
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
     {path: 'account', component: AccountComponent},
     {path: 'login/forgot-password', component: ForgotPasswordComponent},
     {path: 'login/password-reset/:token', component: PasswordResetComponent},
+    {path: 'privacy-policy', component: PrivacyPolicyComponent},
     {path: '**', redirectTo: ''}
 ];
 
