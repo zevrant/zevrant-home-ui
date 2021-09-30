@@ -2,6 +2,14 @@ mat-card {
   display: inline-block;
 }
 
+div {
+  width: 60%;
+}
+
+h1 {
+  text-align: center;
+}
+
 .formatted {
   margin-left: 10%;
   margin-right: 10%;
@@ -10,8 +18,7 @@ mat-card {
 }
 
 .centered {
-  text-align: center;
-  vertical-align: middle;
+  margin: auto;
 }
 
 .largerText {

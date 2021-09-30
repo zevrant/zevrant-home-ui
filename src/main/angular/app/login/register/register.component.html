@@ -1,4 +1,4 @@
-<div [style.height]="'5%'" color="primary"></div>
+<div [style.height]="'5%'" color="primary" xmlns="http://www.w3.org/1999/html"></div>
 <mat-card class="center container mat-elevation-z8">
     <h1>Enter Registration Info</h1>
     <div class="line-break"></div>
@@ -40,6 +40,13 @@
         <mat-form-field color="primary">
             <input formControlName="fullName" id="full-name" matInput placeholder="full name"/>
         </mat-form-field>
+        <p color="warning">
+            By submitting this registration request you are agreeing to the terms and conditions outlined
+            <a color="warning" routerLink="/privacy-policy">
+                here
+            </a>
+
+        </p>
     </form>
     <div class="big">
         <mat-paginator
