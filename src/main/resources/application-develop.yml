@@ -22,6 +22,10 @@ spring:
           uri: https://zevrant-oauth2-service
           predicates:
             - Path=/zevrant-oauth2-service/**
+        - id: oauth2
+            uri: https://zevrant-keycloak-service
+            predicates:
+              - Path=/auth/realms/zevrant-services/protocol/openid-connect/token
         - id: outsource
           uri: https://zevrant-outsource-service
           predicates:

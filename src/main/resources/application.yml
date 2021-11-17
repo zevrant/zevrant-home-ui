@@ -17,15 +17,23 @@ spring:
         - id: oauth
           uri: https://localhost:9001
           predicates:
-            - Path=/zevrant-oauth2-service/**
+            - Path=/auth/realms/zevrant-services/protocol/openid-connect/token
         - id: outsource
           uri: https://localhost:9004
           predicates:
             - Path=/zevrant-outsource-service/**
         - id: backup
-          uri: https://192.168.1.21:9009
+          uri: https://localhost:9009
           predicates:
             - Path=/zevrant-backup-service/**
+        - id: acra
+          uri: https://localhost:9010
+          predicates:
+            - Path=/zevrant-acra-backend/**
+        - id: notification
+          uri: https://localhost:9008
+          predicates:
+            - Path=/zevrant-notification-service/**
         - id: kafka-proxy
           uri: ws://localhost:9008
           predicates:
