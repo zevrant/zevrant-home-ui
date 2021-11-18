@@ -44,11 +44,11 @@ node {
 
 npmInstall {
   inputs.file 'package.json'
-  inputs.file 'package-lock.json'
+  if( file('package-lock.json').exists()) {
+    inputs.file 'package-lock.json'
+  }
 
-  outputs.cacheIf { true }
-
-  outputs.files fileTree('nodeModules')
+  outputs.files fileTree('node_modules')
 }
 
 npm_run_build {
