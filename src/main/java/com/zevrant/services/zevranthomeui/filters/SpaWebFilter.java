@@ -12,10 +12,13 @@ public class SpaWebFilter implements WebFilter {
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
     String path = exchange.getRequest().getURI().getPath();
-    if (!path.startsWith("/zevrant") && !path.endsWith("*\\.*") && path.matches("[^\\\\.]*")) {
+    if (!path.startsWith("/zevrant")
+            && !path.equals("/auth/realms/zevrant-services/protocol/openid-connect/token")
+            && !path.endsWith("*\\.*")
+            && path.matches("[^\\\\.]*")) {
       return chain.filter(
-        exchange.mutate().request(exchange.getRequest().mutate().path("/index.html").build()
-        ).build());
+              exchange.mutate().request(exchange.getRequest().mutate().path("/index.html").build()
+              ).build());
     }
     return chain.filter(exchange);
   }
