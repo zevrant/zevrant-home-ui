@@ -11,9 +11,6 @@ RUN useradd -m -d /usr/local/microservices/zevrant-home-services/zevrant-home-ui
 
 RUN chown -R zevrant-home-ui:developers /var/log/zevrant-home-services/zevrant-home-ui /usr/local/microservices/zevrant-home-services/zevrant-home-ui /storage/keys
 
-RUN apt-get install vim -y
-
-
 USER zevrant-home-ui
 
 COPY build/libs/zevrant-home-ui-0.0.1-SNAPSHOT.jar /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
@@ -26,4 +23,4 @@ RUN curl https://raw.githubusercontent.com/zevrant/zevrant-services-pipeline/mas
 
 CMD password=`date +%s | sha256sum | base64 | head -c 32` \
  && bash ~/startup.sh zevrant-home-ui $password \
- && java -Xmx32G -jar -Dcom.sun.net.ssl.checkRevocation=false -Dspring.profiles.active=$ENVIRONMENT -Dpassword=$password /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
+ && java -Xmx32G -jar -Dspring.profiles.active=$ENVIRONMENT -Dpassword=$password /usr/local/microservices/zevrant-home-services/zevrant-home-ui/zevrant-home-ui.jar
