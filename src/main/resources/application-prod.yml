@@ -10,8 +10,6 @@ spring:
   cloud:
     gateway:
       httpclient:
-        ssl:
-          useInsecureTrustManager: true
         connect-timeout: 1200000
       routes:
         - id: model
