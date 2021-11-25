@@ -24,11 +24,16 @@ spec:
           env:
             - name: ENVIRONMENT
               value: $ENVIRONMENT
-            - name: PROXY_CREDENTIALS
+            - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: proxy-creds
-                  key: proxyCreds
+                  name: zevrant-home-ui-aws
+                  key: username
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: zevrant-home-ui-aws
+                  key: password
             - name: POD_IP
               valueFrom:
                 fieldRef:
@@ -36,6 +41,12 @@ spec:
           ports:
             - containerPort: 8080
           readinessProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+          livenessProbe:
             httpGet:
               scheme: HTTPS
               path: /actuator/health
