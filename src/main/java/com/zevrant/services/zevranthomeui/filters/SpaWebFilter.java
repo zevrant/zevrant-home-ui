@@ -14,6 +14,7 @@ public class SpaWebFilter implements WebFilter {
     String path = exchange.getRequest().getURI().getPath();
     if (!path.startsWith("/zevrant")
             && !path.equals("/auth/realms/zevrant-services/protocol/openid-connect/token")
+            && !path.equals("/auth/realms/zevrant-services/protocol/openid-connect/auth")
             && !path.endsWith("*\\.*")
             && path.matches("[^\\\\.]*")) {
       return chain.filter(
