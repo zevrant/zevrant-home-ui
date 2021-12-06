@@ -15,6 +15,7 @@ public class SpaWebFilter implements WebFilter {
     if (!path.startsWith("/zevrant")
             && !path.startsWith("/auth/realms/zevrant-services/protocol/openid-connect/token")
             && !path.startsWith("/auth/realms/zevrant-services/protocol/openid-connect/auth")
+            && !path.startsWith("/auth/realms/zevrant-services/login-actions/authenticate")
             && !path.endsWith("*\\.*")
             && path.matches("[^\\\\.]*")) {
       return chain.filter(
