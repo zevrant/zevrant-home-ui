@@ -15,7 +15,11 @@ spring:
         - id: oauth
           uri: https://localhost:9001
           predicates:
-            - Path=/auth/realms/zevrant-services/protocol/openid-connect/token
+            - Path=/zevrant-oauth2-service/**
+        - id: oauth2
+          uri: https://localhost:9011
+          predicates:
+            - Path=/auth/realms/zevrant-services/protocol/openid-connect/*
         - id: outsource
           uri: https://localhost:9004
           predicates:
