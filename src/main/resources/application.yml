@@ -20,6 +20,7 @@ spring:
           uri: https://localhost:9011
           predicates:
             - Path=/auth/realms/zevrant-services/protocol/openid-connect/*
+            - Path=/auth/realms/zevrant-services/login-actions/*
         - id: outsource
           uri: https://localhost:9004
           predicates:
