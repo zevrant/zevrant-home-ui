@@ -21,9 +21,9 @@ spring:
             predicates:
               - Path=/zevrant-oauth2-service/**
         - id: oauth2
-            uri: https://zevrant-keycloak-service
-            predicates:
-              - Path=/auth/realms/zevrant-services/login-actions/*
+          uri: https://zevrant-keycloak-service
+          predicates:
+            - Path=/auth/realms/zevrant-services/login-actions/*
         - id: oauth2
           uri: https://zevrant-keycloak-service
           predicates:
