@@ -36,6 +36,10 @@ spring:
           uri: https://zevrant-backup-service
           predicates:
             - Path=/zevrant-backup-service/**
+        - id: acra
+            uri: https://zevrant-acra-backend
+            predicates:
+              - Path=/zevrant-acra-backend/**
         - id: kafka-proxy
           uri: wss://zevrant-kafka-proxy
           predicates:
