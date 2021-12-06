@@ -22,7 +22,7 @@ public class RouteConfig {
     @Bean
     public RouterFunction<ServerResponse> routerFunction() {
 
-        return RouterFunctions.route(RequestPredicates.GET("/auth/authentication*"), req -> {
+        return RouterFunctions.route(RequestPredicates.headers((headers) -> headers.header("AndroidRedirect").size() > 0), req -> {
             String sessionState = req.queryParam("session_state").orElseThrow(() -> new RuntimeException("Missing session_state query parameter"));
             String code = req.queryParam("code").orElseThrow(() -> new RuntimeException("Missing code query parameter"));
             try {
@@ -36,7 +36,7 @@ public class RouteConfig {
         });
     }
 
-    private class OAuthRedirect {
+    private static class OAuthRedirect {
         private String sessionState;
         private String code;
 
