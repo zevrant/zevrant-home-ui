@@ -53,6 +53,11 @@ server:
     key-alias: 1
     enabled: true
 
+zevrant:
+  services:
+    keycloak:
+      baseUrl: https://develop.zevrant-services.com
+
 management:
   endpoints:
     web:

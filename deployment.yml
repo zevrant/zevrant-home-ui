@@ -49,13 +49,13 @@ spec:
               scheme: HTTPS
               path: /actuator/health
               port: 8080
-            initialDelaySeconds: 40
+            initialDelaySeconds: 60
           livenessProbe:
             httpGet:
               scheme: HTTPS
               path: /actuator/health
               port: 8080
-            initialDelaySeconds: 40
+            initialDelaySeconds: 60
           resources:
             requests:
               memory: 1Gi
