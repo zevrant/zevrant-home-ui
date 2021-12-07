@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zevrant.services.zevranthomeui.exceptions.CodeExchangeException;
 import com.zevrant.services.zevranthomeui.pojo.CodeExchangeRequest;
+import com.zevrant.services.zevranthomeui.pojo.TokenRefreshRequest;
+import io.micrometer.core.instrument.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +20,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.io.IOException;
 import java.net.URI;
@@ -52,26 +55,59 @@ public class RouteConfig {
             }
         }).andRoute(RequestPredicates.POST("/auth/realms/zevrant-services/protocol/openid-connect/token")
                 .and(RequestPredicates.contentType(MediaType.APPLICATION_JSON)), req -> req.body((inputMessage, context) -> inputMessage.getBody().next().flatMap(body -> {
-            try {
-                return Mono.just(objectMapper.readValue(body.asInputStream(), CodeExchangeRequest.class));
-            } catch (IOException e) {
-                return Mono.error(e);
+
+            StringBuilder responseBuilder = new StringBuilder();
+            return Mono.just(body.asInputStream())
+                    .publishOn(Schedulers.boundedElastic())
+                    .flatMap(inputStream -> {
+                        byte[] bytes = new byte[1024];
+                        while (true) {
+                            try {
+                                if (!(inputStream.read(bytes) > 0)) break;
+                                responseBuilder.append(new String(bytes, StandardCharsets.UTF_8));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        return Mono.just(responseBuilder.toString());
+                    }).flatMap(responseString -> {
+                        try {
+                            if (responseString.contains("refreshToken")) {
+                                return Mono.just(objectMapper.readValue(responseString, TokenRefreshRequest.class));
+                            } else {
+                                return Mono.just(objectMapper.readValue(responseString, CodeExchangeRequest.class));
+                            }
+                        } catch (IOException e) {
+                            return Mono.error(e);
+                        }
+                    });
+        }).flatMap(tokenRequest -> {
+            BodyInserters.FormInserter<String> inserter = BodyInserters
+                    .fromFormData("client_id", tokenRequest.getClientId())
+                    .with("grant_type", tokenRequest.getGrantType());
+            if (tokenRequest instanceof CodeExchangeRequest) {
+                CodeExchangeRequest codeExchangeRequest = (CodeExchangeRequest) tokenRequest;
+                inserter = inserter.with("code", codeExchangeRequest.getCode())
+                        .with("redirect_uri", codeExchangeRequest.getRedirectUri());
+            } else {
+                TokenRefreshRequest tokenRefreshRequest = (TokenRefreshRequest) tokenRequest;
+                inserter = (StringUtils.isNotBlank(tokenRefreshRequest.getClientSecret()))
+                        ? inserter.with("client_secret", tokenRefreshRequest.getClientSecret())
+                        : inserter;
+                inserter = inserter.with("refresh_token", tokenRefreshRequest.getRefreshToken());
             }
-        }).flatMap(codeExchangeRequest -> webClient.post()
-                .uri(keycloakUrl.concat("/auth/realms/zevrant-services/protocol/openid-connect/token"))
-                .body(BodyInserters
-                        .fromFormData("client_id", codeExchangeRequest.getClientId())
-                        .with("grant_type", codeExchangeRequest.getGrantType())
-                        .with("code", codeExchangeRequest.getCode())
-                        .with("redirect_uri", codeExchangeRequest.getRedirectUri()))
-                .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, (clientResponse) ->
-                        clientResponse.bodyToMono(String.class).flatMap((clientResponseBody ->
-                                Mono.just(new CodeExchangeException(clientResponseBody)))))
-                .bodyToMono(String.class)
-                .flatMap(bodyString -> ServerResponse
-                        .ok()
-                        .bodyValue(bodyString)))));
+            return webClient.post()
+                    .uri(keycloakUrl.concat("/auth/realms/zevrant-services/protocol/openid-connect/token"))
+                    .body(inserter)
+                    .retrieve()
+                    .onStatus(HttpStatus::is4xxClientError, (clientResponse) ->
+                            clientResponse.bodyToMono(String.class).flatMap((clientResponseBody ->
+                                    Mono.just(new CodeExchangeException(clientResponseBody)))))
+                    .bodyToMono(String.class)
+                    .flatMap(bodyString -> ServerResponse
+                            .ok()
+                            .bodyValue(bodyString));
+        })));
     }
 
     private static class OAuthRedirect {

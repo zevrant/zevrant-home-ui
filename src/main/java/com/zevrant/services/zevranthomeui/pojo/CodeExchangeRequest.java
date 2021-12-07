@@ -1,6 +1,6 @@
 package com.zevrant.services.zevranthomeui.pojo;
 
-public class CodeExchangeRequest {
+public class CodeExchangeRequest implements TokenRequest {
 
     private final String clientId = "android";
     private final String grantType = "authorization_code";

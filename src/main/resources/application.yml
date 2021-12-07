@@ -56,7 +56,7 @@ server:
 zevrant:
   services:
     keycloak:
-      baseUrl: https://develop.zevrant-services.com
+      baseUrl: https://localhost:9011
 
 management:
   endpoints:
