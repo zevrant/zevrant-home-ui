@@ -13,9 +13,7 @@ public class SpaWebFilter implements WebFilter {
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
     String path = exchange.getRequest().getURI().getPath();
     if (!path.startsWith("/zevrant")
-            && !path.startsWith("/auth/realms/zevrant-services/protocol/openid-connect/token")
-            && !path.startsWith("/auth/realms/zevrant-services/protocol/openid-connect/auth")
-            && !path.startsWith("/auth/realms/zevrant-services/login-actions/authenticate")
+            && !path.startsWith("/auth/realms/zevrant-services/")
             && !path.startsWith("/auth/authentication")
             && !path.endsWith("*\\.*")
             && path.matches("[^\\\\.]*")) {
