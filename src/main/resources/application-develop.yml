@@ -41,6 +41,10 @@ spring:
           uri: https://zevrant-acra-backend
           predicates:
             - Path=/zevrant-acra-backend/**
+        - id: notifications
+          uri: https://zevrant-notification-service
+          predicates:
+            - Path=/zevrant-notification-service/**
         - id: kafka-proxy
           uri: wss://zevrant-kafka-proxy
           predicates:
