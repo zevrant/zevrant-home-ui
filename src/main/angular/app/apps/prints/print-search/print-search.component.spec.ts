@@ -8,8 +8,9 @@ describe('PrintSearchComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [PrintSearchComponent]
-        })
+    declarations: [PrintSearchComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

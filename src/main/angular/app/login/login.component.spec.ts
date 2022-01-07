@@ -16,23 +16,22 @@ describe('LoginComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                MatCardModule,
-                MatFormFieldModule,
-                FormsModule,
-                ReactiveFormsModule,
-                MatInputModule,
-                BrowserAnimationsModule,
-                HttpClientModule,
-                StorageServiceModule,
-                RouterModule.forRoot(
-                    [
-                        {path: "", component: LoginComponent}
-                    ]
-                )
-            ],
-            declarations: [LoginComponent]
-        })
+    imports: [
+        MatCardModule,
+        MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        StorageServiceModule,
+        RouterModule.forRoot([
+            { path: "", component: LoginComponent }
+        ])
+    ],
+    declarations: [LoginComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

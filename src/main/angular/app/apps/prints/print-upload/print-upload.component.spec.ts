@@ -8,8 +8,9 @@ describe('PrintUploadComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [PrintUploadComponent]
-        })
+    declarations: [PrintUploadComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

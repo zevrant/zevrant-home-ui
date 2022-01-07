@@ -8,8 +8,9 @@ describe('CameraViewComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [CameraViewComponent]
-        })
+    declarations: [CameraViewComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

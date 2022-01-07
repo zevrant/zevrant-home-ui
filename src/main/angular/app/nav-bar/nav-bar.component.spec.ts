@@ -11,14 +11,15 @@ describe('NavBarComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [NavBarComponent],
-            imports: [
-                MatMenuModule,
-                MatToolbarModule,
-                StorageServiceModule,
-                HttpClientModule
-            ]
-        })
+    declarations: [NavBarComponent],
+    imports: [
+        MatMenuModule,
+        MatToolbarModule,
+        StorageServiceModule,
+        HttpClientModule
+    ],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

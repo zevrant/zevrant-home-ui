@@ -14,18 +14,19 @@ describe('RegisterComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                MatCardModule,
-                MatFormFieldModule,
-                ReactiveFormsModule,
-                FormsModule,
-                MatCardModule,
-                HttpClientModule,
-                MatInputModule,
-                BrowserAnimationsModule
-            ],
-            declarations: [RegisterComponent]
-        })
+    imports: [
+        MatCardModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatCardModule,
+        HttpClientModule,
+        MatInputModule,
+        BrowserAnimationsModule
+    ],
+    declarations: [RegisterComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

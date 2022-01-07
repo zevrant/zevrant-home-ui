@@ -11,15 +11,16 @@ class AppNavBarStubComponent {
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                RouterTestingModule,
-                MatToolbarModule
-            ],
-            declarations: [
-                AppComponent,
-                AppNavBarStubComponent
-            ],
-        }).compileComponents();
+    imports: [
+        RouterTestingModule,
+        MatToolbarModule
+    ],
+    declarations: [
+        AppComponent,
+        AppNavBarStubComponent
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents();
     }));
 
     it('should create the app', () => {

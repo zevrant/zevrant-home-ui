@@ -7,11 +7,12 @@ describe('LoginServiceService', () => {
     const http = jasmine.createSpyObj('HttpClient', ['post']);
 
     beforeEach(() => TestBed.configureTestingModule({
-        providers: [
-            LoginService,
-            {provide: HttpClient, useValue: http}
-        ]
-    }));
+    providers: [
+        LoginService,
+        { provide: HttpClient, useValue: http }
+    ],
+    teardown: { destroyAfterEach: false }
+}));
 
 
     it('should be created', () => {

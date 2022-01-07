@@ -8,8 +8,9 @@ describe('PrintsComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [PrintsComponent]
-        })
+    declarations: [PrintsComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 
