@@ -5,7 +5,7 @@ metadata:
   labels:
     app: zevrant-home-ui
 spec:
-  replicas: 2
+  replicas: $REPLICAS
   selector:
     matchLabels:
       app: zevrant-home-ui
