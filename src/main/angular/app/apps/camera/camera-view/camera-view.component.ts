@@ -1,7 +1,5 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {SocketIoConfig} from "ngx-socket-io";
+import {AfterViewInit, Component} from '@angular/core';
 import {io} from "socket.io-client";
-import {MatCarousel} from "@ngbmodule/material-carousel";
 import {CameraFeedService} from "../../../services/camera-feed.service";
 
 @Component({
