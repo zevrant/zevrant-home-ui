@@ -28,16 +28,16 @@ spec:
           env:
             - name: ENVIRONMENT
               value: $ENVIRONMENT
-            - name: AWS_ACCESS_KEY_ID
+            - name: SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: zevrant-home-ui-aws
-                  key: username
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: zevrant-home-ui-aws
+                  name: ui-vault-credentials
                   key: password
+            - name: ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: ui-vault-credentials
+                  key: username
             - name: POD_IP
               valueFrom:
                 fieldRef:
