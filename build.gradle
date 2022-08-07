@@ -1,5 +1,3 @@
-import org.gradle.work.InputChanges
-
 plugins {
     id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -73,20 +71,23 @@ test {
 clean {
     doFirst {
         project.files("${project.rootDir}/node_modules/") { fileCollection ->
-            fileCollection.forEach({ file -> file.delete() })
+          fileCollection.forEach({ file -> file.delete() })
         }
-        project.files("${project.rootDir}/package-lock.json") { fileCollection ->
-            fileCollection.forEach({ file -> file.delete() })
-        }
-        println "${project.rootDir}/src/main/resources/static/"
-        project.delete(project.fileTree("${project.rootDir}/src/main/resources/static/"))
-        project.delete(project.file("${project.rootDir}/node_modules/"))
-        project.delete(project.file("${project.rootDir}/package-lock.json"))
+      project.files("${project.rootDir}/package-lock.json") { fileCollection ->
+        fileCollection.forEach({ file -> file.delete() })
+      }
+      println "${project.rootDir}/src/main/resources/static/"
+      project.delete(project.fileTree("${project.rootDir}/src/main/resources/static/"))
+      project.delete(project.file("${project.rootDir}/node_modules/"))
     }
 }
 
+task npm_clean(type: NpmTask) {
+  args = ['cache', 'clean', '--force']
+}
+
 task npm_run_test(type: NpmTask) {
-    args = ['run', 'test']
+  args = ['run', 'test']
 }
 
 //testSets {
@@ -108,5 +109,6 @@ tasks.npm_run_build.finalizedBy tasks.moveFavIcon
 tasks.bootJar.dependsOn(tasks.moveFavIcon)
 tasks.npx_run_update.finalizedBy(tasks.npmInstall)
 tasks.npx_run_update.finalizedBy(tasks.npm_run_build)
+tasks.clean.finalizedBy(tasks.npm_clean)
 //
 //tasks.test.finalizedBy tasks.npm_run_test
